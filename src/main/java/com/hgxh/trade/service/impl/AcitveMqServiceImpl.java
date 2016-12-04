@@ -27,11 +27,7 @@ public class AcitveMqServiceImpl implements AcitveMqService {
     @Autowired  
     private Queue bidSucceedQueue;
     @Autowired  
-    private Queue tradeMakeQueue;
-    @Autowired  
     private Queue sendMsgQueue;
-    @Autowired
-    private Queue fastTransferQueue;
     
     /**
      * 监听消息队列实例  
@@ -68,50 +64,6 @@ public class AcitveMqServiceImpl implements AcitveMqService {
 			jmsMessagingTemplate.convertAndSend(sendMsgQueue, contentMsg); 
 		} catch (Exception e) {
 			logger.error("send msgQueue fail ", e);
-		}
-	}
-    
-    /**
-	 * 发送转让购买消息
-	 * @param bidNo
-	 * @param requestId
-	 */
-    @Override
-    public void sendInvestTransQueue(String bidNo,Long requestId) {
-		final String msg = "BUYTRANS|" + bidNo+"|"+requestId;
-		try {
-			jmsMessagingTemplate.convertAndSend(tradeMakeQueue, msg); 
-		} catch (Exception e) {
-			logger.error("send investTransQueue fail ", e);
-		}
-	}
-
-    /**
-   	 * 发送普通转让消息
-   	 * @param bidNo
-   	 * @param transferId
-   	 */
-	@Override
-	public void sendTransferQueue(String bidNo, Long transferId) {
-		final String msg = "TRANSFER|" + bidNo+"|"+transferId;
-		try {
-			jmsMessagingTemplate.convertAndSend(tradeMakeQueue, msg); 
-		} catch (Exception e) {
-			logger.error("send transferQueue fail ", e);
-		}
-	}
-
-	 /**
-   	 * 发送快速转让消息
-   	 * @param orderNo
-   	 */
-	@Override
-	public void sendFastTransferQueue(String orderNo) {
-		final String msg = "T|" + orderNo;
-		try {
-			jmsMessagingTemplate.convertAndSend(fastTransferQueue, msg); 
-		} catch (Exception e) {
-			logger.error("send fastTransferQueue fail ", e);
 		}
 	}
 

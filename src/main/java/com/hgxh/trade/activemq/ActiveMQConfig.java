@@ -27,15 +27,5 @@ public class ActiveMQConfig {
     public Queue sendMsgQueue() {  
         return new ActiveMQQueue("send-sms-queue");  
     }
-    
-    @Bean
-    public Queue tradeMakeQueue() {  
-        return new ActiveMQQueue("trade-make-queue");  
-    }
-    
-    @Bean
-    public Queue fastTransferQueue() {  
-        return new ActiveMQQueue("contract-generate-queue");  
-    }
 
 }

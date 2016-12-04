@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hgxh.trade.dao.ProductInformationsDao" >
+    <resultMap id="BaseResultMap" type="com.hgxh.trade.entity.ProductInformationsEntity" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="version" property="version" jdbcType="BIGINT" />
+        <result column="product_no" property="productNo" jdbcType="VARCHAR" />
+        <result column="product_name" property="productName" jdbcType="VARCHAR" />
+        <result column="product_type" property="productType" jdbcType="VARCHAR" />
+        <result column="cycle" property="cycle" jdbcType="INTEGER" />
+        <result column="yield" property="yield" jdbcType="DECIMAL" />
+        <result column="status" property="status" jdbcType="VARCHAR" />
+        <result column="withdraw_count" property="withdrawCount" jdbcType="VARCHAR" />
+        <result column="brief_introduction" property="briefIntroduction" jdbcType="VARCHAR" />
+        <result column="introduction" property="introduction" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="BIGINT" />
+        <result column="last_modify_time" property="lastModifyTime" jdbcType="BIGINT" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, version, product_no, product_name, product_type, cycle, yield, status, withdraw_count, 
+        brief_introduction, introduction, create_time, last_modify_time
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select 
+        <include refid="Base_Column_List" />
+        from product_informations
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <insert id="insertSelective" parameterType="com.hgxh.trade.entity.ProductInformationsEntity" >
+        insert into product_informations
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="version != null" >
+                version,
+            </if>
+            <if test="productNo != null" >
+                product_no,
+            </if>
+            <if test="productName != null" >
+                product_name,
+            </if>
+            <if test="productType != null" >
+                product_type,
+            </if>
+            <if test="cycle != null" >
+                cycle,
+            </if>
+            <if test="yield != null" >
+                yield,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="withdrawCount != null" >
+                withdraw_count,
+            </if>
+            <if test="briefIntroduction != null" >
+                brief_introduction,
+            </if>
+            <if test="introduction != null" >
+                introduction,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="lastModifyTime != null" >
+                last_modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="version != null" >
+                #{version,jdbcType=BIGINT},
+            </if>
+            <if test="productNo != null" >
+                #{productNo,jdbcType=VARCHAR},
+            </if>
+            <if test="productName != null" >
+                #{productName,jdbcType=VARCHAR},
+            </if>
+            <if test="productType != null" >
+                #{productType,jdbcType=VARCHAR},
+            </if>
+            <if test="cycle != null" >
+                #{cycle,jdbcType=INTEGER},
+            </if>
+            <if test="yield != null" >
+                #{yield,jdbcType=DECIMAL},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="withdrawCount != null" >
+                #{withdrawCount,jdbcType=VARCHAR},
+            </if>
+            <if test="briefIntroduction != null" >
+                #{briefIntroduction,jdbcType=VARCHAR},
+            </if>
+            <if test="introduction != null" >
+                #{introduction,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=BIGINT},
+            </if>
+            <if test="lastModifyTime != null" >
+                #{lastModifyTime,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.hgxh.trade.entity.ProductInformationsEntity" >
+        update product_informations
+        <set >
+            <if test="version != null" >
+                version = #{version,jdbcType=BIGINT},
+            </if>
+            <if test="productNo != null" >
+                product_no = #{productNo,jdbcType=VARCHAR},
+            </if>
+            <if test="productName != null" >
+                product_name = #{productName,jdbcType=VARCHAR},
+            </if>
+            <if test="productType != null" >
+                product_type = #{productType,jdbcType=VARCHAR},
+            </if>
+            <if test="cycle != null" >
+                cycle = #{cycle,jdbcType=INTEGER},
+            </if>
+            <if test="yield != null" >
+                yield = #{yield,jdbcType=DECIMAL},
+            </if>
+            <if test="status != null" >
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="withdrawCount != null" >
+                withdraw_count = #{withdrawCount,jdbcType=VARCHAR},
+            </if>
+            <if test="briefIntroduction != null" >
+                brief_introduction = #{briefIntroduction,jdbcType=VARCHAR},
+            </if>
+            <if test="introduction != null" >
+                introduction = #{introduction,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=BIGINT},
+            </if>
+            <if test="lastModifyTime != null" >
+                last_modify_time = #{lastModifyTime,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+        delete from product_informations
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+</mapper>

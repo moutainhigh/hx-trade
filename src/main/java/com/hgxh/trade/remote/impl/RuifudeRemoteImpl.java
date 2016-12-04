@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.hgxh.trade.enums.BaseExceptionMsg;
@@ -25,7 +26,8 @@ import com.hgxh.trade.util.SimpleHttpUtil;
 @Service
 public class RuifudeRemoteImpl implements RuifudeRemote {
 	
-	private String  baseUrl="http://localhost:8286/ruifude/";
+	@Value("${ruifude.remote.url}")
+	private String ruifudeRemoteUrl;
 
 	/**
 	 * 查询卡户信息
@@ -36,7 +38,7 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
 		Map<String, String> params=new HashMap<String, String>();	
     	params.put("idCardNo", idCardNo);
     	//调用瑞福德查询开户信息接口
-//    	String res = SimpleHttpUtil.doPost(baseUrl+"getAccount", params);	
+//    	String res = SimpleHttpUtil.doPost(ruifudeRemoteUrl+"/getAccount", params);	
     	//封装返回信息
     	AccountResult accountResult = new AccountResult();
     	//测试信息开始
@@ -64,7 +66,7 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
     	params.put("amount", param.getAmount());
     	params.put("investTime", param.getInvestTime());
     	//调用瑞福德查询开户信息接口
-//    	String res = SimpleHttpUtil.doPost(baseUrl+"save", params);	
+//    	String res = SimpleHttpUtil.doPost(ruifudeRemoteUrl+"/save", params);	
     	//res -> RemoteResult
     	RemoteResult remoteResult = new RemoteResult();
     	//测试信息开始
@@ -95,7 +97,7 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
     	params.put("memberName", param.getMemberName());
     	params.put("bankCardNo", param.getBankCardNo());
     	//调用瑞福德查询开户信息接口
-//    	String res = SimpleHttpUtil.doPost(baseUrl+"save", params);	
+//    	String res = SimpleHttpUtil.doPost(ruifudeRemoteUrl+"/withdraw", params);	
     	//res -> RemoteResult
     	RemoteResult remoteResult = new RemoteResult();
     	//测试信息开始

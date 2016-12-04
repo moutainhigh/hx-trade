@@ -11,11 +11,5 @@ public interface AcitveMqService {
 	public void sendBidSucceedQueue(String bidNo);
 	
 	public void sendMsgQueue(String mobile,String content);
-	
-	public void sendInvestTransQueue(String bidNo,Long requestId);
-	
-	public void sendTransferQueue(String bidNo,Long transferId);
-	
-	public void sendFastTransferQueue(String orderNo);
 
 }
