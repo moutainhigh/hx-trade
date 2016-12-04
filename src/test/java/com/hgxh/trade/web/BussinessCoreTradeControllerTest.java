@@ -16,7 +16,7 @@ import com.hgxh.trade.util.SimpleHttpUtil;
 */
 public class BussinessCoreTradeControllerTest {
 
-	private String  baseUrl="http://localhost:8286/coreTrade/";
+	private String  baseUrl="http://localhost:8080/coreTrade/";
 	
     @Test
     public void invest() throws Exception {

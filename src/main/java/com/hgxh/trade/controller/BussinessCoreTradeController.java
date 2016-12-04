@@ -37,7 +37,7 @@ public class BussinessCoreTradeController extends BaseController{
  			result = bussinessCoreTradeBiz.invest(bussinessFundParam);
  		}catch (Exception e){
  			logger.error("Exception：",e);
- 			result.setResult(BaseExceptionMsg.NUKNOW_ERROR);
+ 			result.setResult(BaseExceptionMsg.UNKNOW_ERROR);
  		}
  		return result;
 	}
