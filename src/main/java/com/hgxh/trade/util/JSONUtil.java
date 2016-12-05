@@ -2,6 +2,8 @@ package com.hgxh.trade.util;
 
 import java.util.List;
 
+import com.hgxh.trade.result.QBrushRemoteResult;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -19,7 +21,7 @@ public class JSONUtil
 	* 将json字符串转换为java对象
 	*/
 	@SuppressWarnings("static-access")
-	public static <T> Object JSON2Object(String jsonStr, Object object){
+	public static <T> Object JSONToObject(String jsonStr, Object object){
 		JSONObject json = new JSONObject().fromObject(jsonStr);
 		Object obj = JSONObject.toBean(json, object.getClass());
 		return obj;
@@ -78,6 +80,19 @@ public class JSONUtil
 	*/
 	public static JSONObject toJSONObject(Object object){
 		return JSONObject.fromObject(object);
+	}
+	
+	public static void main(String[] args) {
+		String res = "{'REP_HEAD':{'SIGN':'0ff505d911df1af5982bfba45ff066b7'},'REP_BODY':{'balance':'null','RSPMSG':'null','RSPCOD':'null'}}";	
+//		QBrushRemoteResult remoteResult = new QBrushRemoteResult();
+//    	remoteResult = (QBrushRemoteResult) JSONUtil.JSONToObject(res, remoteResult);
+//    	System.out.println(remoteResult.getREP_BODY().toString());
+//    	String json = "{balance='null', RSPCOD='mps-30007', RSPMSG='无效卡号，请重试'}";
+//    	remoteResult = (QBrushRemoteResult) JSONUtil.JSONToObject(remoteResult.getREP_BODY().toString(), remoteResult);
+
+		QBrushRemoteResult remoteResult = new QBrushRemoteResult();
+    	remoteResult = (QBrushRemoteResult) JSONUtil.JSONToObject(res, remoteResult);
+    	System.out.println(remoteResult.getREP_BODY().toString());
 	}
 
 } 

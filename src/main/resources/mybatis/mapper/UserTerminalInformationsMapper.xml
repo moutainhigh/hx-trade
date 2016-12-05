@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hgxh.trade.dao.UserTerminalInformationsDao" >
+    <resultMap id="BaseResultMap" type="com.hgxh.trade.entity.UserTerminalInformationsEntity" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="user_id" property="userId" jdbcType="BIGINT" />
+        <result column="terminal_no" property="terminalNo" jdbcType="VARCHAR" />
+        <result column="terminal_type" property="terminalType" jdbcType="VARCHAR" />
+        <result column="bind_time" property="bindTime" jdbcType="BIGINT" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, user_id, terminal_no, terminal_type, bind_time
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select 
+        <include refid="Base_Column_List" />
+        from user_terminal_informations
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <insert id="insertSelective" parameterType="com.hgxh.trade.entity.UserTerminalInformationsEntity" >
+        insert into user_terminal_informations
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="userId != null" >
+                user_id,
+            </if>
+            <if test="terminalNo != null" >
+                terminal_no,
+            </if>
+            <if test="terminalType != null" >
+                terminal_type,
+            </if>
+            <if test="bindTime != null" >
+                bind_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="userId != null" >
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="terminalNo != null" >
+                #{terminalNo,jdbcType=VARCHAR},
+            </if>
+            <if test="terminalType != null" >
+                #{terminalType,jdbcType=VARCHAR},
+            </if>
+            <if test="bindTime != null" >
+                #{bindTime,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.hgxh.trade.entity.UserTerminalInformationsEntity" >
+        update user_terminal_informations
+        <set >
+            <if test="userId != null" >
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="terminalNo != null" >
+                terminal_no = #{terminalNo,jdbcType=VARCHAR},
+            </if>
+            <if test="terminalType != null" >
+                terminal_type = #{terminalType,jdbcType=VARCHAR},
+            </if>
+            <if test="bindTime != null" >
+                bind_time = #{bindTime,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+        delete from user_terminal_informations
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+</mapper>

@@ -59,7 +59,7 @@ public class AccountTradeBizImpl implements AccountTradeBiz {
 	@Override
 	public ResultInfo invest(InvestParam param) {
 		//参数校验
-		if(PropertyUtils.checkNull(param, "memberNo,passbook,productType,amount,investTime")){
+		if(PropertyUtils.checkNull(param, "memberNo,passbook,productType,amount,investTime,transferSaveType")){
 			return new ResultInfo(BaseExceptionMsg.PARAM_IS_NULL);
 		}
 		ResultInfo result=null;

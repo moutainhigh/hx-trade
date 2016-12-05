@@ -1,12 +1,12 @@
 package com.hgxh.trade.result;
 /**
-*@ClassName: RemoteResult
+*@ClassName: RuiFuDeRemoteResult
 *@Description: 
 *@author YY 
 *@date 2016年12月4日  下午5:23:57
 *@version 1.0
 */
-public class RemoteResult {
+public class RuiFuDeRemoteResult {
 	//返回码
 	private String rspCode;
 	//返回信息

@@ -23,7 +23,15 @@ public class InvestParam extends BaseParam{
 	private String amount;
 	//投资时间
 	private String investTime;
+	//转存方式
+	private String transferSaveType;
 	
+	public String getTransferSaveType() {
+		return transferSaveType;
+	}
+	public void setTransferSaveType(String transferSaveType) {
+		this.transferSaveType = transferSaveType;
+	}
 	public String getMemberNo() {
 		return memberNo;
 	}

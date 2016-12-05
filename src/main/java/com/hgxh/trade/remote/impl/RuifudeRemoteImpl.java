@@ -12,7 +12,7 @@ import com.hgxh.trade.param.InvestParam;
 import com.hgxh.trade.param.WithdrawParam;
 import com.hgxh.trade.remote.RuifudeRemote;
 import com.hgxh.trade.result.AccountResult;
-import com.hgxh.trade.result.RemoteResult;
+import com.hgxh.trade.result.RuiFuDeRemoteResult;
 import com.hgxh.trade.result.ResultInfo;
 import com.hgxh.trade.util.SimpleHttpUtil;
 
@@ -65,10 +65,11 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
     	params.put("productType", param.getProductType());
     	params.put("amount", param.getAmount());
     	params.put("investTime", param.getInvestTime());
+    	params.put("transferSaveType", param.getTransferSaveType());
     	//调用瑞福德查询开户信息接口
 //    	String res = SimpleHttpUtil.doPost(ruifudeRemoteUrl+"/save", params);	
-    	//res -> RemoteResult
-    	RemoteResult remoteResult = new RemoteResult();
+    	//res -> RuiFuDeRemoteResult
+    	RuiFuDeRemoteResult remoteResult = new RuiFuDeRemoteResult();
     	//测试信息开始
     	remoteResult.setRspCode("00");
     	remoteResult.setVoucherNo("123");
@@ -98,8 +99,8 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
     	params.put("bankCardNo", param.getBankCardNo());
     	//调用瑞福德查询开户信息接口
 //    	String res = SimpleHttpUtil.doPost(ruifudeRemoteUrl+"/withdraw", params);	
-    	//res -> RemoteResult
-    	RemoteResult remoteResult = new RemoteResult();
+    	//res -> RuiFuDeRemoteResult
+    	RuiFuDeRemoteResult remoteResult = new RuiFuDeRemoteResult();
     	//测试信息开始
     	remoteResult.setRspCode("00");
     	String res = "success";
