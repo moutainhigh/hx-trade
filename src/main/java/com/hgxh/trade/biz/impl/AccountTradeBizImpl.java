@@ -46,7 +46,7 @@ public class AccountTradeBizImpl implements AccountTradeBiz {
 			result = ruifudeRemote.getAccountInfo(idCardNo);
 		} catch (Exception e) {
 			logger.error("failed in getAccountInfo [idCardNo:{}] with exception:{}", idCardNo,ExceptionUtils.getStackTrace(e));
-			result = new ResultInfo(BaseExceptionMsg.INVEST_EXCEPTION);
+			result = new ResultInfo(BaseExceptionMsg.CALL_REMOTE_SERVICE_FAILED);
 		}
 		return result;
 	}
@@ -67,7 +67,7 @@ public class AccountTradeBizImpl implements AccountTradeBiz {
 			result = ruifudeRemote.invest(param);
 		} catch (Exception e) {
 			logger.error("failed in invest [param:{}] with exception:{}", param,ExceptionUtils.getStackTrace(e));
-			result = new ResultInfo(BaseExceptionMsg.INVEST_EXCEPTION);
+			result = new ResultInfo(BaseExceptionMsg.CALL_REMOTE_SERVICE_FAILED);
 		}
 		return result;
 	}
@@ -88,7 +88,7 @@ public class AccountTradeBizImpl implements AccountTradeBiz {
 			result = ruifudeRemote.withdraw(param);
 		} catch (Exception e) {
 			logger.error("failed in withdraw [param:{}] with exception:{}", param,ExceptionUtils.getStackTrace(e));
-			result = new ResultInfo(BaseExceptionMsg.INVEST_EXCEPTION);
+			result = new ResultInfo(BaseExceptionMsg.CALL_REMOTE_SERVICE_FAILED);
 		}
 		return result;
 	}

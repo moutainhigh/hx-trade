@@ -83,16 +83,11 @@ public class JSONUtil
 	}
 	
 	public static void main(String[] args) {
-		String res = "{'REP_HEAD':{'SIGN':'0ff505d911df1af5982bfba45ff066b7'},'REP_BODY':{'balance':'null','RSPMSG':'null','RSPCOD':'null'}}";	
-//		QBrushRemoteResult remoteResult = new QBrushRemoteResult();
-//    	remoteResult = (QBrushRemoteResult) JSONUtil.JSONToObject(res, remoteResult);
-//    	System.out.println(remoteResult.getREP_BODY().toString());
-//    	String json = "{balance='null', RSPCOD='mps-30007', RSPMSG='无效卡号，请重试'}";
-//    	remoteResult = (QBrushRemoteResult) JSONUtil.JSONToObject(remoteResult.getREP_BODY().toString(), remoteResult);
-
+		String res = "{'REP_HEAD':{'SIGN':'0ff505d911df1af5982bfba45ff066b7'},'REP_BODY':{'balance':null,'RSPMSG':'无效卡号，请重试','RSPCOD':'mps-30007'}}";	
 		QBrushRemoteResult remoteResult = new QBrushRemoteResult();
     	remoteResult = (QBrushRemoteResult) JSONUtil.JSONToObject(res, remoteResult);
-    	System.out.println(remoteResult.getREP_BODY().toString());
+    	System.out.println(remoteResult.getREP_HEAD().getSIGN());
+    	System.out.println(remoteResult.getREP_BODY().getRSPMSG());
 	}
 
 } 

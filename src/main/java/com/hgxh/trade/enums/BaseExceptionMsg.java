@@ -21,7 +21,6 @@ public enum BaseExceptionMsg {
     
     //调用外部接口错误
     ACCOUNT_NOT_EXIST("010101", "该账户不存在"),
-    INVEST_EXCEPTION("010102", "购买异常"),
 
     NULL("Null", "reback code is not exist");
 

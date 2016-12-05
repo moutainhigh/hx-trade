@@ -16,7 +16,7 @@ import com.hgxh.trade.util.SimpleHttpUtil;
 */
 public class AccountTradeControllerTest {
 	
-private String  baseUrl="http://localhost:8080/accountTrade/";
+	private String  baseUrl="http://localhost:8080/accountTrade/";
 	
     @Test
     public void getAccountInfo() throws Exception {

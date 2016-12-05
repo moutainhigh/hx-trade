@@ -50,7 +50,7 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
     	}else{
     		result = new ResultInfo(BaseExceptionMsg.ACCOUNT_NOT_EXIST);
     	}
-		return result;
+		return result; 
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
     		params.put("voucherNo", remoteResult.getVoucherNo());
     		result = new ResultInfo(BaseExceptionMsg.SUCCESS,map);
     	}else{
-    		result = new ResultInfo(BaseExceptionMsg.INVEST_EXCEPTION);
+    		result = new ResultInfo(remoteResult.getRspCode(),remoteResult.getRspMsg());
     	}
 		return result;
 	}
@@ -108,7 +108,7 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
     	if(StringUtils.isNotBlank(res) && "00".equals(remoteResult.getRspCode())){
     		result = new ResultInfo(BaseExceptionMsg.SUCCESS);
     	}else{
-    		result = new ResultInfo(BaseExceptionMsg.INVEST_EXCEPTION);
+    		result = new ResultInfo(remoteResult.getRspCode(),remoteResult.getRspMsg());
     	}
 		return result;
 	}
