@@ -18,5 +18,7 @@ public class Constants {
 	public static final String ONE="1";
 	
 	public static final String NINE="9";
+	
+	public static final Long ONEDAY=86400000L;
 
 }

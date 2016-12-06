@@ -163,7 +163,7 @@
         where id = #{id,jdbcType=BIGINT}
     </delete>
     
-    <select id="selectByProductNo resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <select id="selectByProductNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
         select 
         <include refid="Base_Column_List" />
         from product_informations

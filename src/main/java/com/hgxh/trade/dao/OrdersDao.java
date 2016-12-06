@@ -12,6 +12,6 @@ public interface OrdersDao {
 
     public int updateByPrimaryKeySelective(OrdersEntity record);
     
-    public OrdersEntity selectByBizNo(String bizNo);
+    public OrdersEntity selectSucByBizNo(String bizNo);
 
 }

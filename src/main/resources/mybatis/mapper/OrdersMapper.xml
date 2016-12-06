@@ -214,11 +214,12 @@
         where id = #{id,jdbcType=BIGINT}
     </delete>
     
-      <select id="selectByBizNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+      <select id="selectSucByBizNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
         select 
         <include refid="Base_Column_List" />
         from orders
-        where biz_no = #{bizNo,jdbcType=VARCHAR}
+        where status = 'SUCCESS'
+        and biz_no = #{bizNo,jdbcType=VARCHAR}
     </select>
 
 </mapper>

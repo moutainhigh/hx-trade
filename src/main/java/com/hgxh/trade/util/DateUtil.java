@@ -72,7 +72,7 @@ public class DateUtil {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        return toDay.getTime() / 1000;
+        return toDay.getTime();
     }
 
 
@@ -126,12 +126,11 @@ public class DateUtil {
     }
 
     /**
-     * 将日期字符串yyyyMMdd转换为时间戳
-     *
+     * 将日期字符串yyyyMMddHHmmss转换为时间戳
      * @param str
      * @return
      */
-    public static Long stringToTimestamp(String str) {
+    public static long stringToTimestamp(String str) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         Date date = new Date();
         try {
@@ -141,4 +140,29 @@ public class DateUtil {
         }
         return date.getTime();
     }
+    
+    /**
+     * 将时间戳转换成当天0点
+     * @param day
+     * @return
+     */
+    public static long getDayBegin(long timestamp) {
+        String format = "yyyy-MM-DD";
+        String toDayString = DateSimpleUtil.toString(new Date(timestamp), format);
+        Date toDay = null;
+        try {
+            toDay = DateSimpleUtil.parseDate(toDayString, format);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        return toDay.getTime();
+    }
+    
+    public static void main(String[] args) {
+		Long now = getLastModifyTime();
+		System.out.println(getDayBegin(now));
+		Long to = getDayBegin(now)+86400000;
+		System.out.println(to);
+		
+	}
 }

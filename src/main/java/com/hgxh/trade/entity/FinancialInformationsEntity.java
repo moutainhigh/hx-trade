@@ -2,6 +2,8 @@ package com.hgxh.trade.entity;
 
 import java.math.BigDecimal;
 
+import com.hgxh.trade.enums.TradeSourceEnum;
+
 /**
  * @ClassName FinancialInformationsEntity
  * @Description 资金流水表
@@ -33,7 +35,7 @@ public class FinancialInformationsEntity extends BaseEntity{
     //交易金额
     private BigDecimal amount;
     //源:APP:手机端;COUNTER:柜台
-    private String source;
+    private TradeSourceEnum source;
     //提现卡号
     private String bankCardNo;
     //创建时间
@@ -42,6 +44,7 @@ public class FinancialInformationsEntity extends BaseEntity{
     private Long lastModifyTime;
     //业务编号 活期:存折号;定期:凭证号
     private String bizNo;
+    //社员编号
     private String memberNo;
 
     public Long getId() {
@@ -86,10 +89,10 @@ public class FinancialInformationsEntity extends BaseEntity{
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
-    public String getSource() {
+    public TradeSourceEnum getSource() {
         return source;
     }
-    public void setSource(String source) {
+    public void setSource(TradeSourceEnum source) {
         this.source = source;
     }
     public String getBankCardNo() {
