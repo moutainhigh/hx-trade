@@ -91,7 +91,5 @@ public class SimpleHttpUtil {
         }
         return values;
     }
-    public static void main(String[] args) {
 
-    }
 }

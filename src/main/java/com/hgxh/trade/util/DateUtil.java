@@ -158,11 +158,4 @@ public class DateUtil {
         return toDay.getTime();
     }
     
-    public static void main(String[] args) {
-		Long now = getLastModifyTime();
-		System.out.println(getDayBegin(now));
-		Long to = getDayBegin(now)+86400000;
-		System.out.println(to);
-		
-	}
 }

@@ -505,19 +505,6 @@ public class DateSimpleUtil extends DateUtils {
 		return createTimeStr;
 	}
 	
-	public static void main(String[] args) throws ParseException {
-		Date d = parseDate("2010-12-19 14:16:50", "yyyy-MM-dd HH:mm:ss");
-		System.out.println(d);
-		System.out.println(toString(d, "yyyy/MM/dd"));
-		Calendar c = Calendar.getInstance();
-		System.out.println(c.isSet(Calendar.HOUR_OF_DAY) + "---" + c.getTime());
-		
-		System.out.println(compareDate(d, c.getTime(), Calendar.SECOND));
-		
-		Date startDate = parseDate("2012-12-19 14:16:50", "yyyy-MM-dd HH:mm:ss");
-		System.out.println(isOverIntervalLimit(startDate, startDate, 10));
-	}
-	
 	/**
 	 * 判断一个时间是否在某个时间区间内
 	 * 
