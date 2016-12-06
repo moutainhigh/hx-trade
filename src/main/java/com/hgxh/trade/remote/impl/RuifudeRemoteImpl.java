@@ -42,7 +42,7 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
     	//封装返回信息
     	AccountResult accountResult = new AccountResult();
     	//测试信息开始
-    	accountResult.setMemberNo("123");
+    	accountResult.setMemberNo("HS10010");
     	String res = "success";
     	//测试信息结束
     	if(StringUtils.isNotBlank(res) && StringUtils.isNotBlank(accountResult.getMemberNo())){
@@ -72,7 +72,7 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
     	RuiFuDeRemoteResult remoteResult = new RuiFuDeRemoteResult();
     	//测试信息开始
     	remoteResult.setRspCode("00");
-    	remoteResult.setVoucherNo("123");
+    	remoteResult.setVoucherNo("P12563423123");
     	String res = "success";
     	//测试信息结束
     	if(StringUtils.isNotBlank(res) && "00".equals(remoteResult.getRspCode())){

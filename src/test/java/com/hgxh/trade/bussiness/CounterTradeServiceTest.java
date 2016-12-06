@@ -28,7 +28,7 @@ public class CounterTradeServiceTest {
 	@Test
 	public void selectById(){
 		CounterTradeParam param = new CounterTradeParam();
-		param.setAmount("400");
+		param.setAmount("100");
 		param.setBizNo("620110459180394245");
 		param.setFundsDirection("INCR");
 		param.setMemberNo("HS10002");
