@@ -16,6 +16,7 @@ import com.hgxh.trade.entity.ProductInformationsEntity;
 import com.hgxh.trade.entity.UserMemberInformationsEntity;
 import com.hgxh.trade.enums.BaseExceptionMsg;
 import com.hgxh.trade.enums.OrderTypeEnum;
+import com.hgxh.trade.enums.ProductTypeEnum;
 import com.hgxh.trade.enums.TradeSourceEnum;
 import com.hgxh.trade.enums.TradeTypeEnum;
 import com.hgxh.trade.param.CounterTradeParam;
@@ -48,6 +49,15 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 	@Override
 	public ResultInfo saveCounterTrade(CounterTradeParam param) {
 		UserMemberInformationsEntity member = memberDao.selectByMemberNo(param.getMemberNo());
+		if(TradeTypeEnum.AHEADWITDRAW.toString().equals(param.getTradeType())){
+			OrdersEntity order = ordersDao.selectSucByBizNo(member.getBankCardNo());
+			order.setWithdrawalAmount(order.getWithdrawalAmount().subtract(new BigDecimal(param.getAmount())));
+			order.setAlreadyWithdrawCount(order.getAlreadyWithdrawCount()+1);
+			if(order.getWithdrawalAmount() == new BigDecimal("0")){
+				order.setStatus(OrderStatusEnum.AHEADDUE);
+			}
+			ordersDao.updateByPrimaryKeySelective(order);
+		}
 		if(TradeTypeEnum.PURCHASE.toString().equals(param.getTradeType())||
 				TradeTypeEnum.CAPITALTRANS.toString().equals(param.getTradeType())||
 				TradeTypeEnum.INTERESTTRANS.toString().equals(param.getTradeType())||
@@ -64,52 +74,51 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 	 */
 	public void saveOrders(CounterTradeParam param, UserMemberInformationsEntity member){
 		ProductInformationsEntity product = productDao.selectByProductNo(param.getProductNo());
-		if(TradeTypeEnum.FIXEDTOCURRENT.equals(param.getTradeType())){		
+		if(TradeTypeEnum.FIXEDTOCURRENT.toString().equals(param.getTradeType())){		
 			OrdersEntity order = ordersDao.selectSucByBizNo(member.getBankCardNo());
 			if(order != null){
 				//update
 				order.setAmount(order.getAmount().add(new BigDecimal(param.getAmount())));
+				order.setWithdrawalAmount(order.getWithdrawalAmount().add(new BigDecimal(param.getAmount())));
 				ordersDao.updateByPrimaryKeySelective(order);
 			}else{
 				//insert
-				OrdersEntity ordersEntity = new OrdersEntity();
-				BeanUtils.copyProperties(param, ordersEntity);
-				ordersEntity.setOrderNo(SequenceUtil.getOrderNo());
-				ordersEntity.setUserId(member.getUserId());
-				ordersEntity.setWithdrawalAmount(new BigDecimal(param.getAmount()));
-				ordersEntity.setAlreadyWithdrawCount(0);
-				ordersEntity.setStatus(OrderStatusEnum.SUCCESS);
-				ordersEntity.setOrderType(OrderTypeEnum.PURCHASE);
-				long tradeTimestamp = DateUtil.stringToTimestamp(param.getTradeTime());
-				ordersEntity.setOrderTime(tradeTimestamp);
-				ordersEntity.setLastModifyTime(DateUtil.getLastModifyTime());
-				long expirationTime = DateUtil.getDayBegin(tradeTimestamp) + product.getCycle()*Constants.ONEDAY;
-				ordersEntity.setExpirationTime(expirationTime);
-				ordersEntity.setYeild(product.getYield());
-				ordersEntity.setAmount(new BigDecimal(param.getAmount()));
+				OrdersEntity ordersEntity = copyProperties(param,member,product);
 				ordersDao.insertSelective(ordersEntity);
 			}
 		}else{
-			OrdersEntity ordersEntity = new OrdersEntity();
-			BeanUtils.copyProperties(param, ordersEntity);
-			ordersEntity.setOrderNo(SequenceUtil.getOrderNo());
-			ordersEntity.setUserId(member.getUserId());
-			ordersEntity.setWithdrawalAmount(new BigDecimal(param.getAmount()));
-			ordersEntity.setAlreadyWithdrawCount(0);
-			ordersEntity.setStatus(OrderStatusEnum.SUCCESS);
-			ordersEntity.setOrderType(OrderTypeEnum.PURCHASE);
-			long tradeTimestamp = DateUtil.stringToTimestamp(param.getTradeTime());
-			ordersEntity.setOrderTime(tradeTimestamp);
-			ordersEntity.setLastModifyTime(DateUtil.getLastModifyTime());
-			long expirationTime = DateUtil.getDayBegin(tradeTimestamp) + product.getCycle()*Constants.ONEDAY;
-			ordersEntity.setExpirationTime(expirationTime);
-			ordersEntity.setYeild(product.getYield());
-			ordersEntity.setAmount(new BigDecimal(param.getAmount()));
+			OrdersEntity ordersEntity = copyProperties(param,member,product);
 			ordersDao.insertSelective(ordersEntity);
 		}
 		
 	}
 	
+	/**
+	 * 复制参数
+	 * @param param
+	 * @param member
+	 * @param product
+	 */
+	public OrdersEntity copyProperties(CounterTradeParam param, UserMemberInformationsEntity member, ProductInformationsEntity product){
+		OrdersEntity ordersEntity = new OrdersEntity();
+		BeanUtils.copyProperties(param, ordersEntity);
+		ordersEntity.setOrderNo(SequenceUtil.getOrderNo());
+		ordersEntity.setUserId(member.getUserId());
+		ordersEntity.setWithdrawalAmount(new BigDecimal(param.getAmount()));
+		ordersEntity.setAlreadyWithdrawCount(0);
+		ordersEntity.setStatus(OrderStatusEnum.SUCCESS);
+		ordersEntity.setOrderType(OrderTypeEnum.PURCHASE);
+		long tradeTimestamp = DateUtil.stringToTimestamp(param.getTradeTime());
+		ordersEntity.setOrderTime(tradeTimestamp);
+		ordersEntity.setLastModifyTime(DateUtil.getLastModifyTime());
+		if(ProductTypeEnum.FIXED.toString().equals(param.getProductType())){
+			long expirationTime = DateUtil.getDayBegin(tradeTimestamp) + product.getCycle()*Constants.ONEDAY;
+			ordersEntity.setExpirationTime(expirationTime);
+		}
+		ordersEntity.setYeild(product.getYield());
+		ordersEntity.setAmount(new BigDecimal(param.getAmount()));
+		return ordersEntity;
+	}
 	/**
 	 * 保存交易流水
 	 * @param param

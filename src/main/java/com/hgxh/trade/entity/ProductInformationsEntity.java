@@ -32,7 +32,7 @@ public class ProductInformationsEntity extends BaseEntity{
     //产品状态:INIT：初始,AUDITED：已审核,PUBLISHED：已发布,FINISHED：已结束
     private String status;
     //允许提现次数
-    private String withdrawCount;
+    private Integer withdrawCount;
     //简介
     private String briefIntroduction;
     //详细介绍
@@ -90,10 +90,10 @@ public class ProductInformationsEntity extends BaseEntity{
     public void setStatus(String status) {
         this.status = status;
     }
-    public String getWithdrawCount() {
+    public Integer getWithdrawCount() {
         return withdrawCount;
     }
-    public void setWithdrawCount(String withdrawCount) {
+    public void setWithdrawCount(Integer withdrawCount) {
         this.withdrawCount = withdrawCount;
     }
     public String getBriefIntroduction() {

@@ -10,7 +10,7 @@
         <result column="cycle" property="cycle" jdbcType="INTEGER" />
         <result column="yield" property="yield" jdbcType="DECIMAL" />
         <result column="status" property="status" jdbcType="VARCHAR" />
-        <result column="withdraw_count" property="withdrawCount" jdbcType="VARCHAR" />
+        <result column="withdraw_count" property="withdrawCount" jdbcType="INTEGER" />
         <result column="brief_introduction" property="briefIntroduction" jdbcType="VARCHAR" />
         <result column="introduction" property="introduction" jdbcType="VARCHAR" />
         <result column="create_time" property="createTime" jdbcType="BIGINT" />
@@ -98,7 +98,7 @@
                 #{status,jdbcType=VARCHAR},
             </if>
             <if test="withdrawCount != null" >
-                #{withdrawCount,jdbcType=VARCHAR},
+                #{withdrawCount,jdbcType=INTEGER},
             </if>
             <if test="briefIntroduction != null" >
                 #{briefIntroduction,jdbcType=VARCHAR},
@@ -140,7 +140,7 @@
                 status = #{status,jdbcType=VARCHAR},
             </if>
             <if test="withdrawCount != null" >
-                withdraw_count = #{withdrawCount,jdbcType=VARCHAR},
+                withdraw_count = #{withdrawCount,jdbcType=INTEGER},
             </if>
             <if test="briefIntroduction != null" >
                 brief_introduction = #{briefIntroduction,jdbcType=VARCHAR},

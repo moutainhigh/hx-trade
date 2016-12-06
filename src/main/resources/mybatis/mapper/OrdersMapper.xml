@@ -154,9 +154,7 @@
     <update id="updateByPrimaryKeySelective" parameterType="com.hgxh.trade.entity.OrdersEntity" >
         update orders
         <set >
-            <if test="version != null" >
-                version = #{version,jdbcType=BIGINT},
-            </if>
+                version = version+1,
             <if test="bizNo != null" >
                 biz_no = #{bizNo,jdbcType=VARCHAR},
             </if>
@@ -206,7 +204,7 @@
                 yeild = #{yeild,jdbcType=DECIMAL},
             </if>
         </set>
-        where id = #{id,jdbcType=BIGINT}
+        where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
     </update>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
@@ -214,7 +212,7 @@
         where id = #{id,jdbcType=BIGINT}
     </delete>
     
-      <select id="selectSucByBizNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <select id="selectSucByBizNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
         select 
         <include refid="Base_Column_List" />
         from orders

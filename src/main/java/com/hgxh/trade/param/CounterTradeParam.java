@@ -32,7 +32,15 @@ public class CounterTradeParam extends BaseParam{
 	private String bankCardNo;
 	//转存方式 
     private String transferSavaType;
+    //产品类型
+    private String productType;
 	
+	public String getProductType() {
+		return productType;
+	}
+	public void setProductType(String productType) {
+		this.productType = productType;
+	}
 	public String getTransferSavaType() {
 		return transferSavaType;
 	}
