@@ -162,5 +162,12 @@
         delete from product_informations
         where id = #{id,jdbcType=BIGINT}
     </delete>
+    
+    <select id="selectByProductNo resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from product_informations
+        where product_no = #{productNo,jdbcType=BIGINT}
+    </select>
 
 </mapper>

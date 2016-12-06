@@ -17,8 +17,8 @@ public class InvestParam extends BaseParam{
 	private String memberNo;
 	//存折账号
 	private String passbook;
-	//产品类型
-	private String productType;
+	//产品编号
+	private String productNo;
 	//金额
 	private String amount;
 	//投资时间
@@ -44,11 +44,11 @@ public class InvestParam extends BaseParam{
 	public void setPassbook(String passbook) {
 		this.passbook = passbook;
 	}
-	public String getProductType() {
-		return productType;
+	public String getProductNo() {
+		return productNo;
 	}
-	public void setProductType(String productType) {
-		this.productType = productType;
+	public void setProductNo(String productNo) {
+		this.productNo = productNo;
 	}
 	public String getAmount() {
 		return amount;

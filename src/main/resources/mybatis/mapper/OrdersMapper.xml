@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hgxh.trade.dao.OrdersDao" >
+    <resultMap id="BaseResultMap" type="com.hgxh.trade.entity.OrdersEntity" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="version" property="version" jdbcType="BIGINT" />
+        <result column="biz_no" property="bizNo" jdbcType="VARCHAR" />
+        <result column="member_no" property="memberNo" jdbcType="VARCHAR" />
+        <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+        <result column="product_no" property="productNo" jdbcType="VARCHAR" />
+        <result column="user_id" property="userId" jdbcType="BIGINT" />
+        <result column="amount" property="amount" jdbcType="DECIMAL" />
+        <result column="withdrawal_amount" property="withdrawalAmount" jdbcType="DECIMAL" />
+        <result column="already_withdraw_count" property="alreadyWithdrawCount" jdbcType="INTEGER" />
+        <result column="status" property="status" jdbcType="VARCHAR" />
+        <result column="order_type" property="orderType" jdbcType="VARCHAR" />
+        <result column="expiration_time" property="expirationTime" jdbcType="BIGINT" />
+        <result column="order_time" property="orderTime" jdbcType="BIGINT" />
+        <result column="last_modify_time" property="lastModifyTime" jdbcType="BIGINT" />
+        <result column="transfer_sava_type" property="transferSavaType" jdbcType="VARCHAR" />
+        <result column="pay_type" property="payType" jdbcType="VARCHAR" />
+        <result column="yeild" property="yeild" jdbcType="DECIMAL" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, version, biz_no, member_no, order_no, product_no, user_id, amount, withdrawal_amount, 
+        already_withdraw_count, status, order_type, expiration_time, order_time, last_modify_time, 
+        transfer_sava_type, pay_type, yeild
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select 
+        <include refid="Base_Column_List" />
+        from orders
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <insert id="insertSelective" parameterType="com.hgxh.trade.entity.OrdersEntity" >
+        insert into orders
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="version != null" >
+                version,
+            </if>
+            <if test="bizNo != null" >
+                biz_no,
+            </if>
+            <if test="memberNo != null" >
+                member_no,
+            </if>
+            <if test="orderNo != null" >
+                order_no,
+            </if>
+            <if test="productNo != null" >
+                product_no,
+            </if>
+            <if test="userId != null" >
+                user_id,
+            </if>
+            <if test="amount != null" >
+                amount,
+            </if>
+            <if test="withdrawalAmount != null" >
+                withdrawal_amount,
+            </if>
+            <if test="alreadyWithdrawCount != null" >
+                already_withdraw_count,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="orderType != null" >
+                order_type,
+            </if>
+            <if test="expirationTime != null" >
+                expiration_time,
+            </if>
+            <if test="orderTime != null" >
+                order_time,
+            </if>
+            <if test="lastModifyTime != null" >
+                last_modify_time,
+            </if>
+            <if test="transferSavaType != null" >
+                transfer_sava_type,
+            </if>
+            <if test="payType != null" >
+                pay_type,
+            </if>
+            <if test="yeild != null" >
+                yeild,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="version != null" >
+                #{version,jdbcType=BIGINT},
+            </if>
+            <if test="bizNo != null" >
+                #{bizNo,jdbcType=VARCHAR},
+            </if>
+            <if test="memberNo != null" >
+                #{memberNo,jdbcType=VARCHAR},
+            </if>
+            <if test="orderNo != null" >
+                #{orderNo,jdbcType=VARCHAR},
+            </if>
+            <if test="productNo != null" >
+                #{productNo,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null" >
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="amount != null" >
+                #{amount,jdbcType=DECIMAL},
+            </if>
+            <if test="withdrawalAmount != null" >
+                #{withdrawalAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="alreadyWithdrawCount != null" >
+                #{alreadyWithdrawCount,jdbcType=INTEGER},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="orderType != null" >
+                #{orderType,jdbcType=VARCHAR},
+            </if>
+            <if test="expirationTime != null" >
+                #{expirationTime,jdbcType=BIGINT},
+            </if>
+            <if test="orderTime != null" >
+                #{orderTime,jdbcType=BIGINT},
+            </if>
+            <if test="lastModifyTime != null" >
+                #{lastModifyTime,jdbcType=BIGINT},
+            </if>
+            <if test="transferSavaType != null" >
+                #{transferSavaType,jdbcType=VARCHAR},
+            </if>
+            <if test="payType != null" >
+                #{payType,jdbcType=VARCHAR},
+            </if>
+            <if test="yeild != null" >
+                #{yeild,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.hgxh.trade.entity.OrdersEntity" >
+        update orders
+        <set >
+            <if test="version != null" >
+                version = #{version,jdbcType=BIGINT},
+            </if>
+            <if test="bizNo != null" >
+                biz_no = #{bizNo,jdbcType=VARCHAR},
+            </if>
+            <if test="memberNo != null" >
+                member_no = #{memberNo,jdbcType=VARCHAR},
+            </if>
+            <if test="orderNo != null" >
+                order_no = #{orderNo,jdbcType=VARCHAR},
+            </if>
+            <if test="productNo != null" >
+                product_no = #{productNo,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null" >
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="amount != null" >
+                amount = #{amount,jdbcType=DECIMAL},
+            </if>
+            <if test="withdrawalAmount != null" >
+                withdrawal_amount = #{withdrawalAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="alreadyWithdrawCount != null" >
+                already_withdraw_count = #{alreadyWithdrawCount,jdbcType=INTEGER},
+            </if>
+            <if test="status != null" >
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="orderType != null" >
+                order_type = #{orderType,jdbcType=VARCHAR},
+            </if>
+            <if test="expirationTime != null" >
+                expiration_time = #{expirationTime,jdbcType=BIGINT},
+            </if>
+            <if test="orderTime != null" >
+                order_time = #{orderTime,jdbcType=BIGINT},
+            </if>
+            <if test="lastModifyTime != null" >
+                last_modify_time = #{lastModifyTime,jdbcType=BIGINT},
+            </if>
+            <if test="transferSavaType != null" >
+                transfer_sava_type = #{transferSavaType,jdbcType=VARCHAR},
+            </if>
+            <if test="payType != null" >
+                pay_type = #{payType,jdbcType=VARCHAR},
+            </if>
+            <if test="yeild != null" >
+                yeild = #{yeild,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+        delete from orders
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    
+      <select id="selectByBizNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from orders
+        where biz_no = #{bizNo,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

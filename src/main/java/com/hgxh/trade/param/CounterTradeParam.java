@@ -30,7 +30,15 @@ public class CounterTradeParam extends BaseParam{
 	private String payType;
 	//提现卡号
 	private String bankCardNo;
+	//转存方式 
+    private String transferSavaType;
 	
+	public String getTransferSavaType() {
+		return transferSavaType;
+	}
+	public void setTransferSavaType(String transferSavaType) {
+		this.transferSavaType = transferSavaType;
+	}
 	public String getMemberNo() {
 		return memberNo;
 	}

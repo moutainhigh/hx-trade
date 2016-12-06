@@ -59,7 +59,7 @@ public class AccountTradeBizImpl implements AccountTradeBiz {
 	@Override
 	public ResultInfo invest(InvestParam param) {
 		//参数校验
-		if(PropertyUtils.checkNull(param, "memberNo,passbook,productType,amount,investTime,transferSaveType")){
+		if(PropertyUtils.checkNull(param, "memberNo,passbook,productNo,amount,investTime,transferSaveType")){
 			return new ResultInfo(BaseExceptionMsg.PARAM_IS_NULL);
 		}
 		ResultInfo result=null;
@@ -80,7 +80,7 @@ public class AccountTradeBizImpl implements AccountTradeBiz {
 	@Override
 	public ResultInfo withdraw(WithdrawParam param) {
 		//参数校验
-		if(PropertyUtils.checkNull(param, "memberNo,passbook,productType,amount,voucherNo,bankCode,memberName,bankCardNo")){
+		if(PropertyUtils.checkNull(param, "memberNo,bizNo,productNo,amount,bankCode,memberName,bankCardNo")){
 			return new ResultInfo(BaseExceptionMsg.PARAM_IS_NULL);
 		}
 		ResultInfo result=null;

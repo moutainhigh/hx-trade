@@ -11,5 +11,7 @@ public interface ProductInformationsDao {
     public ProductInformationsEntity selectByPrimaryKey(Long id);
 
     public int updateByPrimaryKeySelective(ProductInformationsEntity record);
+    
+    public ProductInformationsEntity selectByProductNo(String productNo);
 
 }

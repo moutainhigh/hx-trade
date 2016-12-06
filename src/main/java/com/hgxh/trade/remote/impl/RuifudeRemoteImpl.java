@@ -62,7 +62,7 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
 		Map<String, String> params = new HashMap<String, String>();
     	params.put("memberNo", param.getMemberNo());
     	params.put("passbook", param.getPassbook());
-    	params.put("productType", param.getProductType());
+    	params.put("productNo", param.getProductNo());
     	params.put("amount", param.getAmount());
     	params.put("investTime", param.getInvestTime());
     	params.put("transferSaveType", param.getTransferSaveType());
@@ -90,10 +90,9 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
 		ResultInfo result = null;
 		Map<String, String> params = new HashMap<String, String>();
     	params.put("memberNo", param.getMemberNo());
-    	params.put("passbook", param.getPassbook());
-    	params.put("productType", param.getProductType());
+    	params.put("bizNo", param.getBizNo());
+    	params.put("productNo", param.getProductNo());
     	params.put("amount", param.getAmount());
-    	params.put("voucherNo", param.getVoucherNo());
     	params.put("bankCode", param.getBankCode());
     	params.put("memberName", param.getMemberName());
     	params.put("bankCardNo", param.getBankCardNo());

@@ -14,12 +14,10 @@ public class WithdrawParam extends BaseParam{
 	private static final long serialVersionUID = 1L;
 	//社员编号
 	private String memberNo;
-	//存折账号
-	private String passbook;
-	//产品类型
-	private String productType;
-	//定期凭证号
-	private String voucherNo;
+	//业务编号
+	private String bizNo;
+	//产品编号
+	private String productNo;
 	//金额
 	private String amount;
 	//开户行
@@ -34,24 +32,6 @@ public class WithdrawParam extends BaseParam{
 	}
 	public void setMemberNo(String memberNo) {
 		this.memberNo = memberNo;
-	}
-	public String getPassbook() {
-		return passbook;
-	}
-	public void setPassbook(String passbook) {
-		this.passbook = passbook;
-	}
-	public String getProductType() {
-		return productType;
-	}
-	public void setProductType(String productType) {
-		this.productType = productType;
-	}
-	public String getVoucherNo() {
-		return voucherNo;
-	}
-	public void setVoucherNo(String voucherNo) {
-		this.voucherNo = voucherNo;
 	}
 	public String getAmount() {
 		return amount;
@@ -76,6 +56,18 @@ public class WithdrawParam extends BaseParam{
 	}
 	public void setBankCardNo(String bankCardNo) {
 		this.bankCardNo = bankCardNo;
+	}
+	public String getBizNo() {
+		return bizNo;
+	}
+	public void setBizNo(String bizNo) {
+		this.bizNo = bizNo;
+	}
+	public String getProductNo() {
+		return productNo;
+	}
+	public void setProductNo(String productNo) {
+		this.productNo = productNo;
 	}
 
 }

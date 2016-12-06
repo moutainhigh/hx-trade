@@ -132,7 +132,7 @@ public class DateUtil {
      * @return
      */
     public static Long stringToTimestamp(String str) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         Date date = new Date();
         try {
             date = sdf.parse(str);
