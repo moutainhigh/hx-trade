@@ -49,19 +49,11 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 	@Override
 	public ResultInfo saveCounterTrade(CounterTradeParam param) {
 		UserMemberInformationsEntity member = memberDao.selectByMemberNo(param.getMemberNo());
-		if(TradeTypeEnum.AHEADWITDRAW.toString().equals(param.getTradeType())){
-			OrdersEntity order = ordersDao.selectSucByBizNo(member.getBankCardNo());
-			order.setWithdrawalAmount(order.getWithdrawalAmount().subtract(new BigDecimal(param.getAmount())));
-			order.setAlreadyWithdrawCount(order.getAlreadyWithdrawCount()+1);
-			if(order.getWithdrawalAmount() == new BigDecimal("0")){
-				order.setStatus(OrderStatusEnum.AHEADDUE);
-			}
-			ordersDao.updateByPrimaryKeySelective(order);
-		}
 		if(TradeTypeEnum.PURCHASE.toString().equals(param.getTradeType())||
 				TradeTypeEnum.CAPITALTRANS.toString().equals(param.getTradeType())||
 				TradeTypeEnum.INTERESTTRANS.toString().equals(param.getTradeType())||
-				TradeTypeEnum.FIXEDTOCURRENT.toString().equals(param.getTradeType())){
+				TradeTypeEnum.FIXEDTOCURRENT.toString().equals(param.getTradeType())||
+				TradeTypeEnum.AHEADWITDRAW.toString().equals(param.getTradeType())){
 			saveOrders(param, member);
 		}
 		saveFinancialInformations(param, member);
@@ -74,7 +66,15 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 	 */
 	public void saveOrders(CounterTradeParam param, UserMemberInformationsEntity member){
 		ProductInformationsEntity product = productDao.selectByProductNo(param.getProductNo());
-		if(TradeTypeEnum.FIXEDTOCURRENT.toString().equals(param.getTradeType())){		
+		if(TradeTypeEnum.AHEADWITDRAW.toString().equals(param.getTradeType())){
+			OrdersEntity order = ordersDao.selectSucByBizNo(member.getBankCardNo());
+			order.setWithdrawalAmount(order.getWithdrawalAmount().subtract(new BigDecimal(param.getAmount())));
+			order.setAlreadyWithdrawCount(order.getAlreadyWithdrawCount()+1);
+			if(order.getWithdrawalAmount() == new BigDecimal("0")){
+				order.setStatus(OrderStatusEnum.AHEADDUE);
+			}
+			ordersDao.updateByPrimaryKeySelective(order);
+		}else if(TradeTypeEnum.FIXEDTOCURRENT.toString().equals(param.getTradeType())){		
 			OrdersEntity order = ordersDao.selectSucByBizNo(member.getBankCardNo());
 			if(order != null){
 				//update
@@ -90,7 +90,6 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 			OrdersEntity ordersEntity = copyProperties(param,member,product);
 			ordersDao.insertSelective(ordersEntity);
 		}
-		
 	}
 	
 	/**
@@ -119,6 +118,7 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 		ordersEntity.setAmount(new BigDecimal(param.getAmount()));
 		return ordersEntity;
 	}
+	
 	/**
 	 * 保存交易流水
 	 * @param param
