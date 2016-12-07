@@ -1,6 +1,8 @@
 package com.hgxh.trade.remote.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -49,21 +51,34 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
     	//调用瑞福德查询开户信息接口
 //    	String res = SimpleHttpUtil.doPost(ruifudeRemoteUrl+"/getAccount", params);	
     	//封装返回信息
-    	AccountResult accountResult = new AccountResult();
+    	List<AccountResult> list = new ArrayList<AccountResult>();
     	//测试信息开始
+    	AccountResult accountResult = new AccountResult();
     	accountResult.setMemberNo("HS"+NumberUtil.getRandomNo(5));
     	accountResult.setAreaNo("A100");
     	accountResult.setJoinTime("1481009685000");
-    	accountResult.setMemberName("罗振栋");
+    	accountResult.setMemberName("罗成");
     	accountResult.setCensusRegisterType("CITY");
     	accountResult.setAddress("黄山市屯溪区老街");
     	accountResult.setMobile("13913787231");
-    	accountResult.setIntroducerName("菲林");
+    	accountResult.setIntroducerName("李伟");
     	accountResult.setPassbook("6213454650987654");
+    	list.add(accountResult);
+    	AccountResult accountResult1 = new AccountResult();
+    	accountResult1.setMemberNo("HS"+NumberUtil.getRandomNo(5));
+    	accountResult1.setAreaNo("A100");
+    	accountResult1.setJoinTime("1481101635592");
+    	accountResult1.setMemberName("于夕");
+    	accountResult1.setCensusRegisterType("CITY");
+    	accountResult1.setAddress("黄山市屯溪区老街");
+    	accountResult1.setMobile("13913454330");
+    	accountResult1.setIntroducerName("王珏");
+    	accountResult1.setPassbook("621345465450813");
+    	list.add(accountResult1);
     	String res = "success";
     	//测试信息结束
     	if(StringUtils.isNotBlank(res) && StringUtils.isNotBlank(accountResult.getMemberNo())){
-    		result = new ResultInfo(BaseExceptionMsg.SUCCESS,accountResult);
+    		result = new ResultInfo(BaseExceptionMsg.SUCCESS,list);
     	}else{
     		result = new ResultInfo(BaseExceptionMsg.ACCOUNT_NOT_EXIST);
     	}
@@ -105,6 +120,9 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
 		return result;
 	}
 
+	/**
+	 * 提现
+	 */
 	@Override
 	public ResultInfo withdraw(WithdrawParam param) throws Exception {
 		ResultInfo result = null;

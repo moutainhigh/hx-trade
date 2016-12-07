@@ -51,6 +51,10 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 	@Autowired
 	private UserAccountsDao userAccountsDao;
 
+	/**
+	 * 柜台交易数据保存
+	 * @param param
+	 */
 	@Override
 	public ResultInfo saveCounterTrade(CounterTradeParam param) {
 		UserMemberInformationsEntity member = memberDao.selectByMemberNo(param.getMemberNo());
@@ -63,6 +67,7 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 			saveOrders(param, member, product);
 		}
 		saveFinancialInformations(param, member);
+		savaUserAccounts(param, member, product);
 		return new ResultInfo(BaseExceptionMsg.SUCCESS);
 	}
 	
@@ -145,36 +150,62 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 		financialDao.insertSelective(entity);
 	}
 	
+	/**
+	 * 保存分社账户统计表
+	 * @param param
+	 * @param member
+	 * @param product
+	 */
 	public void savaUserAccounts(CounterTradeParam param, UserMemberInformationsEntity member, ProductInformationsEntity product){
 		UserAccountsEntity account = userAccountsDao.selectByMemberNo(param.getMemberNo());
 		if(account==null){
-			account.setVersion(1L);
-			account.setUserId(member.getUserId());
-			account.setMemberNo(param.getMemberNo());
-			account.setTotalInvested(new BigDecimal(param.getAmount()));
-			account.setTotalOnInvested(new BigDecimal(param.getAmount()));
-			account.setTotalInterest(new BigDecimal(0));
-			account.setYesterdayInterest(new BigDecimal(0));
-			account.setCreatetime(DateUtil.getLastModifyTime());
-			account.setLastModifyTime(DateUtil.getLastModifyTime());
+			UserAccountsEntity accountsEntity = new UserAccountsEntity();
+			accountsEntity.setVersion(1L);
+			accountsEntity.setUserId(member.getUserId());
+			accountsEntity.setMemberNo(param.getMemberNo());
+			accountsEntity.setTotalInvested(new BigDecimal(param.getAmount()));
+			accountsEntity.setTotalOnInvested(new BigDecimal(param.getAmount()));
+			accountsEntity.setTotalInterest(new BigDecimal(0));
+			accountsEntity.setYesterdayInterest(new BigDecimal(0));
+			accountsEntity.setCreateTime(DateUtil.getLastModifyTime());
+			accountsEntity.setLastModifyTime(DateUtil.getLastModifyTime());
+			userAccountsDao.insertSelective(accountsEntity);
 		}else{
-			//余额和利息减少
+			//减少	提现、利息划扣、转账、定期提前提取
 			if(TradeTypeEnum.WITHDRAW.toString().equals(param.getTradeType())||TradeTypeEnum.INTERESTDEDUCTION.toString().equals(param.getTradeType())
 					||(TradeTypeEnum.TRANSFER.toString().equals(param.getTradeType())&&FundsDirectionEnum.DECR.toString().equals(param.getFundsDirection()))
 					||TradeTypeEnum.AHEADWITDRAW.toString().equals(param.getTradeType())){
 				account.setTotalOnInvested(account.getTotalOnInvested().subtract(new BigDecimal(param.getAmount())));
-				
-				
-			}else{
-				
+				account.setLastModifyTime(DateUtil.getLastModifyTime());
+				userAccountsDao.updateByPrimaryKeySelective(account);
 			}
-			account.setTotalInvested(new BigDecimal(param.getAmount()));
-			account.setTotalOnInvested(new BigDecimal(param.getAmount()));
-			account.setTotalInterest(new BigDecimal(0));
-			account.setYesterdayInterest(new BigDecimal(0));
-			account.setLastModifyTime(DateUtil.getLastModifyTime());
+			//增加	派息
+			if(TradeTypeEnum.SENDINTEREST.toString().equals(param.getTradeType())){
+				account.setTotalInvested(account.getTotalInvested().add(new BigDecimal(param.getAmount())));
+				account.setTotalOnInvested(account.getTotalOnInvested().add(new BigDecimal(param.getAmount())));
+				account.setTotalInterest(account.getTotalInterest().add(new BigDecimal(param.getAmount())));
+				account.setLastModifyTime(DateUtil.getLastModifyTime());
+				userAccountsDao.updateByPrimaryKeySelective(account);
+			}
+			//增加	购买、转账
+			if(TradeTypeEnum.PURCHASE.toString().equals(param.getTradeType())
+					||(TradeTypeEnum.TRANSFER.toString().equals(param.getTradeType())&&FundsDirectionEnum.INCR.toString().equals(param.getFundsDirection()))){
+				account.setTotalInvested(account.getTotalInvested().add(new BigDecimal(param.getAmount())));
+				account.setTotalOnInvested(account.getTotalOnInvested().add(new BigDecimal(param.getAmount())));
+				account.setLastModifyTime(DateUtil.getLastModifyTime());
+				userAccountsDao.updateByPrimaryKeySelective(account);
+			}
+			//增加	本息转存、定期转活期  本金转存相互抵消
+			if(TradeTypeEnum.INTERESTTRANS.toString().equals(param.getTradeType())||TradeTypeEnum.FIXEDTOCURRENT.toString().equals(param.getTradeType())){
+				OrdersEntity orgOrder = ordersDao.selectByBizNo(param.getOrgiVoucherNo());
+				account.setTotalInvested(account.getTotalInvested().add(new BigDecimal(param.getAmount())));
+				BigDecimal interest = new BigDecimal(param.getAmount()).subtract(orgOrder.getWithdrawalAmount());
+				account.setTotalOnInvested(account.getTotalOnInvested().add(interest));
+				account.setTotalInterest(account.getTotalInterest().add(interest));
+				account.setLastModifyTime(DateUtil.getLastModifyTime());
+				userAccountsDao.updateByPrimaryKeySelective(account);
+			}
 		}
-		
 	}
 
 }

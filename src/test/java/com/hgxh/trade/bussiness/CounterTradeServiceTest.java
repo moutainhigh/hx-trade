@@ -28,14 +28,14 @@ public class CounterTradeServiceTest {
 	@Test
 	public void saveCounterTrade(){
 		CounterTradeParam param = new CounterTradeParam();
-		param.setAmount("500");
-		param.setBizNo("62011044533431301");
+		param.setAmount("1000");
+		param.setBizNo("63495044533431301");
 		param.setFundsDirection("INCR");
 		param.setMemberNo("HS10002");
 		param.setPayType("EBANK");
 		param.setProductNo("FIXED-3-1");
 		param.setTradeTime("20161206153445");
-		param.setTradeType("AHEADWITDRAW");
+		param.setTradeType("PURCHASE");
 		param.setTransferSavaType("INTERESTTRANS");
 		param.setProductType("FIXED");
 		ResultInfo resultInfo = counterTradeService.saveCounterTrade(param);

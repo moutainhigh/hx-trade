@@ -28,12 +28,14 @@ public class CounterTradeParam extends BaseParam{
 	private String tradeTime;
 	//支付方式
 	private String payType;
-	//提现卡号
-	private String bankCardNo;
 	//转存方式 
     private String transferSavaType;
     //产品类型
     private String productType;
+    //提现卡号	提现、定期提前支取 需要提供
+  	private String bankCardNo;
+  	//原定期凭证号	本金转存、本息转存、定期转活期 需要提供
+  	private String orgiVoucherNo;
 	
 	public String getProductType() {
 		return productType;
@@ -100,6 +102,12 @@ public class CounterTradeParam extends BaseParam{
 	}
 	public void setBankCardNo(String bankCardNo) {
 		this.bankCardNo = bankCardNo;
+	}
+	public String getOrgiVoucherNo() {
+		return orgiVoucherNo;
+	}
+	public void setOrgiVoucherNo(String orgiVoucherNo) {
+		this.orgiVoucherNo = orgiVoucherNo;
 	}
 	
 }

@@ -229,5 +229,12 @@
         where status = 'SUCCESS'
         and biz_no = #{bizNo,jdbcType=VARCHAR}
     </select>
+    
+    <select id="selectByBizNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from orders
+        where biz_no = #{bizNo,jdbcType=VARCHAR}
+    </select>
 
 </mapper>

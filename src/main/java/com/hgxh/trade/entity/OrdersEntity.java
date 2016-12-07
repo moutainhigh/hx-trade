@@ -38,7 +38,7 @@ public class OrdersEntity extends BaseEntity{
     private BigDecimal withdrawalAmount;
     //已提现次数
     private Integer alreadyWithdrawCount;
-    //订单状态：INIT:初始化;SUCCESS:支付成功;FAILED:支付失败;DUETRANS:到期转存;AHEADDUE:提前支取;DUE:正常到期;
+    //订单状态：INIT:初始化;SUCCESS:支付成功;FAILED:支付失败;AHEADDUE:提前支取;DUE:正常到期;
     private OrderStatusEnum status;
     //订单类型:PURCHASE:购买
     private OrderTypeEnum orderType;

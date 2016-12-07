@@ -32,7 +32,7 @@ public class UserAccountsEntity extends BaseEntity{
     //最近修改时间
     private Long lastModifyTime;
     //创建时间
-    private Long createtime;
+    private Long createTime;
     //社员编号
     private String memberNo;
 
@@ -84,13 +84,13 @@ public class UserAccountsEntity extends BaseEntity{
     public void setLastModifyTime(Long lastModifyTime) {
         this.lastModifyTime = lastModifyTime;
     }
-    public Long getCreatetime() {
-        return createtime;
-    }
-    public void setCreatetime(Long createtime) {
-        this.createtime = createtime;
-    }
-    public String getMemberNo() {
+    public Long getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(Long createTime) {
+		this.createTime = createTime;
+	}
+	public String getMemberNo() {
         return memberNo;
     }
     public void setMemberNo(String memberNo) {

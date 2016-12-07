@@ -10,13 +10,13 @@
         <result column="total_interest" property="totalInterest" jdbcType="DECIMAL" />
         <result column="yesterday_interest" property="yesterdayInterest" jdbcType="DECIMAL" />
         <result column="last_modify_time" property="lastModifyTime" jdbcType="BIGINT" />
-        <result column="createTime" property="createtime" jdbcType="BIGINT" />
+        <result column="create_time" property="createTime" jdbcType="BIGINT" />
         <result column="member_no" property="memberNo" jdbcType="VARCHAR" />
     </resultMap>
 
     <sql id="Base_Column_List" >
         id, version, user_id, total_invested, total_on_invested, total_interest, yesterday_interest, 
-        last_modify_time, createTime, member_no
+        last_modify_time, create_time, member_no
     </sql>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -53,8 +53,8 @@
             <if test="lastModifyTime != null" >
                 last_modify_time,
             </if>
-            <if test="createtime != null" >
-                createTime,
+            <if test="createTime != null" >
+                create_time,
             </if>
             <if test="memberNo != null" >
                 member_no,
@@ -85,8 +85,8 @@
             <if test="lastModifyTime != null" >
                 #{lastModifyTime,jdbcType=BIGINT},
             </if>
-            <if test="createtime != null" >
-                #{createtime,jdbcType=BIGINT},
+            <if test="createTime != null" >
+                #{createTime,jdbcType=BIGINT},
             </if>
             <if test="memberNo != null" >
                 #{memberNo,jdbcType=VARCHAR},
@@ -116,8 +116,8 @@
             <if test="lastModifyTime != null" >
                 last_modify_time = #{lastModifyTime,jdbcType=BIGINT},
             </if>
-            <if test="createtime != null" >
-                createTime = #{createtime,jdbcType=BIGINT},
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=BIGINT},
             </if>
             <if test="memberNo != null" >
                 member_no = #{memberNo,jdbcType=VARCHAR},
