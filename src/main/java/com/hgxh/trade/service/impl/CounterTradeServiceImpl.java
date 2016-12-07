@@ -9,12 +9,15 @@ import org.springframework.stereotype.Service;
 import com.hgxh.trade.dao.FinancialInformationsDao;
 import com.hgxh.trade.dao.OrdersDao;
 import com.hgxh.trade.dao.ProductInformationsDao;
+import com.hgxh.trade.dao.UserAccountsDao;
 import com.hgxh.trade.dao.UserMemberInformationsDao;
 import com.hgxh.trade.entity.FinancialInformationsEntity;
 import com.hgxh.trade.entity.OrdersEntity;
 import com.hgxh.trade.entity.ProductInformationsEntity;
+import com.hgxh.trade.entity.UserAccountsEntity;
 import com.hgxh.trade.entity.UserMemberInformationsEntity;
 import com.hgxh.trade.enums.BaseExceptionMsg;
+import com.hgxh.trade.enums.FundsDirectionEnum;
 import com.hgxh.trade.enums.OrderTypeEnum;
 import com.hgxh.trade.enums.ProductTypeEnum;
 import com.hgxh.trade.enums.TradeSourceEnum;
@@ -45,16 +48,19 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 	private UserMemberInformationsDao memberDao;
 	@Autowired
 	private ProductInformationsDao productDao;
+	@Autowired
+	private UserAccountsDao userAccountsDao;
 
 	@Override
 	public ResultInfo saveCounterTrade(CounterTradeParam param) {
 		UserMemberInformationsEntity member = memberDao.selectByMemberNo(param.getMemberNo());
+		ProductInformationsEntity product = productDao.selectByProductNo(param.getProductNo());
 		if(TradeTypeEnum.PURCHASE.toString().equals(param.getTradeType())||
 				TradeTypeEnum.CAPITALTRANS.toString().equals(param.getTradeType())||
 				TradeTypeEnum.INTERESTTRANS.toString().equals(param.getTradeType())||
 				TradeTypeEnum.FIXEDTOCURRENT.toString().equals(param.getTradeType())||
 				TradeTypeEnum.AHEADWITDRAW.toString().equals(param.getTradeType())){
-			saveOrders(param, member);
+			saveOrders(param, member, product);
 		}
 		saveFinancialInformations(param, member);
 		return new ResultInfo(BaseExceptionMsg.SUCCESS);
@@ -64,14 +70,16 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 	 * 保存订单
 	 * @param param
 	 */
-	public void saveOrders(CounterTradeParam param, UserMemberInformationsEntity member){
-		ProductInformationsEntity product = productDao.selectByProductNo(param.getProductNo());
+	public void saveOrders(CounterTradeParam param, UserMemberInformationsEntity member, ProductInformationsEntity product){
 		if(TradeTypeEnum.AHEADWITDRAW.toString().equals(param.getTradeType())){
-			OrdersEntity order = ordersDao.selectSucByBizNo(member.getBankCardNo());
+			OrdersEntity order = ordersDao.selectSucByBizNo(param.getBizNo());
 			order.setWithdrawalAmount(order.getWithdrawalAmount().subtract(new BigDecimal(param.getAmount())));
 			order.setAlreadyWithdrawCount(order.getAlreadyWithdrawCount()+1);
 			if(order.getWithdrawalAmount() == new BigDecimal("0")){
 				order.setStatus(OrderStatusEnum.AHEADDUE);
+			}else{
+				order.setPredictInterest(order.getWithdrawalAmount().multiply(product.getYield().divide(new BigDecimal(100)))
+						.multiply(new BigDecimal(product.getCycle())).divide(new BigDecimal(365),2,BigDecimal.ROUND_HALF_UP));
 			}
 			ordersDao.updateByPrimaryKeySelective(order);
 		}else if(TradeTypeEnum.FIXEDTOCURRENT.toString().equals(param.getTradeType())){		
@@ -113,6 +121,8 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 		if(ProductTypeEnum.FIXED.toString().equals(param.getProductType())){
 			long expirationTime = DateUtil.getDayBegin(tradeTimestamp) + product.getCycle()*Constants.ONEDAY;
 			ordersEntity.setExpirationTime(expirationTime);
+			ordersEntity.setPredictInterest(ordersEntity.getWithdrawalAmount().multiply(product.getYield().divide(new BigDecimal(100)))
+					.multiply(new BigDecimal(product.getCycle())).divide(new BigDecimal(365),2,BigDecimal.ROUND_HALF_UP));
 		}
 		ordersEntity.setYeild(product.getYield());
 		ordersEntity.setAmount(new BigDecimal(param.getAmount()));
@@ -133,6 +143,38 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 		entity.setCreateTime(DateUtil.stringToTimestamp(param.getTradeTime()));
 		entity.setLastModifyTime(DateUtil.getLastModifyTime());
 		financialDao.insertSelective(entity);
+	}
+	
+	public void savaUserAccounts(CounterTradeParam param, UserMemberInformationsEntity member, ProductInformationsEntity product){
+		UserAccountsEntity account = userAccountsDao.selectByMemberNo(param.getMemberNo());
+		if(account==null){
+			account.setVersion(1L);
+			account.setUserId(member.getUserId());
+			account.setMemberNo(param.getMemberNo());
+			account.setTotalInvested(new BigDecimal(param.getAmount()));
+			account.setTotalOnInvested(new BigDecimal(param.getAmount()));
+			account.setTotalInterest(new BigDecimal(0));
+			account.setYesterdayInterest(new BigDecimal(0));
+			account.setCreatetime(DateUtil.getLastModifyTime());
+			account.setLastModifyTime(DateUtil.getLastModifyTime());
+		}else{
+			//余额和利息减少
+			if(TradeTypeEnum.WITHDRAW.toString().equals(param.getTradeType())||TradeTypeEnum.INTERESTDEDUCTION.toString().equals(param.getTradeType())
+					||(TradeTypeEnum.TRANSFER.toString().equals(param.getTradeType())&&FundsDirectionEnum.DECR.toString().equals(param.getFundsDirection()))
+					||TradeTypeEnum.AHEADWITDRAW.toString().equals(param.getTradeType())){
+				account.setTotalOnInvested(account.getTotalOnInvested().subtract(new BigDecimal(param.getAmount())));
+				
+				
+			}else{
+				
+			}
+			account.setTotalInvested(new BigDecimal(param.getAmount()));
+			account.setTotalOnInvested(new BigDecimal(param.getAmount()));
+			account.setTotalInterest(new BigDecimal(0));
+			account.setYesterdayInterest(new BigDecimal(0));
+			account.setLastModifyTime(DateUtil.getLastModifyTime());
+		}
+		
 	}
 
 }

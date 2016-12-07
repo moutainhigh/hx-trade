@@ -4,16 +4,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.hgxh.trade.dao.ProductInformationsDao;
+import com.hgxh.trade.entity.ProductInformationsEntity;
 import com.hgxh.trade.enums.BaseExceptionMsg;
+import com.hgxh.trade.enums.ProductTypeEnum;
 import com.hgxh.trade.param.InvestParam;
 import com.hgxh.trade.param.WithdrawParam;
 import com.hgxh.trade.remote.RuifudeRemote;
 import com.hgxh.trade.result.AccountResult;
 import com.hgxh.trade.result.RuiFuDeRemoteResult;
 import com.hgxh.trade.result.ResultInfo;
+import com.hgxh.trade.util.NumberUtil;
+import com.hgxh.trade.util.SequenceUtil;
 import com.hgxh.trade.util.SimpleHttpUtil;
 
 /**
@@ -28,6 +34,9 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
 	
 	@Value("${ruifude.remote.url}")
 	private String ruifudeRemoteUrl;
+	
+	@Autowired
+	private ProductInformationsDao productDao;
 
 	/**
 	 * 查询卡户信息
@@ -42,7 +51,15 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
     	//封装返回信息
     	AccountResult accountResult = new AccountResult();
     	//测试信息开始
-    	accountResult.setMemberNo("HS10010");
+    	accountResult.setMemberNo("HS"+NumberUtil.getRandomNo(5));
+    	accountResult.setAreaNo("A100");
+    	accountResult.setJoinTime("1481009685000");
+    	accountResult.setMemberName("罗振栋");
+    	accountResult.setCensusRegisterType("CITY");
+    	accountResult.setAddress("黄山市屯溪区老街");
+    	accountResult.setMobile("13913787231");
+    	accountResult.setIntroducerName("菲林");
+    	accountResult.setPassbook("6213454650987654");
     	String res = "success";
     	//测试信息结束
     	if(StringUtils.isNotBlank(res) && StringUtils.isNotBlank(accountResult.getMemberNo())){
@@ -70,6 +87,7 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
 //    	String res = SimpleHttpUtil.doPost(ruifudeRemoteUrl+"/save", params);	
     	//res -> RuiFuDeRemoteResult
     	RuiFuDeRemoteResult remoteResult = new RuiFuDeRemoteResult();
+    	ProductInformationsEntity product = productDao.selectByProductNo(param.getProductNo());
     	//测试信息开始
     	remoteResult.setRspCode("00");
     	remoteResult.setVoucherNo("P12563423123");
@@ -77,7 +95,9 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
     	//测试信息结束
     	if(StringUtils.isNotBlank(res) && "00".equals(remoteResult.getRspCode())){
     		Map<String, String> map = new HashMap<String, String>();
-    		params.put("voucherNo", remoteResult.getVoucherNo());
+    		if(ProductTypeEnum.FIXED.equals(product.getProductType())){
+    			map.put("voucherNo", SequenceUtil.getVoucherNo());
+        	}
     		result = new ResultInfo(BaseExceptionMsg.SUCCESS,map);
     	}else{
     		result = new ResultInfo(remoteResult.getRspCode(),remoteResult.getRspMsg());

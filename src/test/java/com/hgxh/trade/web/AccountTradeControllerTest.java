@@ -16,12 +16,14 @@ import com.hgxh.trade.util.SimpleHttpUtil;
 */
 public class AccountTradeControllerTest {
 	
-	private String  baseUrl="http://localhost:8080/accountTrade/";
+	private String  baseUrl="http://59.151.121.92:8080/accountTrade/";
+	
+//	private String  baseUrl="http://localhost:8080/accountTrade/"
 	
     @Test
     public void getAccountInfo() throws Exception {
     	Map<String, String> params=new HashMap<String, String>();	
-    	params.put("idCardNo", "2131232");
+    	params.put("idCardNo", "6201104598039428");
     	String result=SimpleHttpUtil.doPost(baseUrl+"getAccountInfo", params);
     	System.out.println("*******************");
 		System.out.println("**********"+result+"**********");
@@ -30,11 +32,12 @@ public class AccountTradeControllerTest {
     @Test
     public void invest() throws Exception {
     	Map<String, String> params=new HashMap<String, String>();	
-    	params.put("memberNo", "2131232");
-    	params.put("passbook", "2131232");
-    	params.put("productType", "2131232");
-    	params.put("amount", "2131232");
-    	params.put("investTime", "2131232");
+    	params.put("memberNo", "HS10002");
+    	params.put("passbook", "6201104598039428");
+    	params.put("productNo", "FIXED-3-1");
+    	params.put("amount", "1000");
+    	params.put("investTime", "1481014349000");
+    	params.put("transferSaveType", "INTERESTTRANS");
     	String result=SimpleHttpUtil.doPost(baseUrl+"invest", params);
     	System.out.println("*******************");
 		System.out.println("**********"+result+"**********");

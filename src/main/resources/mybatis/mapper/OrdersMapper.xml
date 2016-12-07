@@ -20,12 +20,13 @@
         <result column="transfer_sava_type" property="transferSavaType" jdbcType="VARCHAR" />
         <result column="pay_type" property="payType" jdbcType="VARCHAR" />
         <result column="yeild" property="yeild" jdbcType="DECIMAL" />
+        <result column="predict_interest" property="predictInterest" jdbcType="DECIMAL" />
     </resultMap>
 
     <sql id="Base_Column_List" >
         id, version, biz_no, member_no, order_no, product_no, user_id, amount, withdrawal_amount, 
         already_withdraw_count, status, order_type, expiration_time, order_time, last_modify_time, 
-        transfer_sava_type, pay_type, yeild
+        transfer_sava_type, pay_type, yeild, predict_interest
     </sql>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -92,6 +93,9 @@
             <if test="yeild != null" >
                 yeild,
             </if>
+            <if test="predictInterest != null" >
+                predict_interest,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="id != null" >
@@ -148,13 +152,16 @@
             <if test="yeild != null" >
                 #{yeild,jdbcType=DECIMAL},
             </if>
+            <if test="predictInterest != null" >
+                #{predictInterest,jdbcType=DECIMAL},
+            </if>
         </trim>
     </insert>
 
     <update id="updateByPrimaryKeySelective" parameterType="com.hgxh.trade.entity.OrdersEntity" >
         update orders
         <set >
-                version = version+1,
+            	version = version+1,
             <if test="bizNo != null" >
                 biz_no = #{bizNo,jdbcType=VARCHAR},
             </if>
@@ -203,16 +210,19 @@
             <if test="yeild != null" >
                 yeild = #{yeild,jdbcType=DECIMAL},
             </if>
+            <if test="predictInterest != null" >
+                predict_interest = #{predictInterest,jdbcType=DECIMAL},
+            </if>
         </set>
-        where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+        where id = #{id,jdbcType=BIGINT}  and version = #{version,jdbcType=BIGINT}
     </update>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
         delete from orders
         where id = #{id,jdbcType=BIGINT}
     </delete>
-    
-    <select id="selectSucByBizNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+	
+	<select id="selectSucByBizNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
         select 
         <include refid="Base_Column_List" />
         from orders

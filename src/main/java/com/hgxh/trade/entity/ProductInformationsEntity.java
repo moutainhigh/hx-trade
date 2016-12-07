@@ -2,6 +2,8 @@ package com.hgxh.trade.entity;
 
 import java.math.BigDecimal;
 
+import com.hgxh.trade.enums.ProductTypeEnum;
+
 /**
  * @ClassName ProductInformationsEntity
  * @Description 产品信息表
@@ -24,7 +26,7 @@ public class ProductInformationsEntity extends BaseEntity{
     //产品名称
     private String productName;
     //产品类型：CURRENT:活期；FIXED:定期
-    private String productType;
+    private ProductTypeEnum productType;
     //产品周期：单位:天;每月按30天,每年按365天
     private Integer cycle;
     //利率
@@ -66,10 +68,10 @@ public class ProductInformationsEntity extends BaseEntity{
     public void setProductName(String productName) {
         this.productName = productName;
     }
-    public String getProductType() {
+    public ProductTypeEnum getProductType() {
         return productType;
     }
-    public void setProductType(String productType) {
+    public void setProductType(ProductTypeEnum productType) {
         this.productType = productType;
     }
     public Integer getCycle() {

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hgxh.trade.dao.UserAccountsDao" >
+    <resultMap id="BaseResultMap" type="com.hgxh.trade.entity.UserAccountsEntity" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="version" property="version" jdbcType="BIGINT" />
+        <result column="user_id" property="userId" jdbcType="BIGINT" />
+        <result column="total_invested" property="totalInvested" jdbcType="DECIMAL" />
+        <result column="total_on_invested" property="totalOnInvested" jdbcType="DECIMAL" />
+        <result column="total_interest" property="totalInterest" jdbcType="DECIMAL" />
+        <result column="yesterday_interest" property="yesterdayInterest" jdbcType="DECIMAL" />
+        <result column="last_modify_time" property="lastModifyTime" jdbcType="BIGINT" />
+        <result column="createTime" property="createtime" jdbcType="BIGINT" />
+        <result column="member_no" property="memberNo" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, version, user_id, total_invested, total_on_invested, total_interest, yesterday_interest, 
+        last_modify_time, createTime, member_no
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select 
+        <include refid="Base_Column_List" />
+        from user_accounts
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <insert id="insertSelective" parameterType="com.hgxh.trade.entity.UserAccountsEntity" >
+        insert into user_accounts
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="version != null" >
+                version,
+            </if>
+            <if test="userId != null" >
+                user_id,
+            </if>
+            <if test="totalInvested != null" >
+                total_invested,
+            </if>
+            <if test="totalOnInvested != null" >
+                total_on_invested,
+            </if>
+            <if test="totalInterest != null" >
+                total_interest,
+            </if>
+            <if test="yesterdayInterest != null" >
+                yesterday_interest,
+            </if>
+            <if test="lastModifyTime != null" >
+                last_modify_time,
+            </if>
+            <if test="createtime != null" >
+                createTime,
+            </if>
+            <if test="memberNo != null" >
+                member_no,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="version != null" >
+                #{version,jdbcType=BIGINT},
+            </if>
+            <if test="userId != null" >
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="totalInvested != null" >
+                #{totalInvested,jdbcType=DECIMAL},
+            </if>
+            <if test="totalOnInvested != null" >
+                #{totalOnInvested,jdbcType=DECIMAL},
+            </if>
+            <if test="totalInterest != null" >
+                #{totalInterest,jdbcType=DECIMAL},
+            </if>
+            <if test="yesterdayInterest != null" >
+                #{yesterdayInterest,jdbcType=DECIMAL},
+            </if>
+            <if test="lastModifyTime != null" >
+                #{lastModifyTime,jdbcType=BIGINT},
+            </if>
+            <if test="createtime != null" >
+                #{createtime,jdbcType=BIGINT},
+            </if>
+            <if test="memberNo != null" >
+                #{memberNo,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.hgxh.trade.entity.UserAccountsEntity" >
+        update user_accounts
+        <set >
+				version = version+1,
+            <if test="userId != null" >
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="totalInvested != null" >
+                total_invested = #{totalInvested,jdbcType=DECIMAL},
+            </if>
+            <if test="totalOnInvested != null" >
+                total_on_invested = #{totalOnInvested,jdbcType=DECIMAL},
+            </if>
+            <if test="totalInterest != null" >
+                total_interest = #{totalInterest,jdbcType=DECIMAL},
+            </if>
+            <if test="yesterdayInterest != null" >
+                yesterday_interest = #{yesterdayInterest,jdbcType=DECIMAL},
+            </if>
+            <if test="lastModifyTime != null" >
+                last_modify_time = #{lastModifyTime,jdbcType=BIGINT},
+            </if>
+            <if test="createtime != null" >
+                createTime = #{createtime,jdbcType=BIGINT},
+            </if>
+            <if test="memberNo != null" >
+                member_no = #{memberNo,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+        delete from user_accounts
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+	
+	<select id="selectByMemberNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from user_accounts
+        where member_no = #{memberNo,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

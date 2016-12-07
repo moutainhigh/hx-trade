@@ -26,10 +26,10 @@ public class CounterTradeServiceTest {
 	private CounterTradeService counterTradeService;
 	
 	@Test
-	public void selectById(){
+	public void saveCounterTrade(){
 		CounterTradeParam param = new CounterTradeParam();
-		param.setAmount("100");
-		param.setBizNo("620110459180394245");
+		param.setAmount("500");
+		param.setBizNo("62011044533431301");
 		param.setFundsDirection("INCR");
 		param.setMemberNo("HS10002");
 		param.setPayType("EBANK");

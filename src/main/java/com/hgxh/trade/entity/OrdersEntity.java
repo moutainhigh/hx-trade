@@ -9,7 +9,7 @@ import com.hgxh.trade.param.OrderStatusEnum;
  * @ClassName OrdersEntity
  * @Description 订单管理
  * @author yuyang
- * @date 2016-12-06 10:02:24
+ * @date 2016-12-07 15:53:09
  * @version 1.0 
  */
 public class OrdersEntity extends BaseEntity{
@@ -54,6 +54,8 @@ public class OrdersEntity extends BaseEntity{
     private String payType;
     //利率
     private BigDecimal yeild;
+    //定期到期预计收益
+    private BigDecimal predictInterest;
 
     public Long getId() {
         return id;
@@ -116,18 +118,18 @@ public class OrdersEntity extends BaseEntity{
         this.alreadyWithdrawCount = alreadyWithdrawCount;
     }
     public OrderStatusEnum getStatus() {
-        return status;
-    }
-    public void setStatus(OrderStatusEnum status) {
-        this.status = status;
-    }
-    public OrderTypeEnum getOrderType() {
-        return orderType;
-    }
-    public void setOrderType(OrderTypeEnum orderType) {
-        this.orderType = orderType;
-    }
-    public Long getExpirationTime() {
+		return status;
+	}
+	public void setStatus(OrderStatusEnum status) {
+		this.status = status;
+	}
+	public OrderTypeEnum getOrderType() {
+		return orderType;
+	}
+	public void setOrderType(OrderTypeEnum orderType) {
+		this.orderType = orderType;
+	}
+	public Long getExpirationTime() {
         return expirationTime;
     }
     public void setExpirationTime(Long expirationTime) {
@@ -162,6 +164,12 @@ public class OrdersEntity extends BaseEntity{
     }
     public void setYeild(BigDecimal yeild) {
         this.yeild = yeild;
+    }
+    public BigDecimal getPredictInterest() {
+        return predictInterest;
+    }
+    public void setPredictInterest(BigDecimal predictInterest) {
+        this.predictInterest = predictInterest;
     }
 
 }
