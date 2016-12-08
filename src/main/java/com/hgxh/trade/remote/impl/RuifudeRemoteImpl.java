@@ -68,11 +68,11 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
     	accountResult1.setMemberNo("HS"+NumberUtil.getRandomNo(5));
     	accountResult1.setAreaNo("A100");
     	accountResult1.setJoinTime("1481101635592");
-    	accountResult1.setMemberName("于夕");
+    	accountResult1.setMemberName("罗成");
     	accountResult1.setCensusRegisterType("CITY");
     	accountResult1.setAddress("黄山市屯溪区老街");
     	accountResult1.setMobile("13913454330");
-    	accountResult1.setIntroducerName("王珏");
+    	accountResult1.setIntroducerName("李伟");
     	accountResult1.setPassbook("621345465450813");
     	list.add(accountResult1);
     	String res = "success";
