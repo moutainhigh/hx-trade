@@ -120,7 +120,7 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 		ordersEntity.setAlreadyWithdrawCount(0);
 		ordersEntity.setStatus(OrderStatusEnum.SUCCESS);
 		ordersEntity.setOrderType(OrderTypeEnum.PURCHASE);
-		long tradeTimestamp = DateUtil.stringToTimestamp(param.getTradeTime());
+		long tradeTimestamp = Long.parseLong(param.getTradeTime());
 		ordersEntity.setOrderTime(tradeTimestamp);
 		ordersEntity.setLastModifyTime(DateUtil.getLastModifyTime());
 		if(ProductTypeEnum.FIXED.toString().equals(param.getProductType())){

@@ -118,9 +118,7 @@
     <update id="updateByPrimaryKeySelective" parameterType="com.hgxh.trade.entity.ProductInformationsEntity" >
         update product_informations
         <set >
-            <if test="version != null" >
-                version = #{version,jdbcType=BIGINT},
-            </if>
+            	version = version+1,
             <if test="productNo != null" >
                 product_no = #{productNo,jdbcType=VARCHAR},
             </if>
@@ -155,7 +153,7 @@
                 last_modify_time = #{lastModifyTime,jdbcType=BIGINT},
             </if>
         </set>
-        where id = #{id,jdbcType=BIGINT}
+        where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
     </update>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
@@ -169,5 +167,46 @@
         from product_informations
         where product_no = #{productNo,jdbcType=BIGINT}
     </select>
+    
+    <update id="updateByProductNo" parameterType="com.hgxh.trade.entity.ProductInformationsEntity" >
+        update product_informations
+        <set >
+            	version = version+1,
+            <if test="productNo != null" >
+                product_no = #{productNo,jdbcType=VARCHAR},
+            </if>
+            <if test="productName != null" >
+                product_name = #{productName,jdbcType=VARCHAR},
+            </if>
+            <if test="productType != null" >
+                product_type = #{productType,jdbcType=VARCHAR},
+            </if>
+            <if test="cycle != null" >
+                cycle = #{cycle,jdbcType=INTEGER},
+            </if>
+            <if test="yield != null" >
+                yield = #{yield,jdbcType=DECIMAL},
+            </if>
+            <if test="status != null" >
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="withdrawCount != null" >
+                withdraw_count = #{withdrawCount,jdbcType=INTEGER},
+            </if>
+            <if test="briefIntroduction != null" >
+                brief_introduction = #{briefIntroduction,jdbcType=VARCHAR},
+            </if>
+            <if test="introduction != null" >
+                introduction = #{introduction,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=BIGINT},
+            </if>
+            <if test="lastModifyTime != null" >
+                last_modify_time = #{lastModifyTime,jdbcType=BIGINT},
+            </if>
+        </set>
+        where product_no = #{productNo,jdbcType=VARCHAR} and version = #{version,jdbcType=BIGINT}
+    </update>
 
 </mapper>

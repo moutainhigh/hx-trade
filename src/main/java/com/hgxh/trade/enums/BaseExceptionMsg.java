@@ -13,6 +13,7 @@ public enum BaseExceptionMsg {
     UNKNOW_ERROR("999999", "未知错误"),
     PARAM_IS_NULL("000001", "参数为空或缺少必传参数"),
     CALL_REMOTE_SERVICE_FAILED("000002", "连接接口服务异常"),
+    RESULT_SAVE_FAILED("000003", "结果通知保存失败"),
 
 
     /*	trade-service 01

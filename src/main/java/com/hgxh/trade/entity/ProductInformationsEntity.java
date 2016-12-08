@@ -2,6 +2,7 @@ package com.hgxh.trade.entity;
 
 import java.math.BigDecimal;
 
+import com.hgxh.trade.enums.ProductStatusEnum;
 import com.hgxh.trade.enums.ProductTypeEnum;
 
 /**
@@ -32,7 +33,7 @@ public class ProductInformationsEntity extends BaseEntity{
     //利率
     private BigDecimal yield;
     //产品状态:INIT：初始,AUDITED：已审核,PUBLISHED：已发布,FINISHED：已结束
-    private String status;
+    private ProductStatusEnum status;
     //允许提现次数
     private Integer withdrawCount;
     //简介
@@ -86,13 +87,13 @@ public class ProductInformationsEntity extends BaseEntity{
     public void setYield(BigDecimal yield) {
         this.yield = yield;
     }
-    public String getStatus() {
-        return status;
-    }
-    public void setStatus(String status) {
-        this.status = status;
-    }
-    public Integer getWithdrawCount() {
+    public ProductStatusEnum getStatus() {
+		return status;
+	}
+	public void setStatus(ProductStatusEnum status) {
+		this.status = status;
+	}
+	public Integer getWithdrawCount() {
         return withdrawCount;
     }
     public void setWithdrawCount(Integer withdrawCount) {
