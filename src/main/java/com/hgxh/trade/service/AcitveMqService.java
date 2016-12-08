@@ -1,4 +1,7 @@
 package com.hgxh.trade.service;
+
+import java.util.Map;
+
 /**
 *@ClassName: AcitveMqService
 *@Description: 
@@ -8,8 +11,10 @@ package com.hgxh.trade.service;
 */
 public interface AcitveMqService {
 	
-	public void sendBidSucceedQueue(String bidNo);
-	
 	public void sendMsgQueue(String mobile,String content);
+	
+	public void sendCounterTradeQueue(Map<String, String> msg);
+	
+	public void sendUpsertProductQueue(Map<String, String> msg);
 
 }

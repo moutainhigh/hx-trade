@@ -4,6 +4,7 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.hgxh.trade.biz.CounterCallBackBiz;
 import com.hgxh.trade.enums.BaseExceptionMsg;
@@ -21,6 +22,8 @@ import com.hgxh.trade.util.PropertyUtils;
 *@date 2016年12月8日  上午10:26:20
 *@version 1.0
 */
+
+@Service
 public class CounterCallBackBizImpl implements CounterCallBackBiz {
 	
 	private static final Logger logger = LoggerFactory.getLogger(CounterCallBackBizImpl.class);

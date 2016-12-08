@@ -19,13 +19,18 @@ import org.springframework.jms.annotation.EnableJms;
 public class ActiveMQConfig {
 	
 	@Bean
-    public Queue bidSucceedQueue() {  
-        return new ActiveMQQueue("bidSucceed-queue");  
+    public Queue sendMsgQueue() {  
+        return new ActiveMQQueue("send-sms-queue");  
+    }
+	
+	@Bean
+    public Queue counterTradeQueue() {  
+        return new ActiveMQQueue("counter-trade-queue");  
     }  
 	
 	@Bean
-    public Queue sendMsgQueue() {  
-        return new ActiveMQQueue("send-sms-queue");  
+    public Queue upsertProductQueue() {  
+        return new ActiveMQQueue("upsert-product-queue");  
     }
 
 }

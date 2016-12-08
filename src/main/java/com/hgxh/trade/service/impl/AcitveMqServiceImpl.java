@@ -1,5 +1,7 @@
 package com.hgxh.trade.service.impl;
 
+import java.util.Map;
+
 import javax.jms.Queue;
 
 import org.slf4j.Logger;
@@ -25,32 +27,11 @@ public class AcitveMqServiceImpl implements AcitveMqService {
 	@Autowired  
     private JmsMessagingTemplate jmsMessagingTemplate;   
     @Autowired  
-    private Queue bidSucceedQueue;
-    @Autowired  
     private Queue sendMsgQueue;
-    
-    /**
-     * 监听消息队列实例  
-     * @param text
-     */
-//    @JmsListener(destination = "sample.queue")
-//    public void receiveQueue(String text) {  
-//        //test为监听到的消息 
-//    } 
-    
-    /**
-	 * 发送标的成功消息
-	 * @param bidno
-	 */
-    @Override
-	public void sendBidSucceedQueue(String bidNo) {
-		final String msg = "B|" + bidNo;
-		try {			
-			jmsMessagingTemplate.convertAndSend(bidSucceedQueue, msg); 
-		} catch (Exception e) {
-			logger.warn("sendQueue bidSuccessd failed, [bidno is {}] exception [[]]",bidNo,e);
-		}
-	}
+    @Autowired  
+    private Queue counterTradeQueue;
+    @Autowired  
+    private Queue upsertProductQueue;
     
     /**
 	 * 发送发送短信消息
@@ -64,6 +45,24 @@ public class AcitveMqServiceImpl implements AcitveMqService {
 			jmsMessagingTemplate.convertAndSend(sendMsgQueue, contentMsg); 
 		} catch (Exception e) {
 			logger.error("send msgQueue fail ", e);
+		}
+	}
+
+	@Override
+	public void sendCounterTradeQueue(Map<String, String> msg) {
+		try {
+			jmsMessagingTemplate.convertAndSend(counterTradeQueue, msg); 
+		} catch (Exception e) {
+			logger.error("send counterTradeQueue fail ", e);
+		}
+	}
+
+	@Override
+	public void sendUpsertProductQueue(Map<String, String> msg) {
+		try {
+			jmsMessagingTemplate.convertAndSend(upsertProductQueue, msg); 
+		} catch (Exception e) {
+			logger.error("send upsertProductQueue fail ", e);
 		}
 	}
 
