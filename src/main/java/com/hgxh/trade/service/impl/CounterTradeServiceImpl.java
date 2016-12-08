@@ -18,12 +18,12 @@ import com.hgxh.trade.entity.UserAccountsEntity;
 import com.hgxh.trade.entity.UserMemberInformationsEntity;
 import com.hgxh.trade.enums.BaseExceptionMsg;
 import com.hgxh.trade.enums.FundsDirectionEnum;
+import com.hgxh.trade.enums.OrderStatusEnum;
 import com.hgxh.trade.enums.OrderTypeEnum;
 import com.hgxh.trade.enums.ProductTypeEnum;
 import com.hgxh.trade.enums.TradeSourceEnum;
 import com.hgxh.trade.enums.TradeTypeEnum;
 import com.hgxh.trade.param.CounterTradeParam;
-import com.hgxh.trade.param.OrderStatusEnum;
 import com.hgxh.trade.result.ResultInfo;
 import com.hgxh.trade.service.CounterTradeService;
 import com.hgxh.trade.util.Constants;
@@ -124,8 +124,8 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 		ordersEntity.setOrderTime(tradeTimestamp);
 		ordersEntity.setLastModifyTime(DateUtil.getLastModifyTime());
 		if(ProductTypeEnum.FIXED.toString().equals(param.getProductType())){
-			long expirationTime = DateUtil.getDayBegin(tradeTimestamp) + product.getCycle()*Constants.ONEDAY;
-			ordersEntity.setExpirationTime(expirationTime);
+//			long expirationTime = DateUtil.getDayBegin(tradeTimestamp) + product.getCycle()*Constants.ONEDAY;
+			ordersEntity.setExpirationTime(Long.parseLong(param.getExpirationTime()));
 			ordersEntity.setPredictInterest(ordersEntity.getWithdrawalAmount().multiply(product.getYield().divide(new BigDecimal(100)))
 					.multiply(new BigDecimal(product.getCycle())).divide(new BigDecimal(365),2,BigDecimal.ROUND_HALF_UP));
 		}

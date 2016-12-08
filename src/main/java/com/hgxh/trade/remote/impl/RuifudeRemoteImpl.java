@@ -66,7 +66,7 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
     	list.add(accountResult);
     	AccountResult accountResult1 = new AccountResult();
     	accountResult1.setMemberNo("HS"+NumberUtil.getRandomNo(5));
-    	accountResult1.setAreaNo("A100");
+    	accountResult1.setAreaNo("A200");
     	accountResult1.setJoinTime("1481101635592");
     	accountResult1.setMemberName("罗成");
     	accountResult1.setCensusRegisterType("CITY");

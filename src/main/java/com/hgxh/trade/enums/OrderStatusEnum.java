@@ -1,4 +1,4 @@
-package com.hgxh.trade.param;
+package com.hgxh.trade.enums;
 /**
 *@ClassName: OrderStatusEnum
 *@Description: 

@@ -28,7 +28,7 @@ public class CounterTradeParam extends BaseParam{
 	private String tradeTime;
 	//支付方式
 	private String payType;
-	//转存方式 
+	//转存方式 	购买定期、本金转存、本息转存 需提供
     private String transferSavaType;
     //产品类型
     private String productType;
@@ -36,6 +36,8 @@ public class CounterTradeParam extends BaseParam{
   	private String bankCardNo;
   	//原定期凭证号	本金转存、本息转存、定期转活期 需要提供
   	private String orgiVoucherNo;
+  	//到期时间	购买定期、本金转存、本息转存 需要提供
+  	private String expirationTime;
 	
 	public String getProductType() {
 		return productType;
@@ -108,6 +110,12 @@ public class CounterTradeParam extends BaseParam{
 	}
 	public void setOrgiVoucherNo(String orgiVoucherNo) {
 		this.orgiVoucherNo = orgiVoucherNo;
+	}
+	public String getExpirationTime() {
+		return expirationTime;
+	}
+	public void setExpirationTime(String expirationTime) {
+		this.expirationTime = expirationTime;
 	}
 	
 }

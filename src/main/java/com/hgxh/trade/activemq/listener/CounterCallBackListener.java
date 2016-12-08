@@ -59,6 +59,7 @@ public class CounterCallBackListener {
     	tradeParam.setPayType(map.get("payType"));
     	tradeParam.setBankCardNo("bankCardNo");
     	tradeParam.setOrgiVoucherNo(map.get("orgiVoucherNo"));
+    	tradeParam.setExpirationTime(map.get("expirationTime"));
     	return tradeParam;
     }
     

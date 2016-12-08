@@ -2,8 +2,8 @@ package com.hgxh.trade.entity;
 
 import java.math.BigDecimal;
 
+import com.hgxh.trade.enums.OrderStatusEnum;
 import com.hgxh.trade.enums.OrderTypeEnum;
-import com.hgxh.trade.param.OrderStatusEnum;
 
 /**
  * @ClassName OrdersEntity
