@@ -41,10 +41,10 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
 	private ProductInformationsDao productDao;
 
 	/**
-	 * 查询卡户信息
+	 * 查询开户信息
 	 */
 	@Override
-	public ResultInfo getAccountInfo(String idCardNo)  throws Exception {
+	public ResultInfo getAccountInfo(String idCardNo) throws Exception{
 		ResultInfo result = null;
 		Map<String, String> params=new HashMap<String, String>();	
     	params.put("idCardNo", idCardNo);
@@ -77,11 +77,16 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
     	list.add(accountResult1);
     	String res = "success";
     	//测试信息结束
-    	if(StringUtils.isNotBlank(res) && StringUtils.isNotBlank(accountResult.getMemberNo())){
-    		result = new ResultInfo(BaseExceptionMsg.SUCCESS,list);
+    	if("success".equals(res)){
+    		if(list != null && list.size()>0){
+        		result = new ResultInfo(BaseExceptionMsg.SUCCESS,list);
+        	}else{
+        		result = new ResultInfo(BaseExceptionMsg.ACCOUNT_NOT_EXIST);
+        	}
     	}else{
-    		result = new ResultInfo(BaseExceptionMsg.ACCOUNT_NOT_EXIST);
+    		result = new ResultInfo(BaseExceptionMsg.CALL_REMOTE_SERVICE_FAILED);
     	}
+    	
 		return result; 
 	}
 

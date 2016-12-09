@@ -26,7 +26,6 @@ import com.hgxh.trade.enums.TradeTypeEnum;
 import com.hgxh.trade.param.CounterTradeParam;
 import com.hgxh.trade.result.ResultInfo;
 import com.hgxh.trade.service.CounterTradeService;
-import com.hgxh.trade.util.Constants;
 import com.hgxh.trade.util.DateUtil;
 import com.hgxh.trade.util.SequenceUtil;
 
