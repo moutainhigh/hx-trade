@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hgxh.trade.dao.LoanInformationsDao" >
+    <resultMap id="BaseResultMap" type="com.hgxh.trade.entity.LoanInformationsEntity" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="issue_voucher_no" property="issueVoucherNo" jdbcType="VARCHAR" />
+        <result column="member_no" property="memberNo" jdbcType="VARCHAR" />
+        <result column="repay_type" property="repayType" jdbcType="VARCHAR" />
+        <result column="repay_way" property="repayWay" jdbcType="VARCHAR" />
+        <result column="amount" property="amount" jdbcType="DECIMAL" />
+        <result column="yeild" property="yeild" jdbcType="DECIMAL" />
+        <result column="begin_time" property="beginTime" jdbcType="BIGINT" />
+        <result column="end_time" property="endTime" jdbcType="BIGINT" />
+        <result column="status" property="status" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="BIGINT" />
+        <result column="last_modify_time" property="lastModifyTime" jdbcType="BIGINT" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, issue_voucher_no, member_no, repay_type, repay_way, amount, yeild, begin_time, 
+        end_time, status, create_time, last_modify_time
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select 
+        <include refid="Base_Column_List" />
+        from loan_informations
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <insert id="insertSelective" parameterType="com.hgxh.trade.entity.LoanInformationsEntity" >
+        insert into loan_informations
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="issueVoucherNo != null" >
+                issue_voucher_no,
+            </if>
+            <if test="memberNo != null" >
+                member_no,
+            </if>
+            <if test="repayType != null" >
+                repay_type,
+            </if>
+            <if test="repayWay != null" >
+                repay_way,
+            </if>
+            <if test="amount != null" >
+                amount,
+            </if>
+            <if test="yeild != null" >
+                yeild,
+            </if>
+            <if test="beginTime != null" >
+                begin_time,
+            </if>
+            <if test="endTime != null" >
+                end_time,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="lastModifyTime != null" >
+                last_modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="issueVoucherNo != null" >
+                #{issueVoucherNo,jdbcType=VARCHAR},
+            </if>
+            <if test="memberNo != null" >
+                #{memberNo,jdbcType=VARCHAR},
+            </if>
+            <if test="repayType != null" >
+                #{repayType,jdbcType=VARCHAR},
+            </if>
+            <if test="repayWay != null" >
+                #{repayWay,jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null" >
+                #{amount,jdbcType=DECIMAL},
+            </if>
+            <if test="yeild != null" >
+                #{yeild,jdbcType=DECIMAL},
+            </if>
+            <if test="beginTime != null" >
+                #{beginTime,jdbcType=BIGINT},
+            </if>
+            <if test="endTime != null" >
+                #{endTime,jdbcType=BIGINT},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=BIGINT},
+            </if>
+            <if test="lastModifyTime != null" >
+                #{lastModifyTime,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.hgxh.trade.entity.LoanInformationsEntity" >
+        update loan_informations
+        <set >
+            <if test="issueVoucherNo != null" >
+                issue_voucher_no = #{issueVoucherNo,jdbcType=VARCHAR},
+            </if>
+            <if test="memberNo != null" >
+                member_no = #{memberNo,jdbcType=VARCHAR},
+            </if>
+            <if test="repayType != null" >
+                repay_type = #{repayType,jdbcType=VARCHAR},
+            </if>
+            <if test="repayWay != null" >
+                repay_way = #{repayWay,jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null" >
+                amount = #{amount,jdbcType=DECIMAL},
+            </if>
+            <if test="yeild != null" >
+                yeild = #{yeild,jdbcType=DECIMAL},
+            </if>
+            <if test="beginTime != null" >
+                begin_time = #{beginTime,jdbcType=BIGINT},
+            </if>
+            <if test="endTime != null" >
+                end_time = #{endTime,jdbcType=BIGINT},
+            </if>
+            <if test="status != null" >
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=BIGINT},
+            </if>
+            <if test="lastModifyTime != null" >
+                last_modify_time = #{lastModifyTime,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+        delete from loan_informations
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    
+    <update id="updateStatusByVoucherNo" parameterType="java.lang.String" >
+        update loan_informations
+		set status = 'PREPAY'
+        where issue_voucher_no = #{issueVoucherNo,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

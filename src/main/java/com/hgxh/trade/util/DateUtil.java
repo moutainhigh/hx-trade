@@ -58,10 +58,6 @@ public class DateUtil {
     public static long getLastModifyTime() {
         return System.currentTimeMillis();
     }
-    
-    public static long getCurrentTime() {
-        return System.currentTimeMillis();
-    }
 
     public static long getToday() {
         String format = "yyyy-MM-DD";
@@ -100,7 +96,7 @@ public class DateUtil {
 	 * @param date
 	 * @return
 	 */
-	public static String format1DateToString(Long date){
+	public static String format1DateToString(long date){
 		return DateSimpleUtil.toString(new Date(date), "yyyy-MM-dd");
 	}
     
@@ -131,7 +127,12 @@ public class DateUtil {
      * @return
      */
     public static long stringToTimestamp(String str) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+    	SimpleDateFormat sdf;
+    	if(str.length() == 8){
+    		sdf = new SimpleDateFormat("yyyyMMdd");
+    	}else{
+    		sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+    	}
         Date date = new Date();
         try {
             date = sdf.parse(str);
@@ -156,6 +157,73 @@ public class DateUtil {
             throw new RuntimeException(e);
         }
         return toDay.getTime();
+    }
+    
+    /**
+     * 获取两个时间之间是几个月
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    public static int getMonths(long startTime, long endTime){
+    	String start = format1DateToString(startTime);
+		String end = format1DateToString(endTime);
+		String s[] = start.split("-");
+		String e[] = end.split("-");
+		int months = Math.abs((Integer.parseInt(e[0])-Integer.parseInt(s[0]))*12
+				+Integer.parseInt(e[1])-Integer.parseInt(s[1]));
+    	return months;
+    }
+    
+    /**
+     * 获取日期当月天数
+     * @param time
+     * @return
+     */
+    public static int getMonthDays(long time){
+    	String date = format1DateToString(time);
+    	String d[] = date.split("-");
+    	int year = Integer.parseInt(d[0]);
+    	int month = Integer.parseInt(d[1]);
+    	int days[] = new int[12];
+	    days[0] = 31;
+	    days[2] = 31;
+	    days[3] = 30;
+	    days[4] = 31;
+	    days[5] = 30;
+	    days[6] = 31;
+	    days[7] = 31;
+	    days[8] = 30;
+	    days[9] = 31;
+	    days[10] = 30;
+	    days[11] = 31;
+	    if ((year%4 == 0 && year%100 != 0) || year%400 == 0) {
+	        days[1] = 29;
+	    } else {
+	        days[1] = 28;
+	    }		 
+	    return days[month-1];
+    }
+    
+    public static int getMonthDays(int year, int month){
+    	int days[] = new int[12];
+	    days[0] = 31;
+	    days[2] = 31;
+	    days[3] = 30;
+	    days[4] = 31;
+	    days[5] = 30;
+	    days[6] = 31;
+	    days[7] = 31;
+	    days[8] = 30;
+	    days[9] = 31;
+	    days[10] = 30;
+	    days[11] = 31;
+	    if ((year%4 == 0 && year%100 != 0) || year%400 == 0) {
+	        days[1] = 29;
+	    } else {
+	        days[1] = 28;
+	    }		 
+	    return days[month-1];
     }
     
 }

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hgxh.trade.dao.LoanRepayInformationsDao" >
+    <resultMap id="BaseResultMap" type="com.hgxh.trade.entity.LoanRepayInformationsEntity" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="issue_voucher_no" property="issueVoucherNo" jdbcType="VARCHAR" />
+        <result column="overdue" property="overdue" jdbcType="VARCHAR" />
+        <result column="overdue_days" property="overdueDays" jdbcType="INTEGER" />
+        <result column="default_amount" property="defaultAmount" jdbcType="DECIMAL" />
+        <result column="ahead_repay" property="aheadRepay" jdbcType="VARCHAR" />
+        <result column="user_repay_time" property="userRepayTime" jdbcType="BIGINT" />
+        <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, issue_voucher_no, overdue, overdue_days, default_amount, ahead_repay, user_repay_time, 
+        create_time
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select 
+        <include refid="Base_Column_List" />
+        from loan_repay_informations
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <insert id="insertSelective" parameterType="com.hgxh.trade.entity.LoanRepayInformationsEntity" >
+        insert into loan_repay_informations
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="issueVoucherNo != null" >
+                issue_voucher_no,
+            </if>
+            <if test="overdue != null" >
+                overdue,
+            </if>
+            <if test="overdueDays != null" >
+                overdue_days,
+            </if>
+            <if test="defaultAmount != null" >
+                default_amount,
+            </if>
+            <if test="aheadRepay != null" >
+                ahead_repay,
+            </if>
+            <if test="userRepayTime != null" >
+                user_repay_time,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="issueVoucherNo != null" >
+                #{issueVoucherNo,jdbcType=VARCHAR},
+            </if>
+            <if test="overdue != null" >
+                #{overdue,jdbcType=VARCHAR},
+            </if>
+            <if test="overdueDays != null" >
+                #{overdueDays,jdbcType=INTEGER},
+            </if>
+            <if test="defaultAmount != null" >
+                #{defaultAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="aheadRepay != null" >
+                #{aheadRepay,jdbcType=VARCHAR},
+            </if>
+            <if test="userRepayTime != null" >
+                #{userRepayTime,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.hgxh.trade.entity.LoanRepayInformationsEntity" >
+        update loan_repay_informations
+        <set >
+            <if test="issueVoucherNo != null" >
+                issue_voucher_no = #{issueVoucherNo,jdbcType=VARCHAR},
+            </if>
+            <if test="overdue != null" >
+                overdue = #{overdue,jdbcType=VARCHAR},
+            </if>
+            <if test="overdueDays != null" >
+                overdue_days = #{overdueDays,jdbcType=INTEGER},
+            </if>
+            <if test="defaultAmount != null" >
+                default_amount = #{defaultAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="aheadRepay != null" >
+                ahead_repay = #{aheadRepay,jdbcType=VARCHAR},
+            </if>
+            <if test="userRepayTime != null" >
+                user_repay_time = #{userRepayTime,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+        delete from loan_repay_informations
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+</mapper>
