@@ -262,6 +262,8 @@ public class LoanServiceImpl implements LoanService {
 		entity.setDefaultAmount(new BigDecimal(param.getDefaultAmount()));
 		entity.setAheadRepay(WhetherEnum.valueOf(param.getAheadRepay()));
 		entity.setUserRepayTime(Long.parseLong(param.getUserRepayTime()));
+		entity.setCapital(new BigDecimal(param.getCapital()));
+		entity.setInterest(new BigDecimal(param.getInterest()));
 		entity.setCreateTime(DateUtil.getLastModifyTime());
 		loanRepayInformationsDao.insertSelective(entity);
 		if(WhetherEnum.YES.equals(entity.getAheadRepay())){

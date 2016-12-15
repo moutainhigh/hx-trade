@@ -31,6 +31,10 @@ public class LoanRepayInformationsEntity extends BaseEntity{
     private WhetherEnum aheadRepay;
     //用户还款时间
     private Long userRepayTime;
+    //用户本金
+    private BigDecimal capital;
+    //还款利息
+    private BigDecimal interest;
     //创建时间
     private Long createTime;
 
@@ -76,7 +80,19 @@ public class LoanRepayInformationsEntity extends BaseEntity{
     public void setUserRepayTime(Long userRepayTime) {
         this.userRepayTime = userRepayTime;
     }
-    public Long getCreateTime() {
+    public BigDecimal getCapital() {
+		return capital;
+	}
+	public void setCapital(BigDecimal capital) {
+		this.capital = capital;
+	}
+	public BigDecimal getInterest() {
+		return interest;
+	}
+	public void setInterest(BigDecimal interest) {
+		this.interest = interest;
+	}
+	public Long getCreateTime() {
         return createTime;
     }
     public void setCreateTime(Long createTime) {

@@ -67,6 +67,7 @@ public class QBrushRemoteImpl implements QBrushRemote {
 		entity.setTerminalNo(param.getTerminalNo());
 		entity.setTerminalType(TerminalTypeEnum.QBRUSH);
 		entity.setUserId(param.getUserId());
+		entity.setBluetoothUrl(param.getBluetoothUrl());
 		entity.setBindTime(DateUtil.getLastModifyTime());
 		return entity;
 	}

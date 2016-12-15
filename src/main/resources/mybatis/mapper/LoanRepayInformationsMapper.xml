@@ -10,11 +10,13 @@
         <result column="ahead_repay" property="aheadRepay" jdbcType="VARCHAR" />
         <result column="user_repay_time" property="userRepayTime" jdbcType="BIGINT" />
         <result column="create_time" property="createTime" jdbcType="BIGINT" />
+        <result column="capital" property="capital" jdbcType="DECIMAL" />
+        <result column="interest" property="interest" jdbcType="DECIMAL" />
     </resultMap>
 
     <sql id="Base_Column_List" >
         id, issue_voucher_no, overdue, overdue_days, default_amount, ahead_repay, user_repay_time, 
-        create_time
+        create_time, capital, interest
     </sql>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -51,6 +53,12 @@
             <if test="createTime != null" >
                 create_time,
             </if>
+            <if test="capital != null" >
+                capital,
+            </if>
+            <if test="interest != null" >
+                interest,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="id != null" >
@@ -76,6 +84,12 @@
             </if>
             <if test="createTime != null" >
                 #{createTime,jdbcType=BIGINT},
+            </if>
+            <if test="capital != null" >
+                #{capital,jdbcType=DECIMAL},
+            </if>
+            <if test="interest != null" >
+                #{interest,jdbcType=DECIMAL},
             </if>
         </trim>
     </insert>
@@ -103,6 +117,12 @@
             </if>
             <if test="createTime != null" >
                 create_time = #{createTime,jdbcType=BIGINT},
+            </if>
+            <if test="capital != null" >
+                capital = #{capital,jdbcType=DECIMAL},
+            </if>
+            <if test="interest != null" >
+                interest = #{interest,jdbcType=DECIMAL},
             </if>
         </set>
         where id = #{id,jdbcType=BIGINT}

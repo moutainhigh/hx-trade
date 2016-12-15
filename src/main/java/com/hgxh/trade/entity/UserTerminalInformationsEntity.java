@@ -21,6 +21,8 @@ public class UserTerminalInformationsEntity extends BaseEntity{
     private Long userId;
     //终端号
     private String terminalNo;
+    //蓝牙地址	安卓手机传参、IOS为空
+  	private String bluetoothUrl;
     //终端类型
     private TerminalTypeEnum terminalType;
     //绑定时间
@@ -44,7 +46,13 @@ public class UserTerminalInformationsEntity extends BaseEntity{
     public void setTerminalNo(String terminalNo) {
         this.terminalNo = terminalNo;
     }
-    public TerminalTypeEnum getTerminalType() {
+    public String getBluetoothUrl() {
+		return bluetoothUrl;
+	}
+	public void setBluetoothUrl(String bluetoothUrl) {
+		this.bluetoothUrl = bluetoothUrl;
+	}
+	public TerminalTypeEnum getTerminalType() {
         return terminalType;
     }
     public void setTerminalType(TerminalTypeEnum terminalType) {

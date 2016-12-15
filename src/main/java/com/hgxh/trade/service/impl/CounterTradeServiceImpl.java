@@ -83,7 +83,7 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 				order.setStatus(OrderStatusEnum.AHEADDUE);
 			}else{
 				order.setPredictInterest(order.getWithdrawalAmount().multiply(product.getYield().divide(new BigDecimal(100)))
-						.multiply(new BigDecimal(product.getCycle())).divide(new BigDecimal(365),2,BigDecimal.ROUND_HALF_UP));
+						.multiply(new BigDecimal(product.getCycle())).divide(new BigDecimal(360),2,BigDecimal.ROUND_HALF_UP));
 			}
 			ordersDao.updateByPrimaryKeySelective(order);
 		}else if(TradeTypeEnum.FIXEDTOCURRENT.toString().equals(param.getTradeType())){		
@@ -126,7 +126,7 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 //			long expirationTime = DateUtil.getDayBegin(tradeTimestamp) + product.getCycle()*Constants.ONEDAY;
 			ordersEntity.setExpirationTime(Long.parseLong(param.getExpirationTime()));
 			ordersEntity.setPredictInterest(ordersEntity.getWithdrawalAmount().multiply(product.getYield().divide(new BigDecimal(100)))
-					.multiply(new BigDecimal(product.getCycle())).divide(new BigDecimal(365),2,BigDecimal.ROUND_HALF_UP));
+					.multiply(new BigDecimal(product.getCycle())).divide(new BigDecimal(360),2,BigDecimal.ROUND_HALF_UP));
 		}
 		ordersEntity.setYeild(product.getYield());
 		ordersEntity.setAmount(new BigDecimal(param.getAmount()));

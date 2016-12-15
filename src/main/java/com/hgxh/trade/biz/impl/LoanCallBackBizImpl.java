@@ -49,7 +49,7 @@ public class LoanCallBackBizImpl implements LoanCallBackBiz {
 	@Override
 	public ResultInfo loanReplyNotice(LoanRepayParam param) {
 		//参数校验
-		if(PropertyUtils.checkNull(param, "issueVoucherNo,userRepayTime")){
+		if(PropertyUtils.checkNull(param, "issueVoucherNo,userRepayTime,capital,interest,aheadRepay,overdue,overdueDays,defaultAmount")){
 			return new ResultInfo(BaseExceptionMsg.PARAM_IS_NULL);
 		}
 		ResultInfo result=null;

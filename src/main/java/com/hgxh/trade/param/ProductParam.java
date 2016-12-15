@@ -20,7 +20,7 @@ public class ProductParam extends BaseParam{
     private String productName;
     //产品类型：CURRENT:活期；FIXED:定期
     private String productType;
-    //产品周期：单位:天;每月按30天,每年按365天
+    //产品周期：单位:天;每月按30天,每年按360天
     private String cycle;
     //利率
     private String yield;

@@ -87,7 +87,13 @@ public class ActiveMQServiceTest {
 	public void sendLoanRepayQueuee(){
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("issueVoucherNo", "3223423879");
-		map.put("userRepayTime", "1481558400000");
+		map.put("userRepayTime", "1478966400000");
+		map.put("capital", "20000");
+		map.put("interest", "183.2");
+		map.put("aheadRepay", "NO");
+		map.put("overdue", "NO");
+		map.put("overdueDays", "0");
+		map.put("defaultAmount", "0");
 		mqService.sendLoanRepayQueue(map);
 	}
 

@@ -6,11 +6,12 @@
         <result column="user_id" property="userId" jdbcType="BIGINT" />
         <result column="terminal_no" property="terminalNo" jdbcType="VARCHAR" />
         <result column="terminal_type" property="terminalType" jdbcType="VARCHAR" />
+        <result column="bluetoothUrl" property="bluetoothurl" jdbcType="VARCHAR" />
         <result column="bind_time" property="bindTime" jdbcType="BIGINT" />
     </resultMap>
 
     <sql id="Base_Column_List" >
-        id, user_id, terminal_no, terminal_type, bind_time
+        id, user_id, terminal_no, terminal_type, bluetoothUrl, bind_time
     </sql>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -35,6 +36,9 @@
             <if test="terminalType != null" >
                 terminal_type,
             </if>
+            <if test="bluetoothurl != null" >
+                bluetoothUrl,
+            </if>
             <if test="bindTime != null" >
                 bind_time,
             </if>
@@ -51,6 +55,9 @@
             </if>
             <if test="terminalType != null" >
                 #{terminalType,jdbcType=VARCHAR},
+            </if>
+            <if test="bluetoothurl != null" >
+                #{bluetoothurl,jdbcType=VARCHAR},
             </if>
             <if test="bindTime != null" >
                 #{bindTime,jdbcType=BIGINT},
@@ -69,6 +76,9 @@
             </if>
             <if test="terminalType != null" >
                 terminal_type = #{terminalType,jdbcType=VARCHAR},
+            </if>
+            <if test="bluetoothurl != null" >
+                bluetoothUrl = #{bluetoothurl,jdbcType=VARCHAR},
             </if>
             <if test="bindTime != null" >
                 bind_time = #{bindTime,jdbcType=BIGINT},

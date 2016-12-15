@@ -16,6 +16,8 @@ public class BindTerminalParam extends BaseParam{
 	private Long userId;
 	//终端编码
 	private String terminalNo;
+	//蓝牙地址	安卓手机传参、IOS为空
+	private String bluetoothUrl;
 	//参数key
 	private String paramKey;
 	//参数Value
@@ -32,6 +34,12 @@ public class BindTerminalParam extends BaseParam{
 	}
 	public void setTerminalNo(String terminalNo) {
 		this.terminalNo = terminalNo;
+	}
+	public String getBluetoothUrl() {
+		return bluetoothUrl;
+	}
+	public void setBluetoothUrl(String bluetoothUrl) {
+		this.bluetoothUrl = bluetoothUrl;
 	}
 	public String getParamKey() {
 		return paramKey;

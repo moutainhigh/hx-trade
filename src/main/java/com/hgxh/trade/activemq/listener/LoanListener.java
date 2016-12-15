@@ -79,6 +79,8 @@ public class LoanListener {
 	   LoanRepayParam param = new LoanRepayParam();
 	   param.setIssueVoucherNo(map.get("issueVoucherNo"));
 	   param.setUserRepayTime(map.get("userRepayTime"));
+	   param.setCapital(map.get("capital"));
+	   param.setInterest(map.get("interest"));
 	   param.setAheadRepay(map.get("aheadRepay"));
 	   param.setOverdue(map.get("overdue"));
 	   param.setOverdueDays(map.get("overdueDays"));
