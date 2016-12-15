@@ -272,8 +272,10 @@ public class LoanServiceImpl implements LoanService {
 			loanRepayPlanDao.updateCurrentNoByVoucherNo(entity.getIssueVoucherNo());
 		}else{
 			loanRepayPlanDao.updateStatusByConditions(entity.getIssueVoucherNo(), entity.getUserRepayTime());
-			loanRepayPlanDao.updateCurrentNoByVoucherNo(entity.getIssueVoucherNo());
-			loanRepayPlanDao.updateCurrentByVoucherNo(entity.getIssueVoucherNo());
+			if(!WhetherEnum.YES.toString().equals(param.getOverdue())){
+				loanRepayPlanDao.updateCurrentNoByVoucherNo(entity.getIssueVoucherNo());
+				loanRepayPlanDao.updateCurrentByVoucherNo(entity.getIssueVoucherNo());
+			}
 		}
 		return new ResultInfo(BaseExceptionMsg.SUCCESS);
 	}
