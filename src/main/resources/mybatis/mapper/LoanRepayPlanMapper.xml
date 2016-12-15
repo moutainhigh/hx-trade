@@ -123,6 +123,12 @@
         where id = #{id,jdbcType=BIGINT}
     </delete>
     
+    <update id="updateCurrentNoByVoucherNo" parameterType="java.lang.String" >
+        UPDATE loan_repay_plan 
+		SET current='NO'
+		WHERE issue_voucher_no=#{issueVoucherNo,jdbcType=VARCHAR}
+    </update>
+    
     <update id="updateCurrentByVoucherNo" parameterType="java.lang.String" >
         UPDATE loan_repay_plan 
 		SET current='YES' 

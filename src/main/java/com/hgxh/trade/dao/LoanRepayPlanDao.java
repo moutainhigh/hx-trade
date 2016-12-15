@@ -14,6 +14,8 @@ public interface LoanRepayPlanDao {
 
     public int updateByPrimaryKeySelective(LoanRepayPlanEntity record);
     
+    public int updateCurrentNoByVoucherNo(String issueVoucherNo);
+    
     public int updateCurrentByVoucherNo(String issueVoucherNo);
     
     public int updateStatusByConditions(@Param("issueVoucherNo")String issueVoucherNo, @Param("repayTime")long repayTime);

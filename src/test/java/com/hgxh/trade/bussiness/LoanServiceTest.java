@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.hgxh.trade.param.AddLoanParam;
+import com.hgxh.trade.param.LoanRepayParam;
 import com.hgxh.trade.result.ResultInfo;
 import com.hgxh.trade.service.LoanService;
 
@@ -25,7 +26,7 @@ public class LoanServiceTest {
 	LoanService loanService;
 	
 	@Test
-	public void loan(){
+	public void addLoan(){
 		AddLoanParam param = new AddLoanParam();
 		param.setIssueVoucherNo("3223423879");
 		param.setAmount("100000");
@@ -53,6 +54,19 @@ public class LoanServiceTest {
 //		param.setYeild("2.23");
 //		ResultInfo resultInfo = loanService.addLoanNotice(param);
 //		System.out.println(resultInfo);
+	}
+	
+	@Test
+	public void loanRepayNotice(){
+		LoanRepayParam param = new LoanRepayParam();
+		param.setIssueVoucherNo("3223423879");
+		param.setUserRepayTime("1481558400000");
+		param.setAheadRepay("YES");
+		param.setOverdue("NO");
+		param.setOverdueDays("0");
+		param.setDefaultAmount("0");
+		ResultInfo resultInfo = loanService.loanReplyNotice(param);
+		System.out.println(resultInfo);
 	}
 
 }

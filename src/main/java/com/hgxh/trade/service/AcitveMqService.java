@@ -16,5 +16,9 @@ public interface AcitveMqService {
 	public void sendCounterTradeQueue(Map<String, String> msg);
 	
 	public void sendUpsertProductQueue(Map<String, String> msg);
+	
+	public void sendAddLoanQueue(Map<String, String> msg);
+	
+	public void sendLoanRepayQueue(Map<String, String> msg);
 
 }

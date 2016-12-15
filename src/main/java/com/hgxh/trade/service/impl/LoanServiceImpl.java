@@ -19,7 +19,7 @@ import com.hgxh.trade.enums.RepayTypeEnum;
 import com.hgxh.trade.enums.RepayWayEnum;
 import com.hgxh.trade.enums.WhetherEnum;
 import com.hgxh.trade.param.AddLoanParam;
-import com.hgxh.trade.param.LoanReplyParam;
+import com.hgxh.trade.param.LoanRepayParam;
 import com.hgxh.trade.result.ResultInfo;
 import com.hgxh.trade.service.LoanService;
 import com.hgxh.trade.util.DateUtil;
@@ -244,7 +244,8 @@ public class LoanServiceImpl implements LoanService {
 				entity.setCapital(new BigDecimal(param.getAmount()));
 				loanRepayPlanDao.insertSelective(entity);
 			}
-		}	
+		}
+		loanRepayPlanDao.updateCurrentByVoucherNo(entity.getIssueVoucherNo());
 	}
 	
 	/**
@@ -253,7 +254,7 @@ public class LoanServiceImpl implements LoanService {
 	 * @return
 	 */
 	@Override
-	public ResultInfo loanReplyNotice(LoanReplyParam param) {
+	public ResultInfo loanReplyNotice(LoanRepayParam param) {
 		LoanRepayInformationsEntity entity = new LoanRepayInformationsEntity();
 		entity.setIssueVoucherNo(param.getIssueVoucherNo());
 		entity.setOverdue(WhetherEnum.valueOf(param.getOverdue()));
@@ -266,8 +267,11 @@ public class LoanServiceImpl implements LoanService {
 		if(WhetherEnum.YES.equals(entity.getAheadRepay())){
 			loanInformationsDao.updateStatusByVoucherNo(entity.getIssueVoucherNo());
 			loanRepayPlanDao.updateStatusByVoucherNo(entity.getIssueVoucherNo());
+			loanRepayPlanDao.updateCurrentNoByVoucherNo(entity.getIssueVoucherNo());
 		}else{
 			loanRepayPlanDao.updateStatusByConditions(entity.getIssueVoucherNo(), entity.getUserRepayTime());
+			loanRepayPlanDao.updateCurrentNoByVoucherNo(entity.getIssueVoucherNo());
+			loanRepayPlanDao.updateCurrentByVoucherNo(entity.getIssueVoucherNo());
 		}
 		return new ResultInfo(BaseExceptionMsg.SUCCESS);
 	}

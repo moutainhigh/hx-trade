@@ -32,6 +32,10 @@ public class AcitveMqServiceImpl implements AcitveMqService {
     private Queue counterTradeQueue;
     @Autowired  
     private Queue upsertProductQueue;
+    @Autowired  
+    private Queue addLoanQueue;
+    @Autowired  
+    private Queue loanRepayQueue;
     
     /**
 	 * 发送发送短信消息
@@ -63,6 +67,24 @@ public class AcitveMqServiceImpl implements AcitveMqService {
 			jmsMessagingTemplate.convertAndSend(upsertProductQueue, msg); 
 		} catch (Exception e) {
 			logger.error("send upsertProductQueue fail ", e);
+		}
+	}
+
+	@Override
+	public void sendAddLoanQueue(Map<String, String> msg) {
+		try {
+			jmsMessagingTemplate.convertAndSend(addLoanQueue, msg); 
+		} catch (Exception e) {
+			logger.error("send addLoanQueue fail ", e);
+		}
+	}
+
+	@Override
+	public void sendLoanRepayQueue(Map<String, String> msg) {
+		try {
+			jmsMessagingTemplate.convertAndSend(loanRepayQueue, msg); 
+		} catch (Exception e) {
+			logger.error("send loanRepayQueue fail ", e);
 		}
 	}
 

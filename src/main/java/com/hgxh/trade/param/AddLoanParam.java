@@ -28,6 +28,7 @@ public class AddLoanParam extends BaseParam{
 	private String beginTime;
 	//结束时间
 	private String endTime;
+	
 	public String getMemberNo() {
 		return memberNo;
 	}

@@ -32,5 +32,15 @@ public class ActiveMQConfig {
     public Queue upsertProductQueue() {  
         return new ActiveMQQueue("upsert-product-queue");  
     }
+	
+	@Bean
+    public Queue addLoanQueue() {  
+        return new ActiveMQQueue("add-loan-queue");  
+    }
+	
+	@Bean
+    public Queue loanRepayQueue() {  
+        return new ActiveMQQueue("loan-repay-queue");  
+    }
 
 }

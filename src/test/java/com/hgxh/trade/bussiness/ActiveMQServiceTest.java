@@ -26,6 +26,9 @@ public class ActiveMQServiceTest {
 	@Autowired
 	private AcitveMqService mqService;
 	
+	/**
+	 * 线下柜台交易发送通知测试
+	 */
 	@Test
 	public void sendCounterTradeQueue(){
 		Map<String, String> map = new HashMap<String, String>();
@@ -42,6 +45,9 @@ public class ActiveMQServiceTest {
 		mqService.sendCounterTradeQueue(map);
 	}
 	
+	/**
+	 * 增加更新产品发送通知测试
+	 */
 	@Test
 	public void sendUpsertProductQueue(){
 		Map<String, String> map = new HashMap<String, String>();
@@ -55,6 +61,34 @@ public class ActiveMQServiceTest {
 		map.put("introduction", "定期六个月测试2");
 		map.put("createTime", "1481162129000");
 		mqService.sendUpsertProductQueue(map);
+	}
+	
+	/**
+	 * 增加借款发送通知测试
+	 */
+	@Test
+	public void sendAddLoanQueue(){
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("issueVoucherNo", "3223423879");
+		map.put("amount", "100000");
+		map.put("beginTime","1476288000000");
+		map.put("endTime","1489334400000");
+		map.put("memberNo","HS138968");
+		map.put("repayType","MONTH");
+		map.put("repayWay","AVERAGEINTEREST");
+		map.put("yeild","2.23");
+		mqService.sendAddLoanQueue(map);
+	}
+	
+	/**
+	 * 借款还款发送通知测试
+	 */
+	@Test
+	public void sendLoanRepayQueuee(){
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("issueVoucherNo", "3223423879");
+		map.put("userRepayTime", "1481558400000");
+		mqService.sendLoanRepayQueue(map);
 	}
 
 }

@@ -1,12 +1,12 @@
 package com.hgxh.trade.param;
 /**
-*@ClassName: LoanReplyParam
+*@ClassName: LoanRepayParam
 *@Description: 
 *@author YY 
 *@date 2016年12月13日  上午10:43:42
 *@version 1.0
 */
-public class LoanReplyParam extends BaseParam{
+public class LoanRepayParam extends BaseParam{
 
 	/**
 	 * serialVersionUID
@@ -16,6 +16,10 @@ public class LoanReplyParam extends BaseParam{
 	private String issueVoucherNo;
 	//还款时间
 	private String userRepayTime;
+	//还款本金
+	private String capital;
+	//还款利息
+	private String interest;
 	//是否提前还款
 	private String aheadRepay;
 	//是否逾期，YES：是；NO：否
@@ -25,6 +29,18 @@ public class LoanReplyParam extends BaseParam{
 	//罚息金额
 	private String defaultAmount;
 	
+	public String getCapital() {
+		return capital;
+	}
+	public void setCapital(String capital) {
+		this.capital = capital;
+	}
+	public String getInterest() {
+		return interest;
+	}
+	public void setInterest(String interest) {
+		this.interest = interest;
+	}
 	public String getAheadRepay() {
 		return aheadRepay;
 	}

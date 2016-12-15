@@ -14,16 +14,16 @@ import com.hgxh.trade.param.ProductParam;
 import com.hgxh.trade.result.ResultInfo;
 
 /**
-*@ClassName: CounterCallBackListener
+*@ClassName: CounterListener
 *@Description: 
 *@author YY 
 *@date 2016年12月8日  上午11:17:18
 *@version 1.0
 */
 @Component
-public class CounterCallBackListener {
+public class CounterListener {
 	
-	private static final Logger logger = LoggerFactory.getLogger(CounterCallBackListener.class);
+	private static final Logger logger = LoggerFactory.getLogger(CounterListener.class);
 	
 	@Autowired
 	private CounterCallBackBiz counterBiz;
