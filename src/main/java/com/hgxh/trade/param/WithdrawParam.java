@@ -26,7 +26,15 @@ public class WithdrawParam extends BaseParam{
 	private String memberName;
 	//开户账号
 	private String bankCardNo;
+	//密码
+	private String password;
 	
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	public String getMemberNo() {
 		return memberNo;
 	}

@@ -12,5 +12,6 @@ public enum OrderStatusEnum {
 	FAILED,//支付失败
 	DUETRANS,//到期转存
 	AHEADDUE,//提前支取
-	DUE;//正常到期
+	DUE,//正常到期
+	REPORTLOST;//挂失作废
 }

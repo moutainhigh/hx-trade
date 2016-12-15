@@ -236,5 +236,11 @@
         from orders
         where biz_no = #{bizNo,jdbcType=VARCHAR}
     </select>
+    
+    <update id="updateStatusLostByBizNo" parameterType="java.lang.String" >
+        update orders
+        set status = 'REPORTLOST'
+        and biz_no = #{bizNo,jdbcType=VARCHAR}
+    </update>
 
 </mapper>

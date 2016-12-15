@@ -15,5 +15,7 @@ public interface OrdersDao {
     public OrdersEntity selectSucByBizNo(String bizNo);
     
     public OrdersEntity selectByBizNo(String bizNo);
+    
+    public int updateStatusLostByBizNo(String bizNo);
 
 }

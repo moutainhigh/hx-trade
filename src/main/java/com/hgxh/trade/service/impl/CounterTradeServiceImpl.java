@@ -62,7 +62,8 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 				TradeTypeEnum.CAPITALTRANS.toString().equals(param.getTradeType())||
 				TradeTypeEnum.INTERESTTRANS.toString().equals(param.getTradeType())||
 				TradeTypeEnum.FIXEDTOCURRENT.toString().equals(param.getTradeType())||
-				TradeTypeEnum.AHEADWITDRAW.toString().equals(param.getTradeType())){
+				TradeTypeEnum.AHEADWITDRAW.toString().equals(param.getTradeType())||
+				TradeTypeEnum.REPORTLOST.toString().equals(param.getTradeType())){
 			saveOrders(param, member, product);
 		}
 		saveFinancialInformations(param, member);
@@ -98,6 +99,10 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 				OrdersEntity ordersEntity = copyProperties(param,member,product);
 				ordersDao.insertSelective(ordersEntity);
 			}
+		}else if(TradeTypeEnum.REPORTLOST.toString().equals(param.getTradeType())){
+			ordersDao.updateStatusLostByBizNo(param.getOrgiVoucherNo());
+			OrdersEntity ordersEntity = copyProperties(param,member,product);
+			ordersDao.insertSelective(ordersEntity);
 		}else{
 			OrdersEntity ordersEntity = copyProperties(param,member,product);
 			ordersDao.insertSelective(ordersEntity);
@@ -194,7 +199,7 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 				account.setLastModifyTime(DateUtil.getLastModifyTime());
 				userAccountsDao.updateByPrimaryKeySelective(account);
 			}
-			//增加	本息转存、定期转活期  本金转存相互抵消
+			//增加	本息转存、定期转活期  本金转存、挂失相互抵消
 			if(TradeTypeEnum.INTERESTTRANS.toString().equals(param.getTradeType())||TradeTypeEnum.FIXEDTOCURRENT.toString().equals(param.getTradeType())){
 				OrdersEntity orgOrder = ordersDao.selectByBizNo(param.getOrgiVoucherNo());
 				account.setTotalInvested(account.getTotalInvested().add(new BigDecimal(param.getAmount())));

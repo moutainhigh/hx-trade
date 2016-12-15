@@ -103,6 +103,7 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
     	params.put("amount", param.getAmount());
     	params.put("investTime", param.getInvestTime());
     	params.put("transferSaveType", param.getTransferSaveType());
+    	params.put("password", param.getPassword());
     	//调用瑞福德查询开户信息接口
 //    	String res = SimpleHttpUtil.doPost(ruifudeRemoteUrl+"/save", params);	
     	//res -> RuiFuDeRemoteResult
@@ -139,6 +140,7 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
     	params.put("bankCode", param.getBankCode());
     	params.put("memberName", param.getMemberName());
     	params.put("bankCardNo", param.getBankCardNo());
+    	params.put("password", param.getPassword());
     	//调用瑞福德查询开户信息接口
 //    	String res = SimpleHttpUtil.doPost(ruifudeRemoteUrl+"/withdraw", params);	
     	//res -> RuiFuDeRemoteResult

@@ -15,5 +15,6 @@ public enum TradeTypeEnum {
 	TRANSFER,//转账
 	INTERESTDEDUCTION,//利息划扣
 	SENDINTEREST,//派息
-	AHEADWITDRAW;//定期提前支取
+	AHEADWITDRAW,//定期提前支取
+	REPORTLOST;//挂失
 }
