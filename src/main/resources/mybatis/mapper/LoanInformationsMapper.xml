@@ -14,11 +14,13 @@
         <result column="status" property="status" jdbcType="VARCHAR" />
         <result column="create_time" property="createTime" jdbcType="BIGINT" />
         <result column="last_modify_time" property="lastModifyTime" jdbcType="BIGINT" />
+    	<result column="putin_time" property="putinTime" jdbcType="BIGINT" />
+        <result column="penalty_yeild" property="penaltyYeild" jdbcType="DECIMAL" />
     </resultMap>
 
     <sql id="Base_Column_List" >
         id, issue_voucher_no, member_no, repay_type, repay_way, amount, yeild, begin_time, 
-        end_time, status, create_time, last_modify_time
+        end_time, status, create_time, last_modify_time, putin_time, penalty_yeild
     </sql>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -67,6 +69,12 @@
             <if test="lastModifyTime != null" >
                 last_modify_time,
             </if>
+            <if test="putinTime != null" >
+                putin_time,
+            </if>
+            <if test="penaltyYeild != null" >
+                penalty_yeild,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="id != null" >
@@ -104,6 +112,12 @@
             </if>
             <if test="lastModifyTime != null" >
                 #{lastModifyTime,jdbcType=BIGINT},
+            </if>
+            <if test="putinTime != null" >
+                #{putinTime,jdbcType=BIGINT},
+            </if>
+            <if test="penaltyYeild != null" >
+                #{penaltyYeild,jdbcType=DECIMAL},
             </if>
         </trim>
     </insert>
@@ -143,6 +157,12 @@
             </if>
             <if test="lastModifyTime != null" >
                 last_modify_time = #{lastModifyTime,jdbcType=BIGINT},
+            </if>
+            <if test="putinTime != null" >
+                putin_time = #{putinTime,jdbcType=BIGINT},
+            </if>
+            <if test="penaltyYeild != null" >
+                penalty_yeild = #{penaltyYeild,jdbcType=DECIMAL},
             </if>
         </set>
         where id = #{id,jdbcType=BIGINT}

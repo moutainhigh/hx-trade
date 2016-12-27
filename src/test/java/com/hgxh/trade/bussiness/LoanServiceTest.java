@@ -36,6 +36,8 @@ public class LoanServiceTest {
 		param.setRepayType("MONTH");
 		param.setRepayWay("AVERAGEINTEREST");
 		param.setYeild("2.23");
+		param.setPenaltyYeild("0.02");
+		param.setPutinTime("1476288000000");
 		ResultInfo resultInfo = loanService.addLoanNotice(param);
 		System.out.println(resultInfo);
 		
@@ -61,10 +63,10 @@ public class LoanServiceTest {
 		LoanRepayParam param = new LoanRepayParam();
 		param.setIssueVoucherNo("3223423879");
 		param.setUserRepayTime("1481558400000");
-		param.setAheadRepay("YES");
-		param.setOverdue("NO");
 		param.setOverdueDays("0");
 		param.setDefaultAmount("0");
+		param.setSettleRepayTime("1481558400000");
+		param.setAheadRepayAmount("0");
 		ResultInfo resultInfo = loanService.loanReplyNotice(param);
 		System.out.println(resultInfo);
 	}

@@ -27,7 +27,31 @@ public class InvestParam extends BaseParam{
 	private String transferSaveType;
 	//密码
 	private String password;
+	//利率
+	private String yield;
+	//产品类型
+	private String productType;
+	//到期时间
+	private String expirationTime;
 	
+	public String getExpirationTime() {
+		return expirationTime;
+	}
+	public void setExpirationTime(String expirationTime) {
+		this.expirationTime = expirationTime;
+	}
+	public String getProductType() {
+		return productType;
+	}
+	public void setProductType(String productType) {
+		this.productType = productType;
+	}
+	public String getYield() {
+		return yield;
+	}
+	public void setYield(String yield) {
+		this.yield = yield;
+	}
 	public String getPassword() {
 		return password;
 	}

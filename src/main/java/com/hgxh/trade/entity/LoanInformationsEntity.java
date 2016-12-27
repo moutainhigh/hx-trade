@@ -43,8 +43,24 @@ public class LoanInformationsEntity extends BaseEntity{
     private Long createTime;
     //最近修改时间
     private Long lastModifyTime;
+    //加罚利率
+    private BigDecimal penaltyYeild;
+    //投放时间
+    private Long putinTime;
 
-    public Long getId() {
+    public BigDecimal getPenaltyYeild() {
+		return penaltyYeild;
+	}
+	public void setPenaltyYeild(BigDecimal penaltyYeild) {
+		this.penaltyYeild = penaltyYeild;
+	}
+	public Long getPutinTime() {
+		return putinTime;
+	}
+	public void setPutinTime(Long putinTime) {
+		this.putinTime = putinTime;
+	}
+	public Long getId() {
         return id;
     }
     public void setId(Long id) {

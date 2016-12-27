@@ -44,8 +44,24 @@ public class ProductInformationsEntity extends BaseEntity{
     private Long createTime;
     //最近修改时间
     private Long lastModifyTime;
+    //分红利率
+    private BigDecimal partYield;
+    //分社编号
+    private String areaNo;
 
-    public Long getId() {
+    public BigDecimal getPartYield() {
+		return partYield;
+	}
+	public void setPartYield(BigDecimal partYield) {
+		this.partYield = partYield;
+	}
+	public String getAreaNo() {
+		return areaNo;
+	}
+	public void setAreaNo(String areaNo) {
+		this.areaNo = areaNo;
+	}
+	public Long getId() {
         return id;
     }
     public void setId(Long id) {

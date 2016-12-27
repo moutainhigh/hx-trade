@@ -104,6 +104,9 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
     	params.put("investTime", param.getInvestTime());
     	params.put("transferSaveType", param.getTransferSaveType());
     	params.put("password", param.getPassword());
+    	params.put("productType", param.getProductType());
+    	params.put("yield", param.getYield());
+    	params.put("expirationTime", param.getExpirationTime());
     	//调用瑞福德查询开户信息接口
 //    	String res = SimpleHttpUtil.doPost(ruifudeRemoteUrl+"/save", params);	
     	//res -> RuiFuDeRemoteResult

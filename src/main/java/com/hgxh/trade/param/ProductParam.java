@@ -32,7 +32,23 @@ public class ProductParam extends BaseParam{
     private String introduction;
     //产品开通时间
     private String createTime;
+    //分红利率
+    private String partYield;
+    //分社编号
+    private String areaNo;
     
+	public String getPartYield() {
+		return partYield;
+	}
+	public void setPartYield(String partYield) {
+		this.partYield = partYield;
+	}
+	public String getAreaNo() {
+		return areaNo;
+	}
+	public void setAreaNo(String areaNo) {
+		this.areaNo = areaNo;
+	}
 	public String getProductNo() {
 		return productNo;
 	}

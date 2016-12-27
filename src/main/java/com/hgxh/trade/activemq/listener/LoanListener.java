@@ -55,6 +55,8 @@ public class LoanListener {
 	   param.setYeild(map.get("yeild"));
 	   param.setBeginTime(map.get("beginTime"));
 	   param.setEndTime(map.get("endTime"));
+	   param.setPenaltyYeild(map.get("penaltyYeild"));
+	   param.setPutinTime(map.get("putinTime"));
 	   return param;
    }
    
@@ -81,12 +83,11 @@ public class LoanListener {
 	   param.setUserRepayTime(map.get("userRepayTime"));
 	   param.setCapital(map.get("capital"));
 	   param.setInterest(map.get("interest"));
-	   param.setAheadRepay(map.get("aheadRepay"));
-	   param.setOverdue(map.get("overdue"));
 	   param.setOverdueDays(map.get("overdueDays"));
 	   param.setDefaultAmount(map.get("defaultAmount"));
+	   param.setAheadRepayAmount(map.get("aheadRepayAmount"));
+	   param.setSettleRepayTime(map.get("settleRepayTime"));
 	   return param;
   }
-	
 
 }

@@ -15,11 +15,13 @@
         <result column="introduction" property="introduction" jdbcType="VARCHAR" />
         <result column="create_time" property="createTime" jdbcType="BIGINT" />
         <result column="last_modify_time" property="lastModifyTime" jdbcType="BIGINT" />
+        <result column="part_yeild" property="partYeild" jdbcType="DECIMAL" />
+        <result column="area_no" property="areaNo" jdbcType="VARCHAR" />
     </resultMap>
 
     <sql id="Base_Column_List" >
         id, version, product_no, product_name, product_type, cycle, yield, status, withdraw_count, 
-        brief_introduction, introduction, create_time, last_modify_time
+        brief_introduction, introduction, create_time, last_modify_time, part_yeild, area_no
     </sql>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -71,6 +73,12 @@
             <if test="lastModifyTime != null" >
                 last_modify_time,
             </if>
+            <if test="partYeild != null" >
+                part_yeild,
+            </if>
+            <if test="areaNo != null" >
+                area_no,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="id != null" >
@@ -112,6 +120,12 @@
             <if test="lastModifyTime != null" >
                 #{lastModifyTime,jdbcType=BIGINT},
             </if>
+            <if test="partYeild != null" >
+                #{partYeild,jdbcType=DECIMAL},
+            </if>
+            <if test="areaNo != null" >
+                #{areaNo,jdbcType=VARCHAR},
+            </if>
         </trim>
     </insert>
 
@@ -151,6 +165,12 @@
             </if>
             <if test="lastModifyTime != null" >
                 last_modify_time = #{lastModifyTime,jdbcType=BIGINT},
+            </if>
+            <if test="partYeild != null" >
+                part_yeild = #{partYeild,jdbcType=DECIMAL},
+            </if>
+            <if test="areaNo != null" >
+                area_no = #{areaNo,jdbcType=VARCHAR},
             </if>
         </set>
         where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
@@ -204,6 +224,12 @@
             </if>
             <if test="lastModifyTime != null" >
                 last_modify_time = #{lastModifyTime,jdbcType=BIGINT},
+            </if>
+            <if test="partYeild != null" >
+                part_yeild = #{partYeild,jdbcType=DECIMAL},
+            </if>
+            <if test="areaNo != null" >
+                area_no = #{areaNo,jdbcType=VARCHAR},
             </if>
         </set>
         where product_no = #{productNo,jdbcType=VARCHAR} and version = #{version,jdbcType=BIGINT}

@@ -20,15 +20,27 @@ public class LoanRepayParam extends BaseParam{
 	private String capital;
 	//还款利息
 	private String interest;
-	//是否提前还款
-	private String aheadRepay;
-	//是否逾期，YES：是；NO：否
-	private String overdue;
 	//逾期天数
 	private String overdueDays;
 	//罚息金额
 	private String defaultAmount;
+	//结息时间
+	private String settleRepayTime;
+	//提前还款金额
+	private String aheadRepayAmount;
 	
+	public String getSettleRepayTime() {
+		return settleRepayTime;
+	}
+	public void setSettleRepayTime(String settleRepayTime) {
+		this.settleRepayTime = settleRepayTime;
+	}
+	public String getAheadRepayAmount() {
+		return aheadRepayAmount;
+	}
+	public void setAheadRepayAmount(String aheadRepayAmount) {
+		this.aheadRepayAmount = aheadRepayAmount;
+	}
 	public String getCapital() {
 		return capital;
 	}
@@ -41,12 +53,6 @@ public class LoanRepayParam extends BaseParam{
 	public void setInterest(String interest) {
 		this.interest = interest;
 	}
-	public String getAheadRepay() {
-		return aheadRepay;
-	}
-	public void setAheadRepay(String aheadRepay) {
-		this.aheadRepay = aheadRepay;
-	}
 	public String getIssueVoucherNo() {
 		return issueVoucherNo;
 	}
@@ -58,12 +64,6 @@ public class LoanRepayParam extends BaseParam{
 	}
 	public void setUserRepayTime(String userRepayTime) {
 		this.userRepayTime = userRepayTime;
-	}
-	public String getOverdue() {
-		return overdue;
-	}
-	public void setOverdue(String overdue) {
-		this.overdue = overdue;
 	}
 	public String getOverdueDays() {
 		return overdueDays;

@@ -69,6 +69,9 @@ public class UpsertProductServiceImpl implements UpsertProductService {
 				product.setProductType(ProductTypeEnum.FIXED);
 			}
 		}
+		if(product.getPartYield() != null){
+			product.setPartYield(new BigDecimal(param.getYield()));
+		}
 		product.setLastModifyTime(DateUtil.getLastModifyTime());
 		productDao.updateByProductNo(product);
 	}

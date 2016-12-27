@@ -12,11 +12,13 @@
         <result column="create_time" property="createTime" jdbcType="BIGINT" />
         <result column="capital" property="capital" jdbcType="DECIMAL" />
         <result column="interest" property="interest" jdbcType="DECIMAL" />
+        <result column="settle_repay_time" property="settleRepayTime" jdbcType="BIGINT" />
+        <result column="ahead_repay_amount" property="aheadRepayAmount" jdbcType="DECIMAL" />
     </resultMap>
 
     <sql id="Base_Column_List" >
         id, issue_voucher_no, overdue, overdue_days, default_amount, ahead_repay, user_repay_time, 
-        create_time, capital, interest
+        create_time, capital, interest, settle_repay_time, ahead_repay_amount
     </sql>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -59,6 +61,12 @@
             <if test="interest != null" >
                 interest,
             </if>
+            <if test="settleRepayTime != null" >
+                settle_repay_time,
+            </if>
+            <if test="aheadRepayAmount != null" >
+                ahead_repay_amount,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="id != null" >
@@ -90,6 +98,12 @@
             </if>
             <if test="interest != null" >
                 #{interest,jdbcType=DECIMAL},
+            </if>
+            <if test="settleRepayTime != null" >
+                #{settleRepayTime,jdbcType=BIGINT},
+            </if>
+            <if test="aheadRepayAmount != null" >
+                #{aheadRepayAmount,jdbcType=DECIMAL},
             </if>
         </trim>
     </insert>
@@ -123,6 +137,12 @@
             </if>
             <if test="interest != null" >
                 interest = #{interest,jdbcType=DECIMAL},
+            </if>
+            <if test="settleRepayTime != null" >
+                settle_repay_time = #{settleRepayTime,jdbcType=BIGINT},
+            </if>
+            <if test="aheadRepayAmount != null" >
+                ahead_repay_amount = #{aheadRepayAmount,jdbcType=DECIMAL},
             </if>
         </set>
         where id = #{id,jdbcType=BIGINT}

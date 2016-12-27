@@ -28,7 +28,23 @@ public class AddLoanParam extends BaseParam{
 	private String beginTime;
 	//结束时间
 	private String endTime;
+	//加罚利率
+	private String penaltyYeild;
+	//投放时间
+	private String putinTime;
 	
+	public String getPenaltyYeild() {
+		return penaltyYeild;
+	}
+	public void setPenaltyYeild(String penaltyYeild) {
+		this.penaltyYeild = penaltyYeild;
+	}
+	public String getPutinTime() {
+		return putinTime;
+	}
+	public void setPutinTime(String putinTime) {
+		this.putinTime = putinTime;
+	}
 	public String getMemberNo() {
 		return memberNo;
 	}

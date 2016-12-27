@@ -73,6 +73,8 @@ public class LoanServiceImpl implements LoanService {
 		entity.setStatus(LoanStatusEnum.PROCESSING);
 		entity.setCreateTime(DateUtil.getLastModifyTime());
 		entity.setLastModifyTime(DateUtil.getLastModifyTime());
+		entity.setPutinTime(Long.parseLong(param.getPutinTime()));
+		entity.setPenaltyYeild(new BigDecimal(param.getPenaltyYeild()));
 		return entity;
 	}
 	
@@ -257,22 +259,35 @@ public class LoanServiceImpl implements LoanService {
 	public ResultInfo loanReplyNotice(LoanRepayParam param) {
 		LoanRepayInformationsEntity entity = new LoanRepayInformationsEntity();
 		entity.setIssueVoucherNo(param.getIssueVoucherNo());
-		entity.setOverdue(WhetherEnum.valueOf(param.getOverdue()));
 		entity.setOverdueDays(Integer.parseInt(param.getOverdueDays()));
 		entity.setDefaultAmount(new BigDecimal(param.getDefaultAmount()));
-		entity.setAheadRepay(WhetherEnum.valueOf(param.getAheadRepay()));
 		entity.setUserRepayTime(Long.parseLong(param.getUserRepayTime()));
 		entity.setCapital(new BigDecimal(param.getCapital()));
 		entity.setInterest(new BigDecimal(param.getInterest()));
 		entity.setCreateTime(DateUtil.getLastModifyTime());
+		entity.setAheadRepayAmount(new BigDecimal(param.getAheadRepayAmount()));
+		entity.setSettleRepayTime(Long.parseLong(param.getSettleRepayTime()));
+		int ahead = entity.getAheadRepayAmount().compareTo(new BigDecimal(0));
+		int overdue = entity.getDefaultAmount().compareTo(new BigDecimal(0));
+		if(ahead == 1){
+			entity.setAheadRepay(WhetherEnum.YES);
+		}else{
+			entity.setAheadRepay(WhetherEnum.NO);
+		}
+		if(overdue == 1){
+			entity.setOverdue(WhetherEnum.YES);
+		}else{
+			entity.setOverdue(WhetherEnum.NO);
+		}
 		loanRepayInformationsDao.insertSelective(entity);
 		if(WhetherEnum.YES.equals(entity.getAheadRepay())){
 			loanInformationsDao.updateStatusByVoucherNo(entity.getIssueVoucherNo());
 			loanRepayPlanDao.updateStatusByVoucherNo(entity.getIssueVoucherNo());
 			loanRepayPlanDao.updateCurrentNoByVoucherNo(entity.getIssueVoucherNo());
 		}else{
-			loanRepayPlanDao.updateStatusByConditions(entity.getIssueVoucherNo(), entity.getUserRepayTime());
-			if(!WhetherEnum.YES.toString().equals(param.getOverdue())){
+			loanRepayPlanDao.updateStatusByConditions(entity.getIssueVoucherNo(), entity.getSettleRepayTime());
+			if(!WhetherEnum.YES.equals(entity.getOverdue())){
+				//设置下一期为本期
 				loanRepayPlanDao.updateCurrentNoByVoucherNo(entity.getIssueVoucherNo());
 				loanRepayPlanDao.updateCurrentByVoucherNo(entity.getIssueVoucherNo());
 			}

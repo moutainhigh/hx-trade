@@ -37,8 +37,24 @@ public class LoanRepayInformationsEntity extends BaseEntity{
     private BigDecimal interest;
     //创建时间
     private Long createTime;
+    //提前还款金额
+    private BigDecimal aheadRepayAmount;
+    //结息时间
+    private Long settleRepayTime;
 
-    public Long getId() {
+    public BigDecimal getAheadRepayAmount() {
+		return aheadRepayAmount;
+	}
+	public void setAheadRepayAmount(BigDecimal aheadRepayAmount) {
+		this.aheadRepayAmount = aheadRepayAmount;
+	}
+	public Long getSettleRepayTime() {
+		return settleRepayTime;
+	}
+	public void setSettleRepayTime(Long settleRepayTime) {
+		this.settleRepayTime = settleRepayTime;
+	}
+	public Long getId() {
         return id;
     }
     public void setId(Long id) {
