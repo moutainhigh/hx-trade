@@ -18,15 +18,16 @@ import com.hgxh.trade.util.SimpleHttpUtil;
 */
 public class BindTerminalControllerTest {
 	
+//	private String  baseUrl="http://59.151.121.92:8080/bindTerminal/";
 	private String  baseUrl="http://localhost:8080/bindTerminal/";
 	
     @Test
     public void bindQBrush() throws Exception {
     	Map<String, String> params=new HashMap<String, String>();	
-    	params.put("userId", "1");
-    	params.put("terminalNo", "12321423423");
+    	params.put("userId", "15210158919");
+    	params.put("terminalNo", "80110400130615");
     	params.put("paramKey", "REQ_MESSAGE");
-    	params.put("paramValue", "request message");
+    	params.put("paramValue", "{\'ip\':\'fe80::76cf:1b38:e2c7:f289\',\'REQ_BODY\':{\'termNo\':\'80110400130615\',\'appVersion\':\'1.0.1\',\'custId\':\'1000158270\',\'sysTerNo\':\'E169B60D-2215-499B-94BC-7BB3A3556104\',\'MODEL\':\'iPhone8,1\',\'custMobile\':\'18500330325\',\'sysVersion\':\'10.1.1\',\'txnDate\':\'161228\',\'txnTime\':\'101721\',\'sysType\':\'IOS\'},\'REQ_HEAD\':{\'SIGN\':\'23deed852d80c118b6dd68413ff4a37f\'}}'}");
     	String result=SimpleHttpUtil.doPost(baseUrl+"bindQBrush", params);
 //    	String result=HttpClient.doPost(baseUrl+"bindQBrush", JSON.toJSON(params));
     	System.out.println("*******************");

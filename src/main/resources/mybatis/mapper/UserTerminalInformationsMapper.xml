@@ -6,7 +6,7 @@
         <result column="user_id" property="userId" jdbcType="BIGINT" />
         <result column="terminal_no" property="terminalNo" jdbcType="VARCHAR" />
         <result column="terminal_type" property="terminalType" jdbcType="VARCHAR" />
-        <result column="bluetoothUrl" property="bluetoothurl" jdbcType="VARCHAR" />
+        <result column="bluetoothUrl" property="bluetoothUrl" jdbcType="VARCHAR" />
         <result column="bind_time" property="bindTime" jdbcType="BIGINT" />
     </resultMap>
 
@@ -36,7 +36,7 @@
             <if test="terminalType != null" >
                 terminal_type,
             </if>
-            <if test="bluetoothurl != null" >
+            <if test="bluetoothUrl != null" >
                 bluetoothUrl,
             </if>
             <if test="bindTime != null" >
@@ -56,8 +56,8 @@
             <if test="terminalType != null" >
                 #{terminalType,jdbcType=VARCHAR},
             </if>
-            <if test="bluetoothurl != null" >
-                #{bluetoothurl,jdbcType=VARCHAR},
+            <if test="bluetoothUrl != null" >
+                #{bluetoothUrl,jdbcType=VARCHAR},
             </if>
             <if test="bindTime != null" >
                 #{bindTime,jdbcType=BIGINT},
@@ -77,8 +77,8 @@
             <if test="terminalType != null" >
                 terminal_type = #{terminalType,jdbcType=VARCHAR},
             </if>
-            <if test="bluetoothurl != null" >
-                bluetoothUrl = #{bluetoothurl,jdbcType=VARCHAR},
+            <if test="bluetoothUrl != null" >
+                bluetoothUrl = #{bluetoothUrl,jdbcType=VARCHAR},
             </if>
             <if test="bindTime != null" >
                 bind_time = #{bindTime,jdbcType=BIGINT},
