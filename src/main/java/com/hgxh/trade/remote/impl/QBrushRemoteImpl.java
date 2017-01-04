@@ -8,19 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSON;
 import com.hgxh.trade.dao.UserTerminalInformationsDao;
 import com.hgxh.trade.entity.UserTerminalInformationsEntity;
 import com.hgxh.trade.enums.BaseExceptionMsg;
 import com.hgxh.trade.enums.TerminalTypeEnum;
 import com.hgxh.trade.param.BindTerminalParam;
 import com.hgxh.trade.remote.QBrushRemote;
-import com.hgxh.trade.result.QBrushRemoteBodyResult;
 import com.hgxh.trade.result.QBrushRemoteResult;
 import com.hgxh.trade.result.ResultInfo;
 import com.hgxh.trade.util.DateUtil;
-import com.hgxh.trade.util.HttpClient;
 import com.hgxh.trade.util.JSONUtil;
+import com.hgxh.trade.util.SimpleHttpUtil;
 
 /**
 *@ClassName: QBrushRemoteImpl
@@ -45,14 +43,9 @@ public class QBrushRemoteImpl implements QBrushRemote {
 		Map<String, String> params = new HashMap<String, String>();
     	params.put(param.getParamKey(), param.getParamValue());
     	//调用Q刷绑定终端接口
-    	String res=HttpClient.doPost(qBrushRemoteUrl, JSON.toJSON(params));
+    	String res=SimpleHttpUtil.doPost(qBrushRemoteUrl, params);
     	QBrushRemoteResult remoteResult = new QBrushRemoteResult();
     	remoteResult = (QBrushRemoteResult) JSONUtil.JSONToObject(res, remoteResult);
-    	//测试信息开始
-    	QBrushRemoteBodyResult body = new QBrushRemoteBodyResult();
-    	body.setRSPCOD("000000");
-    	remoteResult.setREP_BODY(body);
-    	//测试信息结束
     	if(StringUtils.isNotBlank(res) && "000000".equals(remoteResult.getREP_BODY().getRSPCOD())){
     		termainalDao.insertSelective(converEntity(param));
     		result = new ResultInfo(BaseExceptionMsg.SUCCESS);
