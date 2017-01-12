@@ -42,7 +42,7 @@ public class BindTerminalBizImpl implements BindTerminalBiz {
 		try {
 			result = qBrushRemote.bindTerminal(param);
 		} catch (Exception e) {
-			logger.error("failed in invest [param:{}] with exception:{}", param,ExceptionUtils.getStackTrace(e));
+			logger.error("failed in bind qBrush [param:{}] with exception:{}", param,ExceptionUtils.getStackTrace(e));
 			result = new ResultInfo(BaseExceptionMsg.CALL_REMOTE_SERVICE_FAILED);
 		}
 		return result;

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,8 @@ import com.hgxh.trade.util.SimpleHttpUtil;
 @Service
 public class QBrushRemoteImpl implements QBrushRemote {
 	
+	private static final Logger logger = LoggerFactory.getLogger(QBrushRemoteImpl.class);
+	
 	@Value("${qbrush.remote.url}")
 	private String qBrushRemoteUrl;
 	
@@ -41,9 +45,12 @@ public class QBrushRemoteImpl implements QBrushRemote {
 	public ResultInfo bindTerminal(BindTerminalParam param) throws Exception{
 		ResultInfo result = null;
 		Map<String, String> params = new HashMap<String, String>();
-    	params.put(param.getParamKey(), param.getParamValue());
+		String value = param.getParamValue().replace("\\", "");
+    	params.put(param.getParamKey(), value);
     	//调用Q刷绑定终端接口
+    	logger.info("绑定Q刷传入参数 :"+params);
     	String res=SimpleHttpUtil.doPost(qBrushRemoteUrl, params);
+    	logger.info("绑定Q刷接口返回结果 :"+res);
     	QBrushRemoteResult remoteResult = new QBrushRemoteResult();
     	remoteResult = (QBrushRemoteResult) JSONUtil.JSONToObject(res, remoteResult);
     	if(StringUtils.isNotBlank(res) && "000000".equals(remoteResult.getREP_BODY().getRSPCOD())){
