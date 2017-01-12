@@ -33,7 +33,7 @@ public class LoanCallBackBizImpl implements LoanCallBackBiz {
 	@Override
 	public ResultInfo addLoanNotice(AddLoanParam param) {
 		//参数校验
-		if(PropertyUtils.checkNull(param, "memberNo,issueVoucherNo,repayWay,amount,yeild,beginTime,endTime")){
+		if(PropertyUtils.checkNull(param, "memberNo,issueVoucherNo,repayWay,amount,yield,beginTime,endTime")){
 			return new ResultInfo(BaseExceptionMsg.PARAM_IS_NULL);
 		}
 		ResultInfo result=null;

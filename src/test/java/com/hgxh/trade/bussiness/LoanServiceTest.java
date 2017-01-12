@@ -35,8 +35,8 @@ public class LoanServiceTest {
 		param.setMemberNo("HS138968");
 		param.setRepayType("MONTH");
 		param.setRepayWay("AVERAGEINTEREST");
-		param.setYeild("2.23");
-		param.setPenaltyYeild("0.02");
+		param.setYield("2.23");
+		param.setPenaltyYield("0.02");
 		param.setPutinTime("1476288000000");
 		ResultInfo resultInfo = loanService.addLoanNotice(param);
 		System.out.println(resultInfo);
@@ -53,7 +53,7 @@ public class LoanServiceTest {
 //		param.setMemberNo("HS138968");
 //		param.setRepayType("MONTH");
 //		param.setRepayWay("DISPOSABLE");
-//		param.setYeild("2.23");
+//		param.setYield("2.23");
 //		ResultInfo resultInfo = loanService.addLoanNotice(param);
 //		System.out.println(resultInfo);
 	}

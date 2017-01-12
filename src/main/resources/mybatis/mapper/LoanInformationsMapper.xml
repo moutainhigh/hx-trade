@@ -8,19 +8,19 @@
         <result column="repay_type" property="repayType" jdbcType="VARCHAR" />
         <result column="repay_way" property="repayWay" jdbcType="VARCHAR" />
         <result column="amount" property="amount" jdbcType="DECIMAL" />
-        <result column="yeild" property="yeild" jdbcType="DECIMAL" />
+        <result column="yield" property="yield" jdbcType="DECIMAL" />
         <result column="begin_time" property="beginTime" jdbcType="BIGINT" />
         <result column="end_time" property="endTime" jdbcType="BIGINT" />
         <result column="status" property="status" jdbcType="VARCHAR" />
         <result column="create_time" property="createTime" jdbcType="BIGINT" />
         <result column="last_modify_time" property="lastModifyTime" jdbcType="BIGINT" />
     	<result column="putin_time" property="putinTime" jdbcType="BIGINT" />
-        <result column="penalty_yeild" property="penaltyYeild" jdbcType="DECIMAL" />
+        <result column="penalty_yield" property="penaltyYield" jdbcType="DECIMAL" />
     </resultMap>
 
     <sql id="Base_Column_List" >
-        id, issue_voucher_no, member_no, repay_type, repay_way, amount, yeild, begin_time, 
-        end_time, status, create_time, last_modify_time, putin_time, penalty_yeild
+        id, issue_voucher_no, member_no, repay_type, repay_way, amount, yield, begin_time, 
+        end_time, status, create_time, last_modify_time, putin_time, penalty_yield
     </sql>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -51,8 +51,8 @@
             <if test="amount != null" >
                 amount,
             </if>
-            <if test="yeild != null" >
-                yeild,
+            <if test="yield != null" >
+                yield,
             </if>
             <if test="beginTime != null" >
                 begin_time,
@@ -72,8 +72,8 @@
             <if test="putinTime != null" >
                 putin_time,
             </if>
-            <if test="penaltyYeild != null" >
-                penalty_yeild,
+            <if test="penaltyYield != null" >
+                penalty_yield,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -95,8 +95,8 @@
             <if test="amount != null" >
                 #{amount,jdbcType=DECIMAL},
             </if>
-            <if test="yeild != null" >
-                #{yeild,jdbcType=DECIMAL},
+            <if test="yield != null" >
+                #{yield,jdbcType=DECIMAL},
             </if>
             <if test="beginTime != null" >
                 #{beginTime,jdbcType=BIGINT},
@@ -116,8 +116,8 @@
             <if test="putinTime != null" >
                 #{putinTime,jdbcType=BIGINT},
             </if>
-            <if test="penaltyYeild != null" >
-                #{penaltyYeild,jdbcType=DECIMAL},
+            <if test="penaltyYield != null" >
+                #{penaltyYield,jdbcType=DECIMAL},
             </if>
         </trim>
     </insert>
@@ -140,8 +140,8 @@
             <if test="amount != null" >
                 amount = #{amount,jdbcType=DECIMAL},
             </if>
-            <if test="yeild != null" >
-                yeild = #{yeild,jdbcType=DECIMAL},
+            <if test="yield != null" >
+                yield = #{yield,jdbcType=DECIMAL},
             </if>
             <if test="beginTime != null" >
                 begin_time = #{beginTime,jdbcType=BIGINT},
@@ -161,8 +161,8 @@
             <if test="putinTime != null" >
                 putin_time = #{putinTime,jdbcType=BIGINT},
             </if>
-            <if test="penaltyYeild != null" >
-                penalty_yeild = #{penaltyYeild,jdbcType=DECIMAL},
+            <if test="penaltyYield != null" >
+                penalty_yield = #{penaltyYield,jdbcType=DECIMAL},
             </if>
         </set>
         where id = #{id,jdbcType=BIGINT}

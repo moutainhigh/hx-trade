@@ -23,21 +23,27 @@ public class AddLoanParam extends BaseParam{
 	//贷款金额
 	private String amount;
 	//贷款利率
-	private String yeild;
+	private String yield;
 	//开始时间
 	private String beginTime;
 	//结束时间
 	private String endTime;
 	//加罚利率
-	private String penaltyYeild;
+	private String penaltyYield;
 	//投放时间
 	private String putinTime;
 	
-	public String getPenaltyYeild() {
-		return penaltyYeild;
+	public String getYield() {
+		return yield;
 	}
-	public void setPenaltyYeild(String penaltyYeild) {
-		this.penaltyYeild = penaltyYeild;
+	public void setYield(String yield) {
+		this.yield = yield;
+	}
+	public String getPenaltyYield() {
+		return penaltyYield;
+	}
+	public void setPenaltyYield(String penaltyYield) {
+		this.penaltyYield = penaltyYield;
 	}
 	public String getPutinTime() {
 		return putinTime;
@@ -74,12 +80,6 @@ public class AddLoanParam extends BaseParam{
 	}
 	public void setAmount(String amount) {
 		this.amount = amount;
-	}
-	public String getYeild() {
-		return yeild;
-	}
-	public void setYeild(String yeild) {
-		this.yeild = yeild;
 	}
 	public String getBeginTime() {
 		return beginTime;

@@ -133,7 +133,7 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 			ordersEntity.setPredictInterest(ordersEntity.getWithdrawalAmount().multiply(product.getYield().divide(new BigDecimal(100)))
 					.multiply(new BigDecimal(product.getCycle())).divide(new BigDecimal(360),2,BigDecimal.ROUND_HALF_UP));
 		}
-		ordersEntity.setYeild(product.getYield());
+		ordersEntity.setYield(product.getYield());
 		ordersEntity.setAmount(new BigDecimal(param.getAmount()));
 		return ordersEntity;
 	}

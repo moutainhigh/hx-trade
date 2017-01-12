@@ -32,7 +32,7 @@ public class LoanInformationsEntity extends BaseEntity{
     //借款金额
     private BigDecimal amount;
     //借款利率
-    private BigDecimal yeild;
+    private BigDecimal yield;
     //开始时间
     private Long beginTime;
     //结束时间
@@ -44,15 +44,15 @@ public class LoanInformationsEntity extends BaseEntity{
     //最近修改时间
     private Long lastModifyTime;
     //加罚利率
-    private BigDecimal penaltyYeild;
+    private BigDecimal penaltyYield;
     //投放时间
     private Long putinTime;
 
-    public BigDecimal getPenaltyYeild() {
-		return penaltyYeild;
+	public BigDecimal getPenaltyYield() {
+		return penaltyYield;
 	}
-	public void setPenaltyYeild(BigDecimal penaltyYeild) {
-		this.penaltyYeild = penaltyYeild;
+	public void setPenaltyYield(BigDecimal penaltyYield) {
+		this.penaltyYield = penaltyYield;
 	}
 	public Long getPutinTime() {
 		return putinTime;
@@ -96,13 +96,13 @@ public class LoanInformationsEntity extends BaseEntity{
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
-    public BigDecimal getYeild() {
-        return yeild;
-    }
-    public void setYeild(BigDecimal yeild) {
-        this.yeild = yeild;
-    }
-    public Long getBeginTime() {
+    public BigDecimal getYield() {
+		return yield;
+	}
+	public void setYield(BigDecimal yield) {
+		this.yield = yield;
+	}
+	public Long getBeginTime() {
         return beginTime;
     }
     public void setBeginTime(Long beginTime) {

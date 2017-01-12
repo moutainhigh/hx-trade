@@ -67,14 +67,14 @@ public class LoanServiceImpl implements LoanService {
 		entity.setRepayType(RepayTypeEnum.valueOf(param.getRepayType()));
 		entity.setRepayWay(RepayWayEnum.valueOf(param.getRepayWay()));
 		entity.setAmount(new BigDecimal(param.getAmount()));
-		entity.setYeild(new BigDecimal(param.getYeild()));
+		entity.setYield(new BigDecimal(param.getYield()));
 		entity.setBeginTime(Long.parseLong(param.getBeginTime()));
 		entity.setEndTime(Long.parseLong(param.getEndTime()));
 		entity.setStatus(LoanStatusEnum.PROCESSING);
 		entity.setCreateTime(DateUtil.getLastModifyTime());
 		entity.setLastModifyTime(DateUtil.getLastModifyTime());
 		entity.setPutinTime(Long.parseLong(param.getPutinTime()));
-		entity.setPenaltyYeild(new BigDecimal(param.getPenaltyYeild()));
+		entity.setPenaltyYield(new BigDecimal(param.getPenaltyYield()));
 		return entity;
 	}
 	
@@ -102,7 +102,7 @@ public class LoanServiceImpl implements LoanService {
 		int endMonth = Integer.parseInt(e[1]);
 		int endDay = Integer.parseInt(e[2]);
 		BigDecimal repayCapital = new BigDecimal(0);
-		BigDecimal yeild = new BigDecimal(param.getYeild()).divide(new BigDecimal(100));
+		BigDecimal yield = new BigDecimal(param.getYield()).divide(new BigDecimal(100));
 		if(param.getRepayWay() != RepayWayEnum.DISPOSABLE.toString()){
 			for(int i=0;i<months;i++){
 				month++;
@@ -123,17 +123,17 @@ public class LoanServiceImpl implements LoanService {
 					entity.setCapital(capita);
 					//每月利息=剩余本金（本金-已还本金）*利率/12
 					BigDecimal interest = (new BigDecimal(param.getAmount()).subtract(capita.multiply(new BigDecimal(i)))).
-							multiply(yeild).divide(new BigDecimal(12),2,BigDecimal.ROUND_HALF_UP);
+							multiply(yield).divide(new BigDecimal(12),2,BigDecimal.ROUND_HALF_UP);
 					entity.setCapital(capita);
 					entity.setInterest(interest);
 				}
 				//等额本息
 				if(RepayWayEnum.AVERAGEINTEREST.toString().equals(param.getRepayWay())){
 					//总额=本金*利率*（1+利率）^月数/（（1+利率）^月数-1）
-					BigDecimal pow = (new BigDecimal(1).add(yeild)).pow(months);
-					BigDecimal amount = new BigDecimal(param.getAmount()).multiply(yeild).multiply(pow).divide(pow.subtract(new BigDecimal(1)),2,BigDecimal.ROUND_HALF_UP);
+					BigDecimal pow = (new BigDecimal(1).add(yield)).pow(months);
+					BigDecimal amount = new BigDecimal(param.getAmount()).multiply(yield).multiply(pow).divide(pow.subtract(new BigDecimal(1)),2,BigDecimal.ROUND_HALF_UP);
 					//每月利息=剩余本金（本金-已还本金）*利率/12
-					BigDecimal interest = (new BigDecimal(param.getAmount()).subtract(repayCapital)).multiply(yeild)
+					BigDecimal interest = (new BigDecimal(param.getAmount()).subtract(repayCapital)).multiply(yield)
 							.divide(new BigDecimal(12),2,BigDecimal.ROUND_HALF_UP);
 					BigDecimal capital = amount.subtract(interest);
 					entity.setCapital(capital);
@@ -158,7 +158,7 @@ public class LoanServiceImpl implements LoanService {
 					long repayTime = DateUtil.stringToTimestamp(""+year+mon+day);
 					entity.setRepayTime(repayTime);
 					//每月利息=本金*年利率/12
-					entity.setInterest(new BigDecimal(param.getAmount()).multiply(yeild)
+					entity.setInterest(new BigDecimal(param.getAmount()).multiply(yield)
 							.divide(new BigDecimal(12),2,BigDecimal.ROUND_HALF_UP));
 					if(i != months-1){
 						entity.setCapital(new BigDecimal(0));
@@ -171,7 +171,7 @@ public class LoanServiceImpl implements LoanService {
 				//第一期
 				entity.setRepayTime(DateUtil.stringToTimestamp(""+year+month+"20"));
 				//利息=本金*年利率/360*天数
-				entity.setInterest(new BigDecimal(param.getAmount()).multiply(yeild)
+				entity.setInterest(new BigDecimal(param.getAmount()).multiply(yield)
 				.divide(new BigDecimal(360),2,BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(20-day)));
 				entity.setCapital(new BigDecimal(0));
 				loanRepayPlanDao.insertSelective(entity);
@@ -189,7 +189,7 @@ public class LoanServiceImpl implements LoanService {
 					long repayTime = DateUtil.stringToTimestamp(""+year+mon+"20");
 					entity.setRepayTime(repayTime);
 					//每月利息=本金*年利率/12
-					entity.setInterest(new BigDecimal(param.getAmount()).multiply(yeild)
+					entity.setInterest(new BigDecimal(param.getAmount()).multiply(yield)
 							.divide(new BigDecimal(12),2,BigDecimal.ROUND_HALF_UP));
 					entity.setCapital(new BigDecimal(0));
 					loanRepayPlanDao.insertSelective(entity);
@@ -198,7 +198,7 @@ public class LoanServiceImpl implements LoanService {
 				entity.setRepayTime(Long.parseLong(param.getEndTime()));
 				int sdays = DateUtil.getMonthDays(endYear,endMonth);
 				//利息=本金*年利率/360*天数
-				entity.setInterest(new BigDecimal(param.getAmount()).multiply(yeild)
+				entity.setInterest(new BigDecimal(param.getAmount()).multiply(yield)
 						.divide(new BigDecimal(360),2,BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(sdays-20+endDay)));
 				entity.setCapital(new BigDecimal(param.getAmount()));
 				loanRepayPlanDao.insertSelective(entity);
@@ -216,7 +216,7 @@ public class LoanServiceImpl implements LoanService {
 				}
 				entity.setRepayTime(DateUtil.stringToTimestamp(""+year+mon+"20"));
 				//利息=本金*年利率/360*天数
-				entity.setInterest(new BigDecimal(param.getAmount()).multiply(yeild)
+				entity.setInterest(new BigDecimal(param.getAmount()).multiply(yield)
 				.divide(new BigDecimal(360),2,BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(DateUtil.getMonthDays(year, month)-day+20)));
 				entity.setCapital(new BigDecimal(0));
 				loanRepayPlanDao.insertSelective(entity);
@@ -234,14 +234,14 @@ public class LoanServiceImpl implements LoanService {
 					long repayTime = DateUtil.stringToTimestamp(""+year+mon1+"20");
 					entity.setRepayTime(repayTime);
 					//每月利息=本金*年利率/12
-					entity.setInterest(new BigDecimal(param.getAmount()).multiply(yeild)
+					entity.setInterest(new BigDecimal(param.getAmount()).multiply(yield)
 							.divide(new BigDecimal(12),2,BigDecimal.ROUND_HALF_UP));
 					entity.setCapital(new BigDecimal(0));
 					loanRepayPlanDao.insertSelective(entity);
 				}
 				//最后一期
 				entity.setRepayTime(Long.parseLong(param.getEndTime()));
-				entity.setInterest(new BigDecimal(param.getAmount()).multiply(yeild)
+				entity.setInterest(new BigDecimal(param.getAmount()).multiply(yield)
 						.divide(new BigDecimal(360),2,BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(day-20)));
 				entity.setCapital(new BigDecimal(param.getAmount()));
 				loanRepayPlanDao.insertSelective(entity);

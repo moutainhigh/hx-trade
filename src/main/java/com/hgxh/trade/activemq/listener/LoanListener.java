@@ -52,10 +52,10 @@ public class LoanListener {
 	   param.setRepayType(map.get("repayType"));
 	   param.setRepayWay(map.get("repayWay"));
 	   param.setAmount(map.get("amount"));
-	   param.setYeild(map.get("yeild"));
+	   param.setYield(map.get("yield"));
 	   param.setBeginTime(map.get("beginTime"));
 	   param.setEndTime(map.get("endTime"));
-	   param.setPenaltyYeild(map.get("penaltyYeild"));
+	   param.setPenaltyYield(map.get("penaltyYield"));
 	   param.setPutinTime(map.get("putinTime"));
 	   return param;
    }

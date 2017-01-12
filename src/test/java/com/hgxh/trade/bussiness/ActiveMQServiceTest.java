@@ -76,7 +76,7 @@ public class ActiveMQServiceTest {
 		map.put("memberNo","HS138968");
 		map.put("repayType","MONTH");
 		map.put("repayWay","AVERAGEINTEREST");
-		map.put("yeild","2.23");
+		map.put("yield","2.23");
 		mqService.sendAddLoanQueue(map);
 	}
 	

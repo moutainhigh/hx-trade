@@ -53,7 +53,7 @@ public class OrdersEntity extends BaseEntity{
     //支付方式
     private String payType;
     //利率
-    private BigDecimal yeild;
+    private BigDecimal yield;
     //定期到期预计收益
     private BigDecimal predictInterest;
 
@@ -159,13 +159,13 @@ public class OrdersEntity extends BaseEntity{
     public void setPayType(String payType) {
         this.payType = payType;
     }
-    public BigDecimal getYeild() {
-        return yeild;
-    }
-    public void setYeild(BigDecimal yeild) {
-        this.yeild = yeild;
-    }
-    public BigDecimal getPredictInterest() {
+    public BigDecimal getYield() {
+		return yield;
+	}
+	public void setYield(BigDecimal yield) {
+		this.yield = yield;
+	}
+	public BigDecimal getPredictInterest() {
         return predictInterest;
     }
     public void setPredictInterest(BigDecimal predictInterest) {

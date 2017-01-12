@@ -19,14 +19,14 @@
         <result column="last_modify_time" property="lastModifyTime" jdbcType="BIGINT" />
         <result column="transfer_sava_type" property="transferSavaType" jdbcType="VARCHAR" />
         <result column="pay_type" property="payType" jdbcType="VARCHAR" />
-        <result column="yeild" property="yeild" jdbcType="DECIMAL" />
+        <result column="yield" property="yield" jdbcType="DECIMAL" />
         <result column="predict_interest" property="predictInterest" jdbcType="DECIMAL" />
     </resultMap>
 
     <sql id="Base_Column_List" >
         id, version, biz_no, member_no, order_no, product_no, user_id, amount, withdrawal_amount, 
         already_withdraw_count, status, order_type, expiration_time, order_time, last_modify_time, 
-        transfer_sava_type, pay_type, yeild, predict_interest
+        transfer_sava_type, pay_type, yield, predict_interest
     </sql>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -90,8 +90,8 @@
             <if test="payType != null" >
                 pay_type,
             </if>
-            <if test="yeild != null" >
-                yeild,
+            <if test="yield != null" >
+                yield,
             </if>
             <if test="predictInterest != null" >
                 predict_interest,
@@ -149,8 +149,8 @@
             <if test="payType != null" >
                 #{payType,jdbcType=VARCHAR},
             </if>
-            <if test="yeild != null" >
-                #{yeild,jdbcType=DECIMAL},
+            <if test="yield != null" >
+                #{yield,jdbcType=DECIMAL},
             </if>
             <if test="predictInterest != null" >
                 #{predictInterest,jdbcType=DECIMAL},
@@ -207,8 +207,8 @@
             <if test="payType != null" >
                 pay_type = #{payType,jdbcType=VARCHAR},
             </if>
-            <if test="yeild != null" >
-                yeild = #{yeild,jdbcType=DECIMAL},
+            <if test="yield != null" >
+                yield = #{yield,jdbcType=DECIMAL},
             </if>
             <if test="predictInterest != null" >
                 predict_interest = #{predictInterest,jdbcType=DECIMAL},
