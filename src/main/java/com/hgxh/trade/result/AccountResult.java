@@ -26,6 +26,8 @@ public class AccountResult {
 	private String introducerName;
 	//存折账号
 	private String passbook;
+	//存折密码
+	private String password;
 	
 	public String getAreaNo() {
 		return areaNo;
@@ -80,6 +82,12 @@ public class AccountResult {
 	}
 	public void setPassbook(String passbook) {
 		this.passbook = passbook;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }

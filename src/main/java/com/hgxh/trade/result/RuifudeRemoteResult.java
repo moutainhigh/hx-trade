@@ -1,18 +1,20 @@
 package com.hgxh.trade.result;
+
 /**
-*@ClassName: RuiFuDeRemoteResult
+*@ClassName: RuifudeRemoteResult
 *@Description: 
 *@author YY 
 *@date 2016年12月4日  下午5:23:57
 *@version 1.0
 */
-public class RuiFuDeRemoteResult {
+//public class RuifudeRemoteResult {
+public class RuifudeRemoteResult<T> {
 	//返回码
 	private String rspCode;
 	//返回信息
 	private String rspMsg;
-	//凭证号
-	private String voucherNo;
+	//返回数据
+	private T data;
 
 	public String getRspCode() {
 		return rspCode;
@@ -30,12 +32,12 @@ public class RuiFuDeRemoteResult {
 		this.rspMsg = rspMsg;
 	}
 
-	public String getVoucherNo() {
-		return voucherNo;
+	public T getData() {
+		return data;
 	}
 
-	public void setVoucherNo(String voucherNo) {
-		this.voucherNo = voucherNo;
+	public void setData(T data) {
+		this.data = data;
 	}
-
+	
 }

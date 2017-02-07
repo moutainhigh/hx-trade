@@ -1,27 +1,25 @@
 package com.hgxh.trade.remote.impl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.hgxh.trade.dao.ProductInformationsDao;
-import com.hgxh.trade.entity.ProductInformationsEntity;
 import com.hgxh.trade.enums.BaseExceptionMsg;
-import com.hgxh.trade.enums.ProductTypeEnum;
 import com.hgxh.trade.param.InvestParam;
 import com.hgxh.trade.param.WithdrawParam;
 import com.hgxh.trade.remote.RuifudeRemote;
 import com.hgxh.trade.result.AccountResult;
-import com.hgxh.trade.result.RuiFuDeRemoteResult;
+import com.hgxh.trade.result.InvestResult;
+import com.hgxh.trade.result.RuifudeRemoteResult;
 import com.hgxh.trade.result.ResultInfo;
-import com.hgxh.trade.util.NumberUtil;
-import com.hgxh.trade.util.SequenceUtil;
+import com.hgxh.trade.result.RuifudeRemoteListResult;
+import com.hgxh.trade.util.Constants;
+import com.hgxh.trade.util.JSONUtil;
 import com.hgxh.trade.util.SimpleHttpUtil;
 
 /**
@@ -34,12 +32,11 @@ import com.hgxh.trade.util.SimpleHttpUtil;
 @Service
 public class RuifudeRemoteImpl implements RuifudeRemote {
 	
+	private static final Logger logger = LoggerFactory.getLogger(QBrushRemoteImpl.class);
+	
 	@Value("${ruifude.remote.url}")
 	private String ruifudeRemoteUrl;
 	
-	@Autowired
-	private ProductInformationsDao productDao;
-
 	/**
 	 * 查询开户信息
 	 */
@@ -49,42 +46,21 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
 		Map<String, String> params=new HashMap<String, String>();	
     	params.put("idCardNo", idCardNo);
     	//调用瑞福德查询开户信息接口
-//    	String res = SimpleHttpUtil.doPost(ruifudeRemoteUrl+"/getAccount", params);	
+    	logger.info("调用瑞福德查询开户信息接口传入参数 :"+params);
+    	String res = SimpleHttpUtil.doPostGb(ruifudeRemoteUrl+"bankInfo", params);
+    	logger.info("调用瑞福德查询开户信息接口返回结果 :"+res);
     	//封装返回信息
-    	List<AccountResult> list = new ArrayList<AccountResult>();
-    	//测试信息开始
-    	AccountResult accountResult = new AccountResult();
-    	accountResult.setMemberNo("HS"+NumberUtil.getRandomNo(5));
-    	accountResult.setAreaNo("A100");
-    	accountResult.setJoinTime("1481009685000");
-    	accountResult.setMemberName("罗成");
-    	accountResult.setCensusRegisterType("CITY");
-    	accountResult.setAddress("黄山市屯溪区老街");
-    	accountResult.setMobile("13913787231");
-    	accountResult.setIntroducerName("李伟");
-    	accountResult.setPassbook("6213454650987654");
-    	list.add(accountResult);
-    	AccountResult accountResult1 = new AccountResult();
-    	accountResult1.setMemberNo("HS"+NumberUtil.getRandomNo(5));
-    	accountResult1.setAreaNo("A200");
-    	accountResult1.setJoinTime("1481101635592");
-    	accountResult1.setMemberName("罗成");
-    	accountResult1.setCensusRegisterType("CITY");
-    	accountResult1.setAddress("黄山市屯溪区老街");
-    	accountResult1.setMobile("13913454330");
-    	accountResult1.setIntroducerName("李伟");
-    	accountResult1.setPassbook("621345465450813");
-    	list.add(accountResult1);
-    	String res = "success";
-    	//测试信息结束
-    	if("success".equals(res)){
+    	RuifudeRemoteListResult<AccountResult> remoteResult = new RuifudeRemoteListResult<AccountResult>();
+		remoteResult =  (RuifudeRemoteListResult<AccountResult>) JSONUtil.JSONToObject(res, remoteResult);
+    	List<AccountResult> list = remoteResult.getData();
+    	if(Constants.SUCCEED.equals(remoteResult.getRspCode())){
     		if(list != null && list.size()>0){
-        		result = new ResultInfo(BaseExceptionMsg.SUCCESS,list);
+        		result = new ResultInfo(BaseExceptionMsg.SUCCESS,res);
         	}else{
         		result = new ResultInfo(BaseExceptionMsg.ACCOUNT_NOT_EXIST);
         	}
     	}else{
-    		result = new ResultInfo(BaseExceptionMsg.CALL_REMOTE_SERVICE_FAILED);
+    		result = new ResultInfo(remoteResult.getRspCode(),remoteResult.getRspMsg());
     	}
     	
 		return result; 
@@ -100,29 +76,22 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
     	params.put("memberNo", param.getMemberNo());
     	params.put("passbook", param.getPassbook());
     	params.put("productNo", param.getProductNo());
+    	params.put("yield", param.getYield());
+    	params.put("productType", param.getProductType());
     	params.put("amount", param.getAmount());
     	params.put("investTime", param.getInvestTime());
     	params.put("transferSaveType", param.getTransferSaveType());
     	params.put("password", param.getPassword());
-    	params.put("productType", param.getProductType());
-    	params.put("yield", param.getYield());
     	params.put("expirationTime", param.getExpirationTime());
-    	//调用瑞福德查询开户信息接口
-//    	String res = SimpleHttpUtil.doPost(ruifudeRemoteUrl+"/save", params);	
-    	//res -> RuiFuDeRemoteResult
-    	RuiFuDeRemoteResult remoteResult = new RuiFuDeRemoteResult();
-    	ProductInformationsEntity product = productDao.selectByProductNo(param.getProductNo());
-    	//测试信息开始
-    	remoteResult.setRspCode("00");
-    	remoteResult.setVoucherNo("P12563423123");
-    	String res = "success";
-    	//测试信息结束
-    	if(StringUtils.isNotBlank(res) && "00".equals(remoteResult.getRspCode())){
-    		Map<String, String> map = new HashMap<String, String>();
-    		if(ProductTypeEnum.FIXED.equals(product.getProductType())){
-    			map.put("voucherNo", SequenceUtil.getVoucherNo());
-        	}
-    		result = new ResultInfo(BaseExceptionMsg.SUCCESS,map);
+    	//调用瑞福德购买接口
+    	logger.info("调用瑞福德购买接口传入参数 :"+params);
+    	String res = SimpleHttpUtil.doPostGb(ruifudeRemoteUrl+"buyProduct", params);
+    	logger.info("调用瑞福德购买接口返回结果 :"+res);
+    	//封装返回信息
+    	RuifudeRemoteResult<InvestResult> remoteResult = new RuifudeRemoteResult<InvestResult>();
+		remoteResult =  (RuifudeRemoteResult<InvestResult>) JSONUtil.JSONToObject(res, remoteResult);
+    	if(Constants.SUCCEED.equals(remoteResult.getRspCode())){
+    		result = new ResultInfo(BaseExceptionMsg.SUCCESS,remoteResult.getData());
     	}else{
     		result = new ResultInfo(remoteResult.getRspCode(),remoteResult.getRspMsg());
     	}
@@ -139,20 +108,20 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
     	params.put("memberNo", param.getMemberNo());
     	params.put("bizNo", param.getBizNo());
     	params.put("productNo", param.getProductNo());
+    	params.put("productType", param.getProductType());
     	params.put("amount", param.getAmount());
     	params.put("bankCode", param.getBankCode());
     	params.put("memberName", param.getMemberName());
     	params.put("bankCardNo", param.getBankCardNo());
     	params.put("password", param.getPassword());
-    	//调用瑞福德查询开户信息接口
-//    	String res = SimpleHttpUtil.doPost(ruifudeRemoteUrl+"/withdraw", params);	
-    	//res -> RuiFuDeRemoteResult
-    	RuiFuDeRemoteResult remoteResult = new RuiFuDeRemoteResult();
-    	//测试信息开始
-    	remoteResult.setRspCode("00");
-    	String res = "success";
-    	//测试信息结束
-    	if(StringUtils.isNotBlank(res) && "00".equals(remoteResult.getRspCode())){
+    	//调用瑞福德购买接口
+    	logger.info("调用瑞福德提现接口传入参数 :"+params);
+    	String res = SimpleHttpUtil.doPostGb(ruifudeRemoteUrl+"withdraw", params);
+    	logger.info("调用瑞福德提现接口返回结果 :"+res);
+    	//封装返回信息
+    	RuifudeRemoteResult remoteResult = new RuifudeRemoteResult();
+		remoteResult =   (RuifudeRemoteResult) JSONUtil.JSONToObject(res, remoteResult);
+		if(Constants.SUCCEED.equals(remoteResult.getRspCode())){
     		result = new ResultInfo(BaseExceptionMsg.SUCCESS);
     	}else{
     		result = new ResultInfo(remoteResult.getRspCode(),remoteResult.getRspMsg());

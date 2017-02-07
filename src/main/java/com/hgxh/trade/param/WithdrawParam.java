@@ -18,6 +18,8 @@ public class WithdrawParam extends BaseParam{
 	private String bizNo;
 	//产品编号
 	private String productNo;
+	//产品类型
+	private String productType;
 	//金额
 	private String amount;
 	//开户行
@@ -29,6 +31,12 @@ public class WithdrawParam extends BaseParam{
 	//密码
 	private String password;
 	
+	public String getProductType() {
+		return productType;
+	}
+	public void setProductType(String productType) {
+		this.productType = productType;
+	}
 	public String getPassword() {
 		return password;
 	}
