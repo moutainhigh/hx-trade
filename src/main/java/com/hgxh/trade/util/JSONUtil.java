@@ -2,8 +2,6 @@ package com.hgxh.trade.util;
 
 import java.util.List;
 
-import com.hgxh.trade.result.QBrushRemoteResult;
-
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 

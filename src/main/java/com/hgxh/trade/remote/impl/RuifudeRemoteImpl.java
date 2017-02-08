@@ -32,7 +32,7 @@ import com.hgxh.trade.util.SimpleHttpUtil;
 @Service
 public class RuifudeRemoteImpl implements RuifudeRemote {
 	
-	private static final Logger logger = LoggerFactory.getLogger(QBrushRemoteImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(RuifudeRemoteImpl.class);
 	
 	@Value("${ruifude.remote.url}")
 	private String ruifudeRemoteUrl;
@@ -62,7 +62,6 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
     	}else{
     		result = new ResultInfo(remoteResult.getRspCode(),remoteResult.getRspMsg());
     	}
-    	
 		return result; 
 	}
 
