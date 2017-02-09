@@ -1,7 +1,6 @@
 package com.hgxh.trade.remote.impl;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -52,13 +51,8 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
     	//封装返回信息
     	RuifudeRemoteListResult<AccountResult> remoteResult = new RuifudeRemoteListResult<AccountResult>();
 		remoteResult =  (RuifudeRemoteListResult<AccountResult>) JSONUtil.JSONToObject(res, remoteResult);
-    	List<AccountResult> list = remoteResult.getData();
     	if(Constants.SUCCEED.equals(remoteResult.getRspCode())){
-    		if(list != null && list.size()>0){
-        		result = new ResultInfo(BaseExceptionMsg.SUCCESS,res);
-        	}else{
-        		result = new ResultInfo(BaseExceptionMsg.ACCOUNT_NOT_EXIST);
-        	}
+    		result = new ResultInfo(BaseExceptionMsg.SUCCESS,remoteResult.getData());
     	}else{
     		result = new ResultInfo(remoteResult.getRspCode(),remoteResult.getRspMsg());
     	}

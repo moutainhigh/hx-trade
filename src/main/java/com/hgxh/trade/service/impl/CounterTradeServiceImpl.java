@@ -93,6 +93,7 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 				//update
 				order.setAmount(order.getAmount().add(new BigDecimal(param.getAmount())));
 				order.setWithdrawalAmount(order.getWithdrawalAmount().add(new BigDecimal(param.getAmount())));
+				order.setLastModifyTime(DateUtil.getLastModifyTime());
 				ordersDao.updateByPrimaryKeySelective(order);
 			}else{
 				//insert
