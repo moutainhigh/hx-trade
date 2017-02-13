@@ -51,13 +51,15 @@ public class CounterListener {
     	tradeParam.setProductNo(map.get("productNo"));
     	tradeParam.setTradeType(map.get("tradeType"));
     	tradeParam.setAmount(map.get("amount"));
+    	tradeParam.setCapital(map.get("capital"));
+    	tradeParam.setInterest(map.get("interest"));
     	tradeParam.setBizNo(map.get("bizNo"));
     	tradeParam.setFundsDirection(map.get("fundsDirection"));
     	tradeParam.setTradeTime(map.get("tradeTime"));
     	tradeParam.setTransferSavaType(map.get("transferSavaType"));
     	tradeParam.setProductType(map.get("productType"));
     	tradeParam.setPayType(map.get("payType"));
-    	tradeParam.setBankCardNo("bankCardNo");
+    	tradeParam.setBankCardNo(map.get("bankCardNo"));
     	tradeParam.setOrgiVoucherNo(map.get("orgiVoucherNo"));
     	tradeParam.setExpirationTime(map.get("expirationTime"));
     	return tradeParam;
@@ -86,10 +88,12 @@ public class CounterListener {
     	param.setProductType(map.get("productType"));
     	param.setCycle(map.get("cycle"));
     	param.setYield(map.get("yield"));
+    	param.setPartYield(map.get("partYield"));
     	param.setWithdrawCount(map.get("withdrawCount"));
     	param.setBriefIntroduction(map.get("briefIntroduction"));
     	param.setIntroduction(map.get("introduction"));
     	param.setCreateTime(map.get("createTime"));
+    	param.setAreaNo(map.get("areaNo"));
     	return param;
     }
 	

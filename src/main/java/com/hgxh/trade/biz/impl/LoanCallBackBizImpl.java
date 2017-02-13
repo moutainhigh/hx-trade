@@ -33,7 +33,7 @@ public class LoanCallBackBizImpl implements LoanCallBackBiz {
 	@Override
 	public ResultInfo addLoanNotice(AddLoanParam param) {
 		//参数校验
-		if(PropertyUtils.checkNull(param, "memberNo,issueVoucherNo,repayWay,amount,yield,beginTime,endTime")){
+		if(PropertyUtils.checkNull(param, "memberNo,issueVoucherNo,repayWay,amount,yield,putinTime,beginTime,endTime")){
 			return new ResultInfo(BaseExceptionMsg.PARAM_IS_NULL);
 		}
 		ResultInfo result=null;
@@ -49,7 +49,7 @@ public class LoanCallBackBizImpl implements LoanCallBackBiz {
 	@Override
 	public ResultInfo loanReplyNotice(LoanRepayParam param) {
 		//参数校验
-		if(PropertyUtils.checkNull(param, "issueVoucherNo,userRepayTime,capital,interest,aheadRepay,overdue,overdueDays,defaultAmount")){
+		if(PropertyUtils.checkNull(param, "issueVoucherNo,userRepayTime,settleRepayTime,interest")){
 			return new ResultInfo(BaseExceptionMsg.PARAM_IS_NULL);
 		}
 		ResultInfo result=null;

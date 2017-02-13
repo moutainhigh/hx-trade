@@ -20,6 +20,10 @@ public class CounterTradeParam extends BaseParam{
 	private String tradeType;
 	//交易金额
 	private String amount;
+	//交易本金
+	private String capital;
+	//交易利息
+	private String interest;
 	//业务编号  活期:存折号  定期:凭证编号
 	private String bizNo;
 	//资金方向
@@ -39,6 +43,18 @@ public class CounterTradeParam extends BaseParam{
   	//到期时间	购买定期、本金转存、本息转存 需要提供
   	private String expirationTime;
 	
+	public String getCapital() {
+		return capital;
+	}
+	public void setCapital(String capital) {
+		this.capital = capital;
+	}
+	public String getInterest() {
+		return interest;
+	}
+	public void setInterest(String interest) {
+		this.interest = interest;
+	}
 	public String getProductType() {
 		return productType;
 	}

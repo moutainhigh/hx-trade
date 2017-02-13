@@ -37,7 +37,7 @@ public class CounterCallBackBizImpl implements CounterCallBackBiz {
 	@Override
 	public ResultInfo counterTrade(CounterTradeParam param) {
 		//参数校验
-		if(PropertyUtils.checkNull(param, "memberNo,productNo,tradeType,amount,bizNo,tradeTime,productType")){
+		if(PropertyUtils.checkNull(param, "tradeType")){
 			return new ResultInfo(BaseExceptionMsg.PARAM_IS_NULL);
 		}
 		ResultInfo result=null;

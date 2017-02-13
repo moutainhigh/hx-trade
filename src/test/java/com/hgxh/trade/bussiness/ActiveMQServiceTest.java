@@ -32,16 +32,19 @@ public class ActiveMQServiceTest {
 	@Test
 	public void sendCounterTradeQueue(){
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("amount", "1000");
-		map.put("bizNo", "63495044533431302");
-		map.put("memberNo", "HS10002");
-		map.put("fundsDirection", "INCR");
-		map.put("payType", "EBANK");
-		map.put("productNo", "FIXED-3-1");
-		map.put("tradeTime", "1481163841645");
-		map.put("tradeType", "PURCHASE");
-		map.put("transferSavaType", "INTERESTTRANS");
-		map.put("productType", "FIXED");
+//		map.put("amount", "1000");
+//		map.put("bizNo", "8803666600000887");
+//		map.put("memberNo", "SY2015120406003947");
+//		map.put("fundsDirection", "INCR");
+//		map.put("payType", "EBANK");
+//		map.put("productNo", "2");
+//		map.put("tradeTime", "1486624260000");
+//		map.put("tradeType", "REPORTLOST");
+//		map.put("transferSavaType", "INTERESTTRANS");
+//		map.put("productType", "FIXED");
+//		map.put("expirationTime", "1488988800000");
+//		map.put("bankCardNo", "6217000010011167487");
+		map.put("orgiVoucherNo", "8803666600000887");
 		mqService.sendCounterTradeQueue(map);
 	}
 	

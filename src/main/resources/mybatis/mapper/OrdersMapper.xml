@@ -237,10 +237,18 @@
         where biz_no = #{bizNo,jdbcType=VARCHAR}
     </select>
     
-    <update id="updateStatusLostByBizNo" parameterType="java.lang.String" >
+    <update id="updateOrderStatusByBizNo" parameterType="java.util.Map" >
         update orders
-        set status = 'REPORTLOST'
-        and biz_no = #{bizNo,jdbcType=VARCHAR}
+        set status = #{status,javaType=com.hgxh.trade.enums.OrderStatusEnum}
+        where biz_no = #{bizNo,jdbcType=VARCHAR}
     </update>
+    
+    <select id="selectDueByBizNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM orders 
+        WHERE `status`='DUE' AND biz_no = #{bizNo,jdbcType=VARCHAR}
+        ORDER BY order_time DESC LIMIT 1
+    </select>
 
 </mapper>

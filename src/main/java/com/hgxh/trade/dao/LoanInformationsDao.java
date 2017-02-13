@@ -1,7 +1,5 @@
 package com.hgxh.trade.dao;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.hgxh.trade.entity.LoanInformationsEntity;
 
 public interface LoanInformationsDao {

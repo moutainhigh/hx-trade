@@ -46,8 +46,16 @@ public class FinancialInformationsEntity extends BaseEntity{
     private String bizNo;
     //社员编号
     private String memberNo;
+    //原凭证号
+    private String orgiVoucherNo;
 
-    public Long getId() {
+    public String getOrgiVoucherNo() {
+		return orgiVoucherNo;
+	}
+	public void setOrgiVoucherNo(String orgiVoucherNo) {
+		this.orgiVoucherNo = orgiVoucherNo;
+	}
+	public Long getId() {
         return id;
     }
     public void setId(Long id) {

@@ -2,6 +2,7 @@ package com.hgxh.trade.service.impl;
 
 import java.math.BigDecimal;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,18 +57,30 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 	 */
 	@Override
 	public ResultInfo saveCounterTrade(CounterTradeParam param) {
-		UserMemberInformationsEntity member = memberDao.selectByMemberNo(param.getMemberNo());
-		ProductInformationsEntity product = productDao.selectByProductNo(param.getProductNo());
+		UserMemberInformationsEntity member = null;
+		ProductInformationsEntity product = null;
+		if(StringUtils.isNotBlank(param.getMemberNo())){
+			member = memberDao.selectByMemberNo(param.getMemberNo());
+		}
+		if(StringUtils.isNotBlank(param.getProductNo())){
+			product = productDao.selectByProductNo(param.getProductNo());
+		}
 		if(TradeTypeEnum.PURCHASE.toString().equals(param.getTradeType())||
 				TradeTypeEnum.CAPITALTRANS.toString().equals(param.getTradeType())||
 				TradeTypeEnum.INTERESTTRANS.toString().equals(param.getTradeType())||
 				TradeTypeEnum.FIXEDTOCURRENT.toString().equals(param.getTradeType())||
 				TradeTypeEnum.AHEADWITDRAW.toString().equals(param.getTradeType())||
-				TradeTypeEnum.REPORTLOST.toString().equals(param.getTradeType())){
+				TradeTypeEnum.REPORTLOST.toString().equals(param.getTradeType())||
+				TradeTypeEnum.REPORRELIEVE.toString().equals(param.getTradeType())||
+				TradeTypeEnum.REPORTREISSUE.toString().equals(param.getTradeType())){
 			saveOrders(param, member, product);
 		}
 		saveFinancialInformations(param, member);
-		savaUserAccounts(param, member, product);
+		if(!TradeTypeEnum.REPORTLOST.toString().equals(param.getTradeType())&&
+				!TradeTypeEnum.REPORRELIEVE.toString().equals(param.getTradeType())&&
+				!TradeTypeEnum.REPORTREISSUE.toString().equals(param.getTradeType())){
+			savaUserAccounts(param, member, product);
+		}
 		return new ResultInfo(BaseExceptionMsg.SUCCESS);
 	}
 	
@@ -77,6 +90,7 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 	 */
 	public void saveOrders(CounterTradeParam param, UserMemberInformationsEntity member, ProductInformationsEntity product){
 		if(TradeTypeEnum.AHEADWITDRAW.toString().equals(param.getTradeType())){
+			//提前还款
 			OrdersEntity order = ordersDao.selectSucByBizNo(param.getBizNo());
 			order.setWithdrawalAmount(order.getWithdrawalAmount().subtract(new BigDecimal(param.getAmount())));
 			order.setAlreadyWithdrawCount(order.getAlreadyWithdrawCount()+1);
@@ -87,7 +101,12 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 						.multiply(new BigDecimal(product.getCycle())).divide(new BigDecimal(360),2,BigDecimal.ROUND_HALF_UP));
 			}
 			ordersDao.updateByPrimaryKeySelective(order);
-		}else if(TradeTypeEnum.FIXEDTOCURRENT.toString().equals(param.getTradeType())){		
+		}else if(TradeTypeEnum.FIXEDTOCURRENT.toString().equals(param.getTradeType())){	
+			//定期转活期 查询原定期没到期则置为到期
+			OrdersEntity oEntity = ordersDao.selectByBizNo(param.getOrgiVoucherNo());
+			if(oEntity!=null && !oEntity.getStatus().equals(OrderStatusEnum.DUE)){
+				ordersDao.updateOrderStatusByBizNo(OrderStatusEnum.DUE, param.getOrgiVoucherNo());
+			}
 			OrdersEntity order = ordersDao.selectSucByBizNo(member.getBankCardNo());
 			if(order != null){
 				//update
@@ -100,8 +119,26 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 				OrdersEntity ordersEntity = copyProperties(param,member,product);
 				ordersDao.insertSelective(ordersEntity);
 			}
+		}else if(TradeTypeEnum.CAPITALTRANS.toString().equals(param.getTradeType())||TradeTypeEnum.INTERESTTRANS.toString().equals(param.getTradeType())){	
+			//本金转存、本息转存 凭证号不变，查询原定期没到期则置为到期,然后新增交易
+			OrdersEntity oEntity = ordersDao.selectByBizNo(param.getBizNo());
+			if(oEntity!=null && !oEntity.getStatus().equals(OrderStatusEnum.DUE)){
+				ordersDao.updateOrderStatusByBizNo(OrderStatusEnum.DUE, param.getBizNo());
+			}
+			OrdersEntity ordersEntity = copyProperties(param,member,product);
+			ordersDao.insertSelective(ordersEntity);
 		}else if(TradeTypeEnum.REPORTLOST.toString().equals(param.getTradeType())){
-			ordersDao.updateStatusLostByBizNo(param.getOrgiVoucherNo());
+			//挂失 更新状态为挂失
+			ordersDao.updateOrderStatusByBizNo(OrderStatusEnum.REPORTLOST, param.getBizNo());
+		}else if(TradeTypeEnum.REPORRELIEVE.toString().equals(param.getTradeType())){
+			//解挂 更新状态为成功
+			ordersDao.updateOrderStatusByBizNo(OrderStatusEnum.SUCCESS, param.getBizNo());
+		}else if(TradeTypeEnum.REPORTREISSUE.toString().equals(param.getTradeType())){
+			//补挂 查询原订单没有挂失则挂失 挂失了则增加新订单
+			OrdersEntity oEntity = ordersDao.selectByBizNo(param.getOrgiVoucherNo());
+			if(oEntity!=null && !oEntity.getStatus().equals(OrderStatusEnum.REPORTLOST)){
+				ordersDao.updateOrderStatusByBizNo(OrderStatusEnum.REPORTLOST, param.getOrgiVoucherNo());
+			}
 			OrdersEntity ordersEntity = copyProperties(param,member,product);
 			ordersDao.insertSelective(ordersEntity);
 		}else{
@@ -146,11 +183,19 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 	public void saveFinancialInformations(CounterTradeParam param, UserMemberInformationsEntity member){
 		FinancialInformationsEntity entity = new FinancialInformationsEntity();
 		BeanUtils.copyProperties(param, entity);
-		entity.setAmount(new BigDecimal(param.getAmount()));
+		if(StringUtils.isNotBlank(param.getAmount())){
+			entity.setAmount(new BigDecimal(param.getAmount()));
+		}
 		entity.setFlowNo(SequenceUtil.getFlowNo());
-		entity.setUserId(member.getUserId());
+		if(member!=null && member.getUserId()!=0){
+			entity.setUserId(member.getUserId());
+		}
 		entity.setSource(TradeSourceEnum.COUNTER);
-		entity.setCreateTime(DateUtil.stringToTimestamp(param.getTradeTime()));
+		if(StringUtils.isNotBlank(param.getTradeTime())){
+			entity.setCreateTime(Long.parseLong(param.getTradeTime()));
+		}else{
+			entity.setCreateTime(DateUtil.getLastModifyTime());
+		}
 		entity.setLastModifyTime(DateUtil.getLastModifyTime());
 		financialDao.insertSelective(entity);
 	}
@@ -200,13 +245,29 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 				account.setLastModifyTime(DateUtil.getLastModifyTime());
 				userAccountsDao.updateByPrimaryKeySelective(account);
 			}
-			//增加	本息转存、定期转活期  本金转存、挂失相互抵消
-			if(TradeTypeEnum.INTERESTTRANS.toString().equals(param.getTradeType())||TradeTypeEnum.FIXEDTOCURRENT.toString().equals(param.getTradeType())){
+			//增加	定期转活期 
+			if(TradeTypeEnum.FIXEDTOCURRENT.toString().equals(param.getTradeType())){
 				OrdersEntity orgOrder = ordersDao.selectByBizNo(param.getOrgiVoucherNo());
 				account.setTotalInvested(account.getTotalInvested().add(new BigDecimal(param.getAmount())));
 				BigDecimal interest = new BigDecimal(param.getAmount()).subtract(orgOrder.getWithdrawalAmount());
 				account.setTotalOnInvested(account.getTotalOnInvested().add(interest));
 				account.setTotalInterest(account.getTotalInterest().add(interest));
+				account.setLastModifyTime(DateUtil.getLastModifyTime());
+				userAccountsDao.updateByPrimaryKeySelective(account);
+			}
+			//增加	本息转存 
+			if(TradeTypeEnum.INTERESTTRANS.toString().equals(param.getTradeType())){
+				OrdersEntity orgOrder = ordersDao.selectDueByBizNo(param.getBizNo());
+				account.setTotalInvested(account.getTotalInvested().add(new BigDecimal(param.getAmount())));
+				BigDecimal interest = new BigDecimal(param.getAmount()).subtract(orgOrder.getWithdrawalAmount());
+				account.setTotalOnInvested(account.getTotalOnInvested().add(interest));
+				account.setTotalInterest(account.getTotalInterest().add(interest));
+				account.setLastModifyTime(DateUtil.getLastModifyTime());
+				userAccountsDao.updateByPrimaryKeySelective(account);
+			}
+			//增加	本金转存
+			if(TradeTypeEnum.CAPITALTRANS.toString().equals(param.getTradeType())){
+				account.setTotalInvested(account.getTotalInvested().add(new BigDecimal(param.getAmount())));
 				account.setLastModifyTime(DateUtil.getLastModifyTime());
 				userAccountsDao.updateByPrimaryKeySelective(account);
 			}

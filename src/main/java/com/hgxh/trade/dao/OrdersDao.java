@@ -1,6 +1,9 @@
 package com.hgxh.trade.dao;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.hgxh.trade.entity.OrdersEntity;
+import com.hgxh.trade.enums.OrderStatusEnum;
 
 public interface OrdersDao {
 
@@ -16,6 +19,8 @@ public interface OrdersDao {
     
     public OrdersEntity selectByBizNo(String bizNo);
     
-    public int updateStatusLostByBizNo(String bizNo);
+    public int updateOrderStatusByBizNo(@Param("status")OrderStatusEnum status,@Param("bizNo")String bizNo);
+    
+    public OrdersEntity selectDueByBizNo(String bizNo);
 
 }

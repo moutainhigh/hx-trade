@@ -16,5 +16,7 @@ public enum TradeTypeEnum {
 	INTERESTDEDUCTION,//利息划扣
 	SENDINTEREST,//派息
 	AHEADWITDRAW,//定期提前支取
-	REPORTLOST;//挂失
+	REPORTLOST,//挂失
+	REPORRELIEVE,//解挂
+	REPORTREISSUE;//补挂
 }
