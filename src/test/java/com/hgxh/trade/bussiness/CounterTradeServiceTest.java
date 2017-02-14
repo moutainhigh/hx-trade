@@ -39,7 +39,7 @@ public class CounterTradeServiceTest {
 		param.setProductNo("2");
 		param.setTradeTime("1486974386000");
 		param.setTradeType("PURCHASE");
-		param.setTransferSavaType("INTERESTTRANS");
+		param.setTransferSaveType("INTERESTTRANS");
 		param.setProductType("FIXED");
 		param.setExpirationTime("1494604800000");
 		ResultInfo resultInfo = counterTradeService.saveCounterTrade(param);
@@ -49,16 +49,16 @@ public class CounterTradeServiceTest {
 	@Test
 	public void counterTradeBiz(){
 		CounterTradeParam param = new CounterTradeParam();
-		param.setTradeType("INTERESTTRANS");
+		param.setTradeType("PURCHASE");
 		param.setBizNo("8803666600000886");
 //		param.setOrgiVoucherNo("8803666600000886");
-		param.setAmount("1100");
+		param.setAmount("1000");
 		param.setFundsDirection("INCR");
 		param.setMemberNo("HS274460");
 		param.setPayType("EBANK");
 		param.setProductNo("2");
 		param.setTradeTime("1486974386000");
-		param.setTransferSavaType("INTERESTTRANS");
+		param.setTransferSaveType("INTERESTTRANS");
 		param.setProductType("FIXED");
 		param.setExpirationTime("1494604800000");
 		ResultInfo resultInfo = counterCallBackBiz.counterTrade(param);

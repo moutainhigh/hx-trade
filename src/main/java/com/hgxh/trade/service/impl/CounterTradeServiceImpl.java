@@ -79,7 +79,7 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 		if(!TradeTypeEnum.REPORTLOST.toString().equals(param.getTradeType())&&
 				!TradeTypeEnum.REPORRELIEVE.toString().equals(param.getTradeType())&&
 				!TradeTypeEnum.REPORTREISSUE.toString().equals(param.getTradeType())){
-			savaUserAccounts(param, member, product);
+			saveUserAccounts(param, member, product);
 		}
 		return new ResultInfo(BaseExceptionMsg.SUCCESS);
 	}
@@ -206,7 +206,7 @@ public class CounterTradeServiceImpl implements CounterTradeService {
 	 * @param member
 	 * @param product
 	 */
-	public void savaUserAccounts(CounterTradeParam param, UserMemberInformationsEntity member, ProductInformationsEntity product){
+	public void saveUserAccounts(CounterTradeParam param, UserMemberInformationsEntity member, ProductInformationsEntity product){
 		UserAccountsEntity account = userAccountsDao.selectByMemberNo(param.getMemberNo());
 		if(account==null){
 			UserAccountsEntity accountsEntity = new UserAccountsEntity();

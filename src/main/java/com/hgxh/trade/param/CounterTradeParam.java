@@ -33,7 +33,7 @@ public class CounterTradeParam extends BaseParam{
 	//支付方式
 	private String payType;
 	//转存方式 	购买定期、本金转存、本息转存 需提供
-    private String transferSavaType;
+    private String transferSaveType;
     //产品类型
     private String productType;
     //提现卡号	提现、定期提前支取 需要提供
@@ -61,11 +61,11 @@ public class CounterTradeParam extends BaseParam{
 	public void setProductType(String productType) {
 		this.productType = productType;
 	}
-	public String getTransferSavaType() {
-		return transferSavaType;
+	public String getTransferSaveType() {
+		return transferSaveType;
 	}
-	public void setTransferSavaType(String transferSavaType) {
-		this.transferSavaType = transferSavaType;
+	public void setTransferSaveType(String transferSaveType) {
+		this.transferSaveType = transferSaveType;
 	}
 	public String getMemberNo() {
 		return memberNo;

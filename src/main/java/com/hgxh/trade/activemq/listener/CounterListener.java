@@ -56,7 +56,7 @@ public class CounterListener {
     	tradeParam.setBizNo(map.get("bizNo"));
     	tradeParam.setFundsDirection(map.get("fundsDirection"));
     	tradeParam.setTradeTime(map.get("tradeTime"));
-    	tradeParam.setTransferSavaType(map.get("transferSavaType"));
+    	tradeParam.setTransferSaveType(map.get("transferSaveType"));
     	tradeParam.setProductType(map.get("productType"));
     	tradeParam.setPayType(map.get("payType"));
     	tradeParam.setBankCardNo(map.get("bankCardNo"));

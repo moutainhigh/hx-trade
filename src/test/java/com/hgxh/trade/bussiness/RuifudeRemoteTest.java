@@ -40,8 +40,8 @@ public class RuifudeRemoteTest {
 	@Test
 	public void invest(){
 		InvestParam param = new InvestParam();
-		param.setMemberNo("SY2017011602000496");
-		param.setPassbook("5802888800000018");
+		param.setMemberNo("SY2017011602000496123213");
+		param.setPassbook("58028888000000183213");
 		param.setProductNo("13");
 		param.setYield("2.1");
 		param.setProductType("FIXED");

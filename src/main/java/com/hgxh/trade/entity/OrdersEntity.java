@@ -49,7 +49,7 @@ public class OrdersEntity extends BaseEntity{
     //最近修改时间
     private Long lastModifyTime;
     //转存方式 
-    private String transferSavaType;
+    private String transferSaveType;
     //支付方式
     private String payType;
     //利率
@@ -147,13 +147,13 @@ public class OrdersEntity extends BaseEntity{
     public void setLastModifyTime(Long lastModifyTime) {
         this.lastModifyTime = lastModifyTime;
     }
-    public String getTransferSavaType() {
-        return transferSavaType;
-    }
-    public void setTransferSavaType(String transferSavaType) {
-        this.transferSavaType = transferSavaType;
-    }
-    public String getPayType() {
+    public String getTransferSaveType() {
+		return transferSaveType;
+	}
+	public void setTransferSaveType(String transferSaveType) {
+		this.transferSaveType = transferSaveType;
+	}
+	public String getPayType() {
         return payType;
     }
     public void setPayType(String payType) {

@@ -1,13 +1,18 @@
 package com.hgxh.trade.remote.impl;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.hgxh.trade.dao.PurchaseFailDao;
+import com.hgxh.trade.entity.PurchaseFailEntity;
 import com.hgxh.trade.enums.BaseExceptionMsg;
 import com.hgxh.trade.param.InvestParam;
 import com.hgxh.trade.param.WithdrawParam;
@@ -18,6 +23,7 @@ import com.hgxh.trade.result.RuifudeRemoteResult;
 import com.hgxh.trade.result.ResultInfo;
 import com.hgxh.trade.result.RuifudeRemoteListResult;
 import com.hgxh.trade.util.Constants;
+import com.hgxh.trade.util.DateUtil;
 import com.hgxh.trade.util.JSONUtil;
 import com.hgxh.trade.util.SimpleHttpUtil;
 
@@ -35,6 +41,8 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
 	
 	@Value("${ruifude.remote.url}")
 	private String ruifudeRemoteUrl;
+	@Autowired
+	private PurchaseFailDao purchaseFailDao;
 	
 	/**
 	 * 查询开户信息
@@ -87,8 +95,27 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
     		result = new ResultInfo(BaseExceptionMsg.SUCCESS,remoteResult.getData());
     	}else{
     		result = new ResultInfo(remoteResult.getRspCode(),remoteResult.getRspMsg());
+    		//保存错误信息
+    		PurchaseFailEntity entity = copyProperies(param);
+    		entity.setRspCode(remoteResult.getRspCode());
+    		entity.setRspMsg(remoteResult.getRspMsg());
+    		purchaseFailDao.insertSelective(entity);
     	}
 		return result;
+	}
+	
+	/**
+	 * 复制参数
+	 * @param param
+	 */
+	private PurchaseFailEntity copyProperies(InvestParam param){
+		PurchaseFailEntity entity = new PurchaseFailEntity();
+		BeanUtils.copyProperties(param, entity);
+		entity.setOrderTime(Long.parseLong(param.getInvestTime()));
+		entity.setAmount(new BigDecimal(param.getAmount()));
+		entity.setYield(new BigDecimal(param.getYield()));
+		entity.setCreateTime(DateUtil.getLastModifyTime());
+		return entity;
 	}
 
 	/**

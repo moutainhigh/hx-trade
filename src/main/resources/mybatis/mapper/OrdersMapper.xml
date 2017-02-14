@@ -17,7 +17,7 @@
         <result column="expiration_time" property="expirationTime" jdbcType="BIGINT" />
         <result column="order_time" property="orderTime" jdbcType="BIGINT" />
         <result column="last_modify_time" property="lastModifyTime" jdbcType="BIGINT" />
-        <result column="transfer_sava_type" property="transferSavaType" jdbcType="VARCHAR" />
+        <result column="transfer_save_type" property="transferSaveType" jdbcType="VARCHAR" />
         <result column="pay_type" property="payType" jdbcType="VARCHAR" />
         <result column="yield" property="yield" jdbcType="DECIMAL" />
         <result column="predict_interest" property="predictInterest" jdbcType="DECIMAL" />
@@ -26,7 +26,7 @@
     <sql id="Base_Column_List" >
         id, version, biz_no, member_no, order_no, product_no, user_id, amount, withdrawal_amount, 
         already_withdraw_count, status, order_type, expiration_time, order_time, last_modify_time, 
-        transfer_sava_type, pay_type, yield, predict_interest
+        transfer_save_type, pay_type, yield, predict_interest
     </sql>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -84,8 +84,8 @@
             <if test="lastModifyTime != null" >
                 last_modify_time,
             </if>
-            <if test="transferSavaType != null" >
-                transfer_sava_type,
+            <if test="transferSaveType != null" >
+                transfer_save_type,
             </if>
             <if test="payType != null" >
                 pay_type,
@@ -143,8 +143,8 @@
             <if test="lastModifyTime != null" >
                 #{lastModifyTime,jdbcType=BIGINT},
             </if>
-            <if test="transferSavaType != null" >
-                #{transferSavaType,jdbcType=VARCHAR},
+            <if test="transferSaveType != null" >
+                #{transferSaveType,jdbcType=VARCHAR},
             </if>
             <if test="payType != null" >
                 #{payType,jdbcType=VARCHAR},
@@ -201,8 +201,8 @@
             <if test="lastModifyTime != null" >
                 last_modify_time = #{lastModifyTime,jdbcType=BIGINT},
             </if>
-            <if test="transferSavaType != null" >
-                transfer_sava_type = #{transferSavaType,jdbcType=VARCHAR},
+            <if test="transferSaveType != null" >
+                transfer_save_type = #{transferSaveType,jdbcType=VARCHAR},
             </if>
             <if test="payType != null" >
                 pay_type = #{payType,jdbcType=VARCHAR},

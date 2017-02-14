@@ -40,7 +40,7 @@ public class ActiveMQServiceTest {
 //		map.put("productNo", "2");
 //		map.put("tradeTime", "1486624260000");
 //		map.put("tradeType", "REPORTLOST");
-//		map.put("transferSavaType", "INTERESTTRANS");
+//		map.put("transferSaveType", "INTERESTTRANS");
 //		map.put("productType", "FIXED");
 //		map.put("expirationTime", "1488988800000");
 //		map.put("bankCardNo", "6217000010011167487");
