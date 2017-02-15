@@ -21,7 +21,7 @@ public class AccountTradeControllerTest {
     @Test
     public void getAccountInfo() throws Exception {
     	Map<String, String> params=new HashMap<String, String>();	
-    	params.put("idCardNo", "6201104598039428");
+    	params.put("idCardNo", "340123199412121133");
     	String result=SimpleHttpUtil.doPost(baseUrl+"getAccountInfo", params);
     	System.out.println("*******************");
 		System.out.println("**********"+result+"**********");
@@ -30,11 +30,13 @@ public class AccountTradeControllerTest {
     @Test
     public void invest() throws Exception {
     	Map<String, String> params=new HashMap<String, String>();	
-    	params.put("memberNo", "HS10002");
-    	params.put("passbook", "6201104598039428");
-    	params.put("productNo", "FIXED-3-1");
-    	params.put("amount", "1000");
-    	params.put("investTime", "1481014349000");
+    	params.put("memberNo", "SY2017011602000496");
+    	params.put("passbook", "5802888800000018");
+    	params.put("productNo", "13");
+    	params.put("yield", "2.1");
+    	params.put("amount", "10000.00");
+    	params.put("productType", "FIXED");
+    	params.put("investTime", "1484126606315");
     	params.put("transferSaveType", "INTERESTTRANS");
     	String result=SimpleHttpUtil.doPost(baseUrl+"invest", params);
     	System.out.println("*******************");

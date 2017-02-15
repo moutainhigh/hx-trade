@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -59,8 +60,9 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
     	//封装返回信息
     	RuifudeRemoteListResult<AccountResult> remoteResult = new RuifudeRemoteListResult<AccountResult>();
 		remoteResult =  (RuifudeRemoteListResult<AccountResult>) JSONUtil.JSONToObject(res, remoteResult);
+		String jsonString = JSONUtil.toJSONString(remoteResult.getData());
     	if(Constants.SUCCEED.equals(remoteResult.getRspCode())){
-    		result = new ResultInfo(BaseExceptionMsg.SUCCESS,remoteResult.getData());
+    		result = new ResultInfo(BaseExceptionMsg.SUCCESS,jsonString);
     	}else{
     		result = new ResultInfo(remoteResult.getRspCode(),remoteResult.getRspMsg());
     	}
@@ -82,17 +84,22 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
     	params.put("amount", param.getAmount());
     	params.put("investTime", param.getInvestTime());
     	params.put("transferSaveType", param.getTransferSaveType());
-    	params.put("password", param.getPassword());
-    	params.put("expirationTime", param.getExpirationTime());
+    	if(StringUtils.isNotBlank(param.getPassword())){
+    		params.put("password", param.getPassword());
+    	}
+    	if(StringUtils.isNotBlank(param.getExpirationTime())){
+    		params.put("expirationTime", param.getExpirationTime());	
+    	}
     	//调用瑞福德购买接口
     	logger.info("调用瑞福德购买接口传入参数 :"+params);
     	String res = SimpleHttpUtil.doPostGb(ruifudeRemoteUrl+"buyProduct", params);
     	logger.info("调用瑞福德购买接口返回结果 :"+res);
     	//封装返回信息
-    	RuifudeRemoteResult<InvestResult> remoteResult = new RuifudeRemoteResult<InvestResult>();
-		remoteResult =  (RuifudeRemoteResult<InvestResult>) JSONUtil.JSONToObject(res, remoteResult);
+    	RuifudeRemoteListResult<InvestResult> remoteResult = new RuifudeRemoteListResult<InvestResult>();
+		remoteResult =  (RuifudeRemoteListResult<InvestResult>) JSONUtil.JSONToObject(res, remoteResult);
+		String jsonString = JSONUtil.toJSONString(remoteResult.getData());
     	if(Constants.SUCCEED.equals(remoteResult.getRspCode())){
-    		result = new ResultInfo(BaseExceptionMsg.SUCCESS,remoteResult.getData());
+    		result = new ResultInfo(BaseExceptionMsg.SUCCESS,jsonString);
     	}else{
     		result = new ResultInfo(remoteResult.getRspCode(),remoteResult.getRspMsg());
     		//保存错误信息

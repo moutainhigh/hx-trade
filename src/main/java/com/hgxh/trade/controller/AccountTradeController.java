@@ -56,7 +56,6 @@ public class AccountTradeController extends BaseController {
  			result = accountTradeBiz.invest(param);
  		}catch (Exception e){
  			logger.error("invest Exception：",e);
- 			result.setResult(BaseExceptionMsg.UNKNOW_ERROR);
  		}
  		return result;
 	}
