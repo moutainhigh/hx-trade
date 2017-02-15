@@ -136,7 +136,7 @@ public class RuifudeRemoteImpl implements RuifudeRemote {
     	params.put("password", param.getPassword());
     	//调用瑞福德购买接口
     	logger.info("调用瑞福德提现接口传入参数 :"+params);
-    	String res = SimpleHttpUtil.doPostGb(ruifudeRemoteUrl+"withdraw", params);
+    	String res = SimpleHttpUtil.doPostGb(ruifudeRemoteUrl+"drawMoney", params);
     	logger.info("调用瑞福德提现接口返回结果 :"+res);
     	//封装返回信息
     	RuifudeRemoteResult remoteResult = new RuifudeRemoteResult();

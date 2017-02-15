@@ -7,8 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.hgxh.trade.param.InvestParam;
+import com.hgxh.trade.param.WithdrawParam;
 import com.hgxh.trade.remote.RuifudeRemote;
 import com.hgxh.trade.result.ResultInfo;
+import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
 
 /**
 *@ClassName: RuifudeRemoteTest
@@ -52,6 +54,26 @@ public class RuifudeRemoteTest {
 		param.setExpirationTime("1486457186000");
 		try {
 			ResultInfo result = ruifudeRemote.invest(param);
+			System.out.println("invest: "+result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//提现
+	@Test
+	public void withdraw(){
+		WithdrawParam param = new WithdrawParam();
+		//活期
+//		param.setBizNo("5802888800000018");
+//		param.setProductType("CURRENT");
+		//定期
+		param.setBizNo("5802666600000005");
+		param.setProductType("FIXED");
+		param.setPassword("d41d8cd98f00b204e9800998ecf8427e");
+		param.setAmount("100");
+		try {
+			ResultInfo result = ruifudeRemote.withdraw(param);
 			System.out.println("invest: "+result);
 		} catch (Exception e) {
 			e.printStackTrace();

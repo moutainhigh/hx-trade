@@ -44,14 +44,10 @@ public class AccountTradeControllerTest {
     @Test
     public void withdraw() throws Exception {
     	Map<String, String> params=new HashMap<String, String>();	
-    	params.put("memberNo", "2131232");
-    	params.put("passbook", "2131232");
-    	params.put("productType", "2131232");
-    	params.put("amount", "2131232");
-    	params.put("voucherNo", "2131232");
-    	params.put("bankCode", "2131232");
-    	params.put("memberName", "2131232");
-    	params.put("bankCardNo", "2131232");
+    	params.put("productType", "FIXED");
+    	params.put("amount", "100");
+    	params.put("bizNo", "5802666600000005");
+    	params.put("password", "d41d8cd98f00b204e9800998ecf8427e");
     	String result=SimpleHttpUtil.doPost(baseUrl+"withdraw", params);
     	System.out.println("*******************");
 		System.out.println("**********"+result+"**********");

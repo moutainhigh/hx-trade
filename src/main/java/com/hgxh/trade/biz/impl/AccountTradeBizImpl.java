@@ -80,7 +80,7 @@ public class AccountTradeBizImpl implements AccountTradeBiz {
 	@Override
 	public ResultInfo withdraw(WithdrawParam param) {
 		//参数校验
-		if(PropertyUtils.checkNull(param, "memberNo,bizNo,productNo,amount,bankCode,memberName,bankCardNo")){
+		if(PropertyUtils.checkNull(param, "bizNo,amount,productType")){
 			return new ResultInfo(BaseExceptionMsg.PARAM_IS_NULL);
 		}
 		ResultInfo result=null;
